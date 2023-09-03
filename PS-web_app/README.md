@@ -28,7 +28,7 @@ A connection link should appear.
 ![Alt text](<setup_photos/Screenshot 2023-09-03 220242.png>)  
 If followed correctly when the local host link is clicked a webpage should appear looking like:  
 ![Alt text](<setup_photos/Screenshot 2023-09-03 222824.png>)  
-Finally go back to the terminal and enter "npm install sqlite3".  
+Finally go back to the terminal and enter "npm install sqlite3" (press 'q' to kill the localhost first).  
 ![Alt text](<setup_photos/Screenshot 2023-09-03 223443.png>)  
 If everything worked please add your name to this document under the completed set up section and commit it to github. If you have any questions reach out to Matthew on discord.  
 
