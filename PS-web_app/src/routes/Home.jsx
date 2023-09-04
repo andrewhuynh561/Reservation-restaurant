@@ -39,7 +39,9 @@ function Home() {
         </p>
         <div>
           {restaurants.map((item, index) => (
-            <div key={item.restaurantID}>{item.name}</div>
+            <div key={item.restaurantID} className="card">{item.name}
+            <img src={`http://localhost:6060/images/${item.menuImage}`}></img>
+            </div>
           ))}
         </div>
       </div>
