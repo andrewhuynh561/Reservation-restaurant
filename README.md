@@ -13,3 +13,4 @@ If everything worked please add your name to this document under the completed s
 
 #### Completed set up:  
 Matthew Freak  
+Duy Quoc Anh Nguyen
