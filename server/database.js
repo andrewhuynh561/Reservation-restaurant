@@ -23,6 +23,19 @@ function select(db, query) {
   });
 }
 
+function insert(db, query) {
+    return new Promise((resolve, reject) => {
+        const queries = [];
+        db.run(query, (res, err) => {
+            if (err) {
+                reject(err); // optional: again, you might choose to swallow this error.
+            } else {
+                resolve(res); // resolve the promise
+            }
+        });
+    });
+  }
+
 //let restList = [];
 
 
@@ -55,4 +68,8 @@ const fetchTimeSlots = async (id, date) => {
     return await select(db, "SELECT * FROM TimeSlot AS T LEFT JOIN Reservation AS R ON R.timeSlotID = T.timeSlotID WHERE T.restaurantID ==" + id + " AND (date != '" + date + "' OR date IS NULL)");
 }
 
-export default {fetchRestaurants, fetchRest, fetchTimeSlots}
+const insertBookings = async (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) => {
+    return await insert(db, `INSERT INTO Reservation (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) values ('${date}', ${numberOfGuests}, ${restaurantId}, ${customerId}, ${timeSlotId}, ${banquetId})`);
+}
+
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings}

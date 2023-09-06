@@ -30,4 +30,18 @@ const getTimeSlots = async (req, res) => {
   return res.send(timeSlots);
 }
 
-export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots}
+const addReservation = async (req, res) => {
+  let restID = req.params.id;
+  
+  const date = req.body.date 
+  const numberOfGuests = req.body.numberOfGuests
+  const customerId = req.body.customerId 
+  const timeSlotId = req.body.timeSlotId 
+  const banquetId = req.body.banquetId
+
+  const result = await database.insertBookings(date, numberOfGuests, restID, customerId, timeSlotId, banquetId);
+
+  return res.send(result);
+}
+
+export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation}
