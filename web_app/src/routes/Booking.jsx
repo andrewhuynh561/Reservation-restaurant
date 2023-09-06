@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function Booking() {
   const [date, setDate] = useState(new Date());
   const { id } = useParams();
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurant, setRestaurant] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:6060/restaurants/${id}`)
@@ -18,7 +18,7 @@ function Booking() {
       })
       .then((data) => {
         console.log(data);
-        setRestaurants(data);
+        setRestaurant(data);
       })
       .catch((err) => {
         console.error(err.message);
@@ -27,12 +27,14 @@ function Booking() {
 
   return (
     <>
-      <div>
-        <h2>Reservation for RestaurantID {id}</h2>
-        <h3>Select the date</h3>
-        <DatePicker selected={date} onChange={(date) => setDate(date)} />
-        <p>Selected date: {date.toDateString()}</p>
-      </div>
+      { restaurant != null &&
+        <div>
+          <h2>Reservation for {restaurant.name}</h2>
+          <h3>Select the date</h3>
+          <DatePicker selected={date} onChange={(date) => setDate(date)} />
+          <p>Selected date: {date.toDateString()}</p>
+        </div>
+      }
     </>
   );
 }

@@ -19,8 +19,8 @@ const getBookings = async (req, res) => {
 
 const getSpecificRestaurant = async (req, res) => {
   let restID = req.params.id;
-  const rests = await database.fetchRest(restID)
-  return res.send(rests);
+  const rest = await database.fetchRest(restID)
+  return res.send(rest);
 }
 
 export default {getRestaurants, getBookings, getSpecificRestaurant }
