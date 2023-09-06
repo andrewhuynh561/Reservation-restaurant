@@ -6,9 +6,9 @@ import "react-datepicker/dist/react-datepicker.css";
 function Booking() {
   const [date, setDate] = useState(new Date());
   const { id } = useParams();
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurant, setRestaurant] = useState([]);
   const [time, setTime] = useState("");
-  const [guest,setGuest]=useState("");
+  const [guest, setGuest] = useState("");
   const [banquet, setBanquet] = useState("");
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function Booking() {
   return (
     <form onSubmit={handleSubmit} className="newResForm">
       <div>
-        <h2>Reservation for RestaurantID {id}</h2>
+        <h2>Reservation for {restaurant.name}</h2>
         <h3>Select the date</h3>
         <DatePicker selected={date} onChange={BookingTime()} />
         <p>Selected date: {date.toDateString()}</p>
@@ -65,7 +65,6 @@ function Booking() {
           onChange={(e) => setGuest(e.target.value)}
           name="guest"
         />
-
       </div>
 
       <div className="newResbtn">
