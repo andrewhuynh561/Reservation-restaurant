@@ -23,22 +23,30 @@ function Home() {
   return (
     <>
 
-      <div>
+      <div className="row">
         {restaurants.map((item, index) => (
-          <div key={item.restaurantID} className="card">
-          <img src={`http://localhost:6060/images/${item.image}`}></img>
-          <div class="card-body">
-          <h5 class="card-title">{item.name}</h5>
-          <p class="card-text">
-            <p>{item.description}</p> 
-            <p>{item.address}</p> 
-            <p>{item.openDate}</p> 
-            <p>{item.openHours}</p> 
-            <p>{item.cuisine}</p> 
-          </p>
-          <Link to={`/restaurants/${item.restaurantID}/booking/`} class="btn btn-primary">BOOK</Link>
-        </div>
-          </div>
+          
+            <div className="col-4" style={{minWidth: 20 +'rem'}} >
+
+              <div key={item.restaurantID} className="card mt-4" >
+              <img className="card-img-top" src={`http://localhost:6060/images/${item.image}`} style={{height: "240px", objectFit: "cover"}} alt={item.name}></img>
+              <div className="card-body">
+                <h3 className="card-title">{item.name.toUpperCase()}</h3>
+                <div className="card-text">
+                  <i><p>{item.description}</p></i>
+                  <p>{item.address}</p> 
+                  <p>{item.openDate}</p> 
+                  <p>{item.openHours}</p> 
+                  <p>{item.cuisine}</p> 
+                </div>
+                <Link to={`/restaurants/${item.restaurantID}/booking/`} className="btn btn-primary">BOOK</Link>
+              </div>
+              </div>
+            </div>
+           
+
+          
+          
         ))}
       </div>
 
