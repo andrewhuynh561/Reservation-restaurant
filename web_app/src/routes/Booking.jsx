@@ -14,13 +14,13 @@ function Booking() {
     const dayOfWeek = banDate.getDay();
     if (id == 1) {
       // Disable Sunday (day 0) Mexikana restaurant
-      return dayOfWeek === 0;
+      return dayOfWeek !== 0;
     } else if (id == 2) {
       //Disable Monday (day 1) and Tuesday (day 2) La Oeste De La Mar restaurant
-      return dayOfWeek === 1 || dayOfWeek === 2;
+      return dayOfWeek !== 1 && dayOfWeek !== 2;
     } else if (id == 3) {
       //Disable Monday (day 1)  Bambooleaf restaurant
-      return dayOfWeek === 1;
+      return dayOfWeek !== 1;
     } else {
       return false;
     }
