@@ -13,6 +13,21 @@ function Booking() {
   const [time, setTime] = useState("");
   const [guest, setGuest] = useState("");
   const [banquet, setBanquet] = useState("");
+  const isDayDisable = (banDate) => {
+    const dayOfWeek = banDate.getDay();
+    if (id == 1) {
+      // Disable Sunday (day 0) Mexikana restaurant
+      return dayOfWeek !== 0;
+    } else if (id == 2) {
+      //Disable Monday (day 1) and Tuesday (day 2) La Oeste De La Mar restaurant
+      return dayOfWeek !== 1 && dayOfWeek !== 2;
+    } else if (id == 3) {
+      //Disable Monday (day 1)  Bambooleaf restaurant
+      return dayOfWeek !== 1;
+    } else {
+      return false;
+    }
+  };
 
   useEffect(() => {
     fetch(`http://localhost:6060/restaurants/${id}`)
@@ -42,7 +57,12 @@ function Booking() {
       <div>
         <h2>Reservation for {restaurant.name}</h2>
         <h3>Select the date</h3>
-        <DatePicker selected={date} onChange={BookingTime()} />
+        {/* <DatePicker selected={date} onChange={BookingTime()} /> */}
+        <DatePicker
+          selected={date}
+          onChange={(date) => setDate(date)}
+          filterDate={isDayDisable}
+        />
         <p>Selected date: {date.toDateString()}</p>
 
         <h3>Select the time</h3>
