@@ -1,20 +1,18 @@
-import { useState } from 'react'
-import {useParams} from 'react-router-dom'
-import reactLogo from '../assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Booking() {
-  const { id } = useParams();
-
-  const [count, setCount] = useState(0)
-
+  const [date, setDate] = useState(new Date());
   return (
     <>
-      <div> //select date feature
-        <select></select>
+      <div>
+        <h3>Select the date</h3>
+        <DatePicker selected={date} onChange={(date) => setDate(date)} />
       </div>
     </>
-  )
+  );
 }
 
-export default Booking
+export default Booking;
