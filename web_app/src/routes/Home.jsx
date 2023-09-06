@@ -26,7 +26,7 @@ function Home() {
       <div className="row">
         {restaurants.map((item, index) => (
           
-            <div className="col-4" style={{minWidth: 20 +'rem'}} >
+            <div className="col-4" style={{minWidth: 20 +'rem'}} key={item.restaurantID} > 
 
               <div key={item.restaurantID} className="card mt-4" >
               <img className="card-img-top" src={`http://localhost:6060/images/${item.image}`} style={{height: "240px", objectFit: "cover"}} alt={item.name}></img>

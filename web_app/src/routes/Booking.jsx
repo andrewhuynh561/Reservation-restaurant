@@ -21,7 +21,7 @@ function Booking() {
       })
       .then((data) => {
         console.log(data);
-        setRestaurants(data);
+        setRestaurant(data);
       })
       .catch((err) => {
         console.error(err.message);
