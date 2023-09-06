@@ -7,9 +7,12 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <nav>
-          <Link to="/">Home</Link>
-        </nav>
+        <div className="row">
+          <img src="http://localhost:6060/images/logo.png" className="topleft col-1" alt="FunDev"></img>
+          <nav className="mb-4 col-10">
+            <Link to="/">Home</Link>
+          </nav>
+        </div>
         <Routes>
           <Route index          element={<Home />} />
           <Route path="restaurants/:id/booking/" element={<Booking />} />
