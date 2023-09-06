@@ -1,6 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import './App.css'
-import Layout from './Layout.jsx'
 import Home from './routes/Home.jsx'
 import Booking from './routes/Booking.jsx'
 
@@ -8,11 +7,12 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <nav>
+          <Link to="/">Home</Link>
+        </nav>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index          element={<Home />} />
-            <Route path="/booking/" element={<Booking />} />
-          </Route>
+          <Route index          element={<Home />} />
+          <Route path="restaurants/:id/booking/" element={<Booking />} />
         </Routes>
       </BrowserRouter>
     </>

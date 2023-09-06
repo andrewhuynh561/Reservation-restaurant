@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 
@@ -21,32 +22,29 @@ function Home() {
 
   return (
     <>
+
       <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React HOME</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        <div>
-          {restaurants.map((item, index) => (
-            <div key={item.restaurantID} className="card">{item.name}
-            <img src={`http://localhost:6060/images/${item.menuImage}`}></img>
-            </div>
-          ))}
+        {restaurants.map((item, index) => (
+          <div key={item.restaurantID} className="card">
+          <img src={`http://localhost:6060/images/${item.image}`}></img>
+          <div class="card-body">
+          <h5 class="card-title">{item.name}</h5>
+          <p class="card-text">
+            <p>{item.description}</p> 
+            <p>{item.address}</p> 
+            <p>{item.openDate}</p> 
+            <p>{item.openHours}</p> 
+            <p>{item.cuisine}</p> 
+          </p>
+          <Link to={`/restaurants/${item.restaurantID}/booking/`} class="btn btn-primary">BOOK</Link>
         </div>
+          </div>
+        ))}
       </div>
+
+      <hr />
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Secure a sitting fast without the need to create an account
       </p>
     </>
   )
