@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from "@mui/x-date-pickers";
 
 function Booking() {
   const [date, setDate] = useState(new Date());
@@ -10,6 +13,21 @@ function Booking() {
   const [time, setTime] = useState("");
   const [guest, setGuest] = useState("");
   const [banquet, setBanquet] = useState("");
+  const isDayDisable = (banDate) => {
+    const dayOfWeek = banDate.getDay();
+    if (id == 1) {
+      // Disable Sunday (day 0) Mexikana restaurant
+      return dayOfWeek !== 0;
+    } else if (id == 2) {
+      //Disable Monday (day 1) and Tuesday (day 2) La Oeste De La Mar restaurant
+      return dayOfWeek !== 1 && dayOfWeek !== 2;
+    } else if (id == 3) {
+      //Disable Monday (day 1)  Bambooleaf restaurant
+      return dayOfWeek !== 1;
+    } else {
+      return false;
+    }
+  };
 
   useEffect(() => {
     fetch(`http://localhost:6060/restaurants/${id}`)
@@ -39,17 +57,19 @@ function Booking() {
       <div>
         <h2>Reservation for {restaurant.name}</h2>
         <h3>Select the date</h3>
-        <DatePicker selected={date} onChange={BookingTime()} />
+        {/* <DatePicker selected={date} onChange={BookingTime()} /> */}
+        <DatePicker
+          selected={date}
+          onChange={(date) => setDate(date)}
+          filterDate={isDayDisable}
+        />
         <p>Selected date: {date.toDateString()}</p>
 
         <h3>Select the time</h3>
-        <input
-          type="text"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          name="time"
-        />
-
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <TimePicker label="Select a time"></TimePicker>
+        </LocalizationProvider>
+        
         <h3>Select the banquet size</h3>
         <input
           type="text"
@@ -60,10 +80,11 @@ function Booking() {
 
         <h4>Select number of guests</h4>
         <input
-          type="text"
+          name="numberOfGuests"
+          type="number"
+          min="0"
           value={guest}
           onChange={(e) => setGuest(e.target.value)}
-          name="guest"
         />
       </div>
 
