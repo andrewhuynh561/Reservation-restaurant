@@ -51,4 +51,8 @@ const fetchRest = async (id) => {
     return await select(db, "SELECT * from Restaurant WHERE restaurantID="+id)[0];
 }
 
-export default {fetchRestaurants, fetchRest}
+const fetchTimeSlots = async (id, date) => {
+    return await select(db, "SELECT * FROM TimeSlot AS T LEFT JOIN Reservation AS R ON R.timeSlotID = T.timeSlotID WHERE T.restaurantID ==" + id + " AND (date != '" + date + "' OR date IS NULL)");
+}
+
+export default {fetchRestaurants, fetchRest, fetchTimeSlots}

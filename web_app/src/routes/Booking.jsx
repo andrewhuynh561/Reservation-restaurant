@@ -30,11 +30,24 @@ function Booking() {
       <div>
         <h2>Reservation for RestaurantID {id}</h2>
         <h3>Select the date</h3>
-        <DatePicker selected={date} onChange={(date) => setDate(date)} />
+        <DatePicker selected={date} onChange={BookingTime()} />
         <p>Selected date: {date.toDateString()}</p>
       </div>
     </>
   );
+}
+
+function BookingTime() {
+  useEffect(() => {
+    fetch(`http://localhost:6060/timeSlots/1/7-09-2023`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 }
 
 export default Booking;
