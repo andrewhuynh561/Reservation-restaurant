@@ -15,6 +15,12 @@ function Booking() {
   const [time, setTime] = useState("");
   const [guest, setGuest] = useState("");
   const [banquet, setBanquet] = useState("");
+
+  // Updates the time when user changes times on selection 
+  const handleChangeinTimes = (newTime) => {
+    setTime(newTime)
+  }
+
   const isDayDisable = (banDate) => {
     const dayOfWeek = banDate.getDay();
     if (id == 1) {
@@ -114,6 +120,7 @@ function Booking() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DigitalClock timeStep={30} shouldDisableTime={shouldDisableTime} disablePast/>
         </LocalizationProvider>
+        <p>Selected Time: {time && time.format("hh:mm:A")}</p> {/* there to see if the time is updated and displayed */}
         
         <h3>Select the banquet size</h3>
         <input
@@ -134,6 +141,7 @@ function Booking() {
       </div>
 
       <div className="newResbtn">
+        <br /> 
         <button
           className="btn submitBtn"
           type="submit"

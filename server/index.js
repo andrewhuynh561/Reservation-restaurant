@@ -11,6 +11,7 @@ const app = express()
 app.use(cors())
 
 app.use(express.static('public')) // do we need???
+app.use(express.json());
 
 setupRoutes(app)
 
