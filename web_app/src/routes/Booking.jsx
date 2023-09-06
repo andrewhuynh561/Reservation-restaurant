@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from "@mui/x-date-pickers";
 
 function Booking() {
   const [date, setDate] = useState(new Date());
@@ -43,13 +46,10 @@ function Booking() {
         <p>Selected date: {date.toDateString()}</p>
 
         <h3>Select the time</h3>
-        <input
-          type="text"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          name="time"
-        />
-
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <TimePicker label="Select a time"></TimePicker>
+        </LocalizationProvider>
+        
         <h3>Select the banquet size</h3>
         <input
           type="text"
@@ -60,10 +60,11 @@ function Booking() {
 
         <h4>Select number of guests</h4>
         <input
-          type="text"
+          name="numberOfGuests"
+          type="number"
+          min="0"
           value={guest}
           onChange={(e) => setGuest(e.target.value)}
-          name="guest"
         />
       </div>
 
