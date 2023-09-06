@@ -47,4 +47,8 @@ const fetchRestaurants = async () => {
   return await select(db, "SELECT * from Restaurant");
 }
 
-export default {fetchRestaurants}
+const fetchRest = async (id) => {
+    return await select(db, "SELECT * from Restaurant WHERE restaurantID="+id)[0];
+}
+
+export default {fetchRestaurants, fetchRest}

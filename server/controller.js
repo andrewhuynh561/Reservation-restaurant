@@ -17,4 +17,10 @@ const getBookings = async (req, res) => {
   return res.send(bookings);
 }
 
-export default {getRestaurants, getBookings}
+const getSpecificRestaurant = async (req, res) => {
+  let restID = req.params.id;
+  const rests = await database.fetchRest(restID)
+  return res.send(rests);
+}
+
+export default {getRestaurants, getBookings, getSpecificRestaurant }
