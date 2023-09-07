@@ -149,7 +149,7 @@ function Booking() {
 
         <h3>Select the time</h3>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DigitalClock timeStep={30} shouldDisableTime={shouldDisableTime} disablePast/>
+          <DigitalClock timeStep={30} shouldDisableTime={shouldDisableTime} onChange={handleChangeinTimes} disablePast/>
         </LocalizationProvider>
         <p>Selected Time: {time && time.format("hh:mm:A")}</p> {/* there to see if the time is updated and displayed */}
         
