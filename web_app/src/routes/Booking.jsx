@@ -53,6 +53,7 @@ function Booking() {
         console.error(err.message);
       });
   }, [id]);
+
   useEffect(() => {
     fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
       .then((response) => response.json())
@@ -120,19 +121,20 @@ function Booking() {
     setFDate(fDate);
   }
 
-  const shouldDisableTime = (value, view) => { // wtf why won't this work
+  const shouldDisableTime = (value, view) => { 
+    let visible = true;
     for (let i = 0; i < timeSlots.length; i++){
       let temp = timeSlots[i];
       temp = temp.timeSlot.split(":")
       if(value.hour() == temp[0] && value.minute() == temp[1]){
-        view = true;
+        visible = false;
         break;
       }
-      else {
-        view = false;
-      }
     }
-  } 
+    
+    console.log(value, visible);
+    return view = visible;    
+  }
 
   return (
     <form onSubmit={handleSubmit} className="newResForm">
