@@ -53,21 +53,21 @@ function Booking() {
         console.error(err.message);
       });
   }, [id]);
+  useEffect(() => {
+    fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // this should be the same as the line below but it isn't
+        setTimeSlots(data);
+        console.log(timeSlots); // why does this give different answer to the one above
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [id, formattedDate]);
 
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
-    useEffect(() => {
-      fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data); // this should be the same as the line below but it isn't
-          setTimeSlots(data);
-          console.log(timeSlots); // why does this give different answer to the one above
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }, [id, formattedDate]);
 
   // const handleSubmit = (event) => {
     event.preventDefault();
@@ -76,7 +76,7 @@ function Booking() {
       numberOfGuests: guest,
       restaurantId: id,
       customerId: 1,
-      timeSlotId: 1,
+      timeSlotId: 1 ,
       banquetId: banquet,
     };
   
