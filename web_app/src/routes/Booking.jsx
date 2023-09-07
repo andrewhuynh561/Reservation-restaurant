@@ -46,11 +46,41 @@ function Booking() {
       });
   }, [id]);
 
-  const handleSubmit = (event) => {
+  // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Add your reservation submission logic here, for example, sending data to the server.
-    // You can access selected date, time, and banquet from state variables.
+    const reservationData = {
+      date: date.toISOString().split('T')[0],
+      numberOfGuests: guest,
+      restaurantId: id,
+      customerId: 1,
+      timeSlotId: 1,
+      banquetId: banquet,
+    };
+  
+    console.log(reservationData);
+  
+    try {
+      const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reservationData),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to create reservation for restaurant ID ${id}`);
+      }
+  
+      const responseBody = await response.text();
+      console.log(responseBody);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  
 
   return (
     <form onSubmit={handleSubmit} className="newResForm">
