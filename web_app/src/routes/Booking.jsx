@@ -66,18 +66,18 @@ function Booking() {
         console.log(err.message);
       });
   }, [id, formattedDate]);
+
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
-    
 
-  const handleSubmit = (event) => {
+  // const handleSubmit = (event) => {
     event.preventDefault();
     const reservationData = {
       date: date.toISOString().split('T')[0],
       numberOfGuests: guest,
       restaurantId: id,
       customerId: 1,
-      timeSlotId: 1,
+      timeSlotId: 1 ,
       banquetId: banquet,
      };
   
@@ -121,19 +121,20 @@ function Booking() {
     setFDate(fDate);
   }
 
-  const shouldDisableTime = (value, view) => { // wtf why won't this work
+  const shouldDisableTime = (value, view) => { 
+    let visible = true;
     for (let i = 0; i < timeSlots.length; i++){
       let temp = timeSlots[i];
       temp = temp.timeSlot.split(":")
       if(value.hour() == temp[0] && value.minute() == temp[1]){
-        view = true;
+        visible = false;
         break;
       }
-      else {
-        view = false;
-      }
     }
-  } 
+    
+    console.log(value, visible);
+    return view = visible;    
+  }
 
   return (
     <form onSubmit={handleSubmit} className="newResForm">
@@ -150,7 +151,7 @@ function Booking() {
 
         <h3>Select the time</h3>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DigitalClock timeStep={30} shouldDisableTime={shouldDisableTime} disablePast/>
+          <DigitalClock timeStep={30} shouldDisableTime={shouldDisableTime} onChange={handleChangeinTimes} disablePast/>
         </LocalizationProvider>
         <p>Selected Time: {time && time.format("hh:mm:A")}</p> {/* there to see if the time is updated and displayed */}
         
@@ -186,5 +187,5 @@ function Booking() {
   );
 }
 
-}
+
 export default Booking;
