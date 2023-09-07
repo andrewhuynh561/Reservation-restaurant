@@ -54,22 +54,23 @@ function Booking() {
       });
   }, [id]);
 
+  useEffect(() => {
+    fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // this should be the same as the line below but it isn't
+        setTimeSlots(data);
+        console.log(timeSlots); // why does this give different answer to the one above
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [id, formattedDate]);
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
-    useEffect(() => {
-      fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data); // this should be the same as the line below but it isn't
-          setTimeSlots(data);
-          console.log(timeSlots); // why does this give different answer to the one above
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }, [id, formattedDate]);
+    
 
-  // const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const reservationData = {
       date: date.toISOString().split('T')[0],
@@ -78,30 +79,30 @@ function Booking() {
       customerId: 1,
       timeSlotId: 1,
       banquetId: banquet,
-    };
+     };
   
-    console.log(reservationData);
+     console.log(reservationData);
   
-    try {
-      const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(reservationData),
-      });
+     try {
+       const response = fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
+         method: "POST",
+         headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(reservationData),
+       });
   
-      if (!response.ok) {
-        throw new Error(`Failed to create reservation for restaurant ID ${id}`);
-      }
+       if (!response.ok) {
+         throw new Error(`Failed to create reservation for restaurant ID ${id}`);
+       }
   
-      const responseBody = await response.text();
-      console.log(responseBody);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+       const responseBody = response.text();
+       console.log(responseBody);
+     } catch (error) {
+       console.error(error);
+     }
+   };
   
 
   const handleDateChange = (date) => {
@@ -185,18 +186,5 @@ function Booking() {
   );
 }
 
-function getTimeSlots(id, date) {
-  useEffect(() => {
-    fetch(`http://localhost:6060/timeSlots/${id}/${date}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        return data;
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
 }
-
 export default Booking;
