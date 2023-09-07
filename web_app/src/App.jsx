@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className="row">
+        <div className="row" style={{backgroundColor: 'white'}}>
           <img src="http://localhost:6060/images/logo.png" className="topleft col-1" alt="FunDev"></img>
           <nav className="mb-4 col-10">
             <Link to="/">Home</Link>

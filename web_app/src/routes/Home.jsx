@@ -51,7 +51,7 @@ function Home() {
       </div>
 
       <hr />
-      <p className="read-the-docs">
+      <p className="read-the-docs" style={{color : 'white'}}>
         Secure a sitting fast without the need to create an account
       </p>
     </>

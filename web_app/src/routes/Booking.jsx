@@ -146,6 +146,7 @@ function Booking() {
           selected={date}
           onChange={handleDateChange}
           filterDate={isDayDisable}
+          dateFormat="dd/MM/yyyy"
         />
         <p>Selected date: {date.toDateString()}</p>
 
