@@ -8,17 +8,16 @@ import { DigitalClock } from "@mui/x-date-pickers";
 
 function Booking() {
   const [date, setDate] = useState(new Date());
-  const [formattedDate, setFDate] = useState('2023-09-07');
   const [timeSlots, setTimeSlots] = useState([]);
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState([]);
-  const [time, setTime] = useState("");
+  const [timeslot, setTimeslot] = useState(null);
   const [guest, setGuest] = useState("");
   const [banquet, setBanquet] = useState("");
 
   // Updates the time when user changes times on selection 
-  const handleChangeinTimes = (newTime) => {
-    setTime(newTime)
+  const handleChangeinTimes = (newTimeslot) => {
+    setTimeslot(newTimeslot)
   }
 
   const isDayDisable = (banDate) => {
@@ -55,36 +54,35 @@ function Booking() {
   }, [id]);
 
   useEffect(() => {
+    const formattedDate = date.toISOString().split('T')[0]
+
     fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // this should be the same as the line below but it isn't
-        setTimeSlots(data);
-        console.log(timeSlots); // why does this give different answer to the one above
+        setTimeSlots([...data]);
+        // The timeslot variable does not change straight away: https://stackoverflow.com/questions/61254964/react-array-of-objects-usestate-from-fetch-call-assignment
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, [id, formattedDate]);
+  }, [id, date]);
 
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
-
-  // const handleSubmit = (event) => {
     event.preventDefault();
     const reservationData = {
       date: date.toISOString().split('T')[0],
       numberOfGuests: guest,
       restaurantId: id,
-      customerId: 1,
-      timeSlotId: 1 ,
+      customerId: null,
+      timeSlotId: timeslot.timeSlotID,
       banquetId: banquet,
      };
   
      console.log(reservationData);
   
      try {
-       const response = fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
+       const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
          method: "POST",
          headers: {
            "Accept": "application/json",
@@ -97,8 +95,8 @@ function Booking() {
          throw new Error(`Failed to create reservation for restaurant ID ${id}`);
        }
   
-       const responseBody = response.text();
-       console.log(responseBody);
+       const responseBody = await response.text();
+       console.log("Post response", responseBody);
      } catch (error) {
        console.error(error);
      }
@@ -108,32 +106,6 @@ function Booking() {
   const handleDateChange = (date) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'may', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     setDate(date);
-    console.log(date);
-    const dateArray = date.toDateString().split(" ");
-    let month = 0;
-    for (let i = 0; i < 12; i++){
-      if(dateArray[1] == months[i])
-      month = (i + 1);
-      month = month.toString().padStart(2, '0');
-    }
-    const fDate = dateArray[3] + '-' + month + '-' + dateArray[2];
-    console.log(fDate);
-    setFDate(fDate);
-  }
-
-  const shouldDisableTime = (value, view) => { 
-    let visible = true;
-    for (let i = 0; i < timeSlots.length; i++){
-      let temp = timeSlots[i];
-      temp = temp.timeSlot.split(":")
-      if(value.hour() == temp[0] && value.minute() == temp[1]){
-        visible = false;
-        break;
-      }
-    }
-    
-    console.log(value, visible);
-    return view = visible;    
   }
 
   return (
@@ -151,10 +123,16 @@ function Booking() {
         <p>Selected date: {date.toDateString()}</p>
 
         <h3>Select the time</h3>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DigitalClock style={{width: 100}} timeStep={30} shouldDisableTime={shouldDisableTime} onChange={handleChangeinTimes} disablePast/>
-        </LocalizationProvider>
-        <p>Selected Time: {time && time.format("hh:mm A")}</p> {/* there to see if the time is updated and displayed */}
+        {
+          timeSlots.map((timeslot)=> {
+            const onclickEvent = () => {
+              handleChangeinTimes(timeslot)
+            };
+
+            return <button type="button" key={timeslot.timeSlotID} onClick={onclickEvent}>{timeslot.timeSlot}</button>
+          })
+        }
+        <p>Selected Time: {timeslot && timeslot.timeSlot}</p> {/* there to see if the time is updated and displayed */}
         
         <h3>Select the banquet size</h3>
         <input

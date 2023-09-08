@@ -64,8 +64,8 @@ const fetchRest = async (id) => {
     return (await select(db, "SELECT * from Restaurant WHERE restaurantID="+id))[0];
 }
 
-const fetchTimeSlots = async (id, date) => {
-    return await select(db, "SELECT T.timeSlot FROM TimeSlot AS T LEFT JOIN (SELECT * FROM Reservation AS R WHERE R.date == '" + date + "') AS FR ON T.timeSlotID = FR.timeSlotID WHERE (date != '" + date + "' OR date IS NULL) AND T.restaurantID = " + id);
+const fetchTimeSlots = async (restaurantId, date) => {
+    return await select(db, "SELECT timeSlotID, timeSlot FROM TimeSlot WHERE timeSlotID NOT IN (SELECT timeSlotID FROM Reservation WHERE date == '" + date + "' ) AND restaurantID = " + restaurantId)
 }
 
 const insertBookings = async (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) => {
