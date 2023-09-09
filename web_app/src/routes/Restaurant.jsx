@@ -69,6 +69,7 @@ function Restaurant() {
         </div>
       </div>
       <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">BOOK</Link>
+      <p>All Images we use just for education only.</p>
     </>
   );
 }
