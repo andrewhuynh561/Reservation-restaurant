@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  padding: 0;
 }
 
 .logo {
@@ -40,4 +41,8 @@
 .topleft {
   height:60px;
   object-fit: contain;
+}
+.navbar{
+  display: flex;
+  
 }
