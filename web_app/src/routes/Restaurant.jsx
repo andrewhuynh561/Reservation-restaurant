@@ -177,7 +177,7 @@ function Restaurant() {
         </div>
       </div>
 
-      <ImageGallery  slideInterval={4000} slideDuration={1000} autoPlay={true} showBullets={true} showPlayButton={false} showFullscreenButton={false} items={gallery(id)}></ImageGallery>
+      <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showPlayButton={false} showFullscreenButton={false} items={gallery(id)}></ImageGallery>
       
       <Link  to={`/restaurants/${restaurant.restaurantID}/booking/`} className="reservation-btn">Reservation</Link>
       <p style={{paddingTop:"5px"}}>All Images we use just for education only.</p>
