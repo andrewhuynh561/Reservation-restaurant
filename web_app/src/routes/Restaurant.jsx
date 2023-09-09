@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 function Restaurant() {
   const [restaurant, setRestaurant] = useState([]);
@@ -23,7 +23,7 @@ function Restaurant() {
   }, [id]);
 
   const description = (restaurantID) => {
-    const script = "";
+    let script = "";
     if (id == 1) {
       return (script +=
         "Discover the ultimate fusion of Korean and Mexican flavors at our trendy restaurant," +
@@ -70,3 +70,5 @@ function Restaurant() {
     </>
   );
 }
+
+export default Restaurant;
