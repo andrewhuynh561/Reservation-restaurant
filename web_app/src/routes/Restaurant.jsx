@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function Restaurant() {
@@ -44,8 +44,8 @@ function Restaurant() {
 
   return (
     <>
-      <div class="jumbotron py-1 my-2 alert-secondary">
-        <h1 class="text-center">{restaurant.name}</h1>
+      <div className="jumbotron py-1 my-2 alert-secondary">
+        <h1 className="text-center">{restaurant.name}</h1>
       </div>
       <div className="row">
         <div className="col text-center">
@@ -68,6 +68,7 @@ function Restaurant() {
           {/* Add more gallery items as needed */}
         </div>
       </div>
+      <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">BOOK</Link>
     </>
   );
 }
