@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import '../App.css'
 // import "bootstrap/dist/css/bootstrap.min.css";
+
 
 // Mexikana images 
 import Mexikana1 from './.././images/mexikana/Aug-18.jpg';
@@ -165,21 +167,21 @@ function Restaurant() {
 
   return (
     <>
-      <div className="jumbotron py-1 my-2 alert-secondary">
-        <h1 className="text-center">{restaurant.name}</h1>
-      </div>
+      <div className="card">
+      <h1 className="text-center">{restaurant.name} Menu</h1>
       <div className="row">
         <div className="col text-center">
-          <p style={{ fontStyle: "italic", color: "grey" }}>
+          <p style={{ fontStyle: "italic", color: "grey",fontFamily:"cursive" }}>
             {description(id)}
           </p>
         </div>
       </div>
 
-      <ImageGallery slideInterval={4000} slideDuration={1000} autoPlay={true} showBullets={true} showPlayButton={false} showFullscreenButton={false} items={gallery(id)}></ImageGallery>
+      <ImageGallery  slideInterval={4000} slideDuration={1000} autoPlay={true} showBullets={true} showPlayButton={false} showFullscreenButton={false} items={gallery(id)}></ImageGallery>
       
-      <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">BOOK</Link>
-      <p>All Images we use just for education only.</p>
+      <Link  to={`/restaurants/${restaurant.restaurantID}/booking/`} className="reservation-btn">Reservation</Link>
+      <p style={{paddingTop:"5px"}}>All Images we use just for education only.</p>
+      </div>
     </>
   );
 }

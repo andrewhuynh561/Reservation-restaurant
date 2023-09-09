@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import '../App.css'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DigitalClock } from "@mui/x-date-pickers";
@@ -178,11 +179,11 @@ function Booking() {
       <div className="newResbtn">
         <br /> 
         <button
-          className="btn submitBtn"
+          className="reservation-btn"
           type="submit"
-          style={{ backgroundColor: "green", color: "white" }}
+          
         >
-          Submit<span></span>
+          Booking<span></span>
         </button>
       </div>
     </form>

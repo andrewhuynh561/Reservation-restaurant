@@ -1,3 +1,10 @@
+:root{
+  --main-color: #fe043c;
+  --sec-color:#35cd8c;
+  --color-dark:#1d2231;
+  --text-frey:#8390a2;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -42,7 +49,48 @@
   height:60px;
   object-fit: contain;
 }
-.navbar{
+
+.nav-inner,
+.nav-menu ul,
+.nav-menu2{
   display: flex;
-  
+  align-items: center;
+
+}
+
+.nav-menu li :last-child{
+  margin-right: 0;
+
+}
+.login{
+ 
+}
+.nav-menu  a{
+  color: #fff;
+  margin-right: 3rem;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight:500 ;
+  font-size: x-large;
+}
+.nav-menu a:hover{
+  color:var(--main-color);
+  border-bottom: 2px solid var(--main-color);
+
+}
+
+
+.reservation-btn{
+  padding: 1.3rem 1rem;
+  border-radius: 30px;
+  color: #fff;
+  background: var(--main-color);
+  transition: background-color 300ms;
+  font-size: 20px;
+}
+.reservation-btn:hover{
+  color: #fff;
+  background: var(--sec-color);
+
 }
