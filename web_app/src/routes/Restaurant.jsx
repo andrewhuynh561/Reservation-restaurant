@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function Restaurant() {
@@ -22,7 +23,7 @@ function Restaurant() {
       });
   }, [id]);
 
-  const description = (restaurantID) => {
+  const description = (id) => {
     let script = "";
     if (id == 1) {
       return (script +=
@@ -44,12 +45,12 @@ function Restaurant() {
   return (
     <>
       <div class="jumbotron py-1 my-2 alert-secondary">
-        <h1 class="text-center">Restaurant Name</h1>
+        <h1 class="text-center">{restaurant.name}</h1>
       </div>
       <div className="row">
         <div className="col text-center">
           <p style={{ fontStyle: "italic", color: "grey" }}>
-            {description(restaurantID)}
+            {description(id)}
           </p>
         </div>
       </div>
