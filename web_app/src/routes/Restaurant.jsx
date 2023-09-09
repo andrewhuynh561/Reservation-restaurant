@@ -168,7 +168,7 @@ function Restaurant() {
   return (
     <>
       <div className="card">
-      <h1 className="text-center">{restaurant.name} Menu</h1>
+      <h1 className="text-center">{restaurant.name}</h1>
       <div className="row">
         <div className="col text-center">
           <p style={{ fontStyle: "italic", color: "grey",fontFamily:"cursive" }}>
