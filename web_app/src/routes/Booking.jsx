@@ -129,7 +129,30 @@ function Booking() {
               handleChangeinTimes(timeslot)
             };
 
-            return <button type="button" key={timeslot.timeSlotID} onClick={onclickEvent}>{timeslot.timeSlot}</button>
+            return (
+              <button
+                type="button"
+                key={timeslot.timeSlotID}
+                onClick={onclickEvent}
+                style={{
+                  backgroundColor: 'white',
+                  color: 'black',
+                  border: '1px solid black',
+                  transition: 'background-color 0.3s, color 0.3s', 
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = 'blue';
+                  e.target.style.color = 'white'; 
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'white'; 
+                  e.target.style.color = 'black'; 
+                }}
+              >
+                {timeslot.timeSlot}
+              </button>
+            );
+            
           })
         }
         <p>Selected Time: {timeslot && timeslot.timeSlot}</p> {/* there to see if the time is updated and displayed */}
