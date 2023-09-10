@@ -105,88 +105,96 @@ function Booking() {
   
 
   const handleDateChange = (date) => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'may', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     setDate(date);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="newResForm">
-      <div>
-        <h2>Reservation for {restaurant.name}</h2>
-        <h3>Select the date</h3>
-        {/* <DatePicker selected={date} onChange={BookingTime()} /> */}
-        <DatePicker
-          selected={date}
-          onChange={handleDateChange}
-          filterDate={isDayDisable}
-          dateFormat="dd/MM/yyyy"
-        />
-        <p>Selected date: {date.toDateString()}</p>
+    <>
+    <div className="row g-2 justify-content-md-center">
+      <div className="col-4">
+        <h2>For menu and restaurant space </h2>
+      </div>
+      <div className="col-6">
+        <form onSubmit={handleSubmit} className="newResForm">
+          <div>
+            <h2>Reservation for {restaurant.name}</h2>
+            <h3>Select the date</h3>
+            <DatePicker
+              selected={date}
+              onChange={handleDateChange}
+              filterDate={isDayDisable}
+              dateFormat="dd/MM/yyyy"
+            />
+            <p>Selected date: {date.toDateString()}</p>
 
-        <h3>Select the time</h3>
-        {
-          timeSlots.map((timeslot)=> {
-            const onclickEvent = () => {
-              handleChangeinTimes(timeslot)
-            };
+            <h3>Select the time</h3>
+            {
+              timeSlots.map((timeslot)=> {
+                const onclickEvent = () => {
+                  handleChangeinTimes(timeslot)
+                };
 
-            return (
-              <button
-                type="button"
-                key={timeslot.timeSlotID}
-                onClick={onclickEvent}
-                style={{
-                  backgroundColor: 'white',
-                  color: 'black',
-                  border: '1px solid black',
-                  transition: 'background-color 0.3s, color 0.3s', 
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = 'blue';
-                  e.target.style.color = 'white'; 
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'white'; 
-                  e.target.style.color = 'black'; 
-                }}
-              >
-                {timeslot.timeSlot}
-              </button>
-            );
+                return (
+                  <button
+                    type="button"
+                    key={timeslot.timeSlotID}
+                    onClick={onclickEvent}
+                    style={{
+                      backgroundColor: 'white',
+                      color: 'black',
+                      border: '1px solid black',
+                      transition: 'background-color 0.3s, color 0.3s', 
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = 'blue';
+                      e.target.style.color = 'white'; 
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'white'; 
+                      e.target.style.color = 'black'; 
+                    }}
+                  >
+                    {timeslot.timeSlot}
+                  </button>
+                );
+                
+              })
+            }
+            <p>Selected Time: {timeslot && timeslot.timeSlot}</p> {/* there to see if the time is updated and displayed */}
             
-          })
-        }
-        <p>Selected Time: {timeslot && timeslot.timeSlot}</p> {/* there to see if the time is updated and displayed */}
-        
-        <h3>Select the banquet size</h3>
-        <input
-          type="text"
-          value={banquet}
-          onChange={(e) => setBanquet(e.target.value)}
-          name="banquet"
-        />
+            <h3>Select the banquet size</h3>
+            <input
+              type="text"
+              value={banquet}
+              onChange={(e) => setBanquet(e.target.value)}
+              name="banquet"
+            />
 
-        <h4>Select number of guests</h4>
-        <input
-          name="numberOfGuests"
-          type="number"
-          min="0"
-          value={guest}
-          onChange={(e) => setGuest(e.target.value)}
-        />
-      </div>
+            <h4>Select number of guests</h4>
+            <input
+              name="numberOfGuests"
+              type="number"
+              min="0"
+              value={guest}
+              onChange={(e) => setGuest(e.target.value)}
+            />
+          </div>
 
-      <div className="newResbtn">
-        <br /> 
-        <button
-          className="reservation-btn"
-          type="submit"
-          
-        >
-          Booking<span></span>
-        </button>
+          <div className="newResbtn">
+            <br /> 
+            <button
+              className="reservation-btn"
+              type="submit"
+              
+            >
+              Booking<span></span>
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
+    </>
   );
 }
 
