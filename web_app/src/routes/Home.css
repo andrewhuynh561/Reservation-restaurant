@@ -1,0 +1,22 @@
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.restaurant-image {
+  height: 240px; 
+  object-fit: "cover"
+}
+
+.card-holder {
+  margin-top: 5%;
+}
+
+.slogan-style {
+
+  color : white; 
+  font-family: 'Times New Roman';
+  font-size: large;
+  
+}

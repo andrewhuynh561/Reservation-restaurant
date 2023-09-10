@@ -1,0 +1,22 @@
+
+img.image-gallery-image {
+  height: 450px; 
+  object-fit: "contain";
+}
+
+
+
+.reservation-btn{
+  padding: 1.3rem 1rem;
+  border-radius: 30px;
+  color: #fff;
+  background: var(--main-color);
+  transition: background-color 300ms;
+  font-size: 20px;
+  padding-top: 20px;
+}
+.reservation-btn:hover{
+  color: #fff;
+  background: var(--sec-color);
+
+}

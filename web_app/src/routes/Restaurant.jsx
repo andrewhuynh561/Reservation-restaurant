@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import '../App.css'
+import './Restaurant.css'
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -167,21 +168,23 @@ function Restaurant() {
 
   return (
     <>
-      <div className="card">
-      <h1 className="text-center">{restaurant.name}</h1>
-      <div className="row">
-        <div className="col text-center">
-          <p style={{ fontStyle: "italic", color: "grey",fontFamily:"cursive" }}>
-            {description(id)}
-          </p>
+      <div style={{color: "white"}}>
+        <h1 className="text-center">{restaurant.name}</h1>
+        <div className="row">
+          <div className="col text-center">
+            <p style={{ fontStyle: "italic", color: "lightgrey",fontFamily:"cursive" }}>
+              {description(id)}
+            </p>
+          </div>
         </div>
       </div>
 
-      <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showPlayButton={false} showFullscreenButton={false} items={gallery(id)}></ImageGallery>
-      
-      <Link  to={`/restaurants/${restaurant.restaurantID}/booking/`} className="reservation-btn">Reservation</Link>
-      <p style={{paddingTop:"5px"}}>All Images we use just for education only.</p>
+      <div className="card" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
+        <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
       </div>
+      <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">Reservation</Link>
+      <p style={{color: "white", paddingTop:"30px"}}>All Images we use just for education only.</p>
+      
     </>
   );
 }

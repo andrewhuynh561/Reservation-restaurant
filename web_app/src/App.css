@@ -1,5 +1,5 @@
 :root{
-  --main-color: #fe043c;
+  --main-color: #0464fe;
   --sec-color:#35cd8c;
   --color-dark:#1d2231;
   --text-frey:#8390a2;
@@ -71,8 +71,10 @@
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-  font-weight:500 ;
+  text-decoration: inherit;
+  font-weight:300 ;
   font-size: x-large;
+
 }
 .nav-menu a:hover{
   color:var(--main-color);
@@ -80,17 +82,3 @@
 
 }
 
-
-.reservation-btn{
-  padding: 1.3rem 1rem;
-  border-radius: 30px;
-  color: #fff;
-  background: var(--main-color);
-  transition: background-color 300ms;
-  font-size: 20px;
-}
-.reservation-btn:hover{
-  color: #fff;
-  background: var(--sec-color);
-
-}
