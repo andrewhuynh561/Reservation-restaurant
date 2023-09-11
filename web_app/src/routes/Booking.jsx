@@ -128,8 +128,7 @@ function Booking() {
     <>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
-          <h2>For menu and restaurant space </h2>
-          <MenuImage></MenuImage>
+          <MenuImage id={id} />
         </div>
         <div className="col-6">
           <form onSubmit={handleSubmit} className="newResForm">
