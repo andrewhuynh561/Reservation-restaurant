@@ -185,24 +185,38 @@ function Restaurant() {
     }
   };
 
+  document.body.style.backgroundColor = 'black';
+
   return (
     <>
-      <div style={{color: "white"}}>
-        <h1 className="text-center">{restaurant.name}</h1>
-        <div className="row">
-          <div className="col text-center">
-            <p style={{ fontStyle: "italic", color: "lightgrey",fontFamily:"cursive" }}>
-              {description(id)}
-            </p>
+      <div className="video-background">
+      <iframe
+            width={1920}
+            height={1080}
+            src="https://www.youtube.com/embed/lcU3pruVyUw?autoplay=1&rel=0&controls=0&mute=1&loop=1&modestbranding=1&showinfo=0&enablejsapi=1&&widgetid=3"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"/>
+      </div>
+      <div className="overlay"></div>
+      <div className="content">
+        <div style={{color: "white"}}>
+          <h1 className="text-center"  style={{ fontSize: 100 }}>Welcome to</h1>
+          <h1 className="text-center"  style={{ fontSize: 100 }}>{restaurant.name}</h1>
+          <div className="row">
+            <div className="des text-center">
+              <p style={{ fontStyle: "italic", color: "lightgrey",fontFamily:"cursive" }}>
+                {description(id)}
+              </p>
+            </div>
           </div>
         </div>
+        <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">Book a Table</Link>
+        <div className="card" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
+          <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
+        </div>
+        <p style={{color: "white", paddingTop:"30px"}}>All Images we use just for education only.</p>
       </div>
-       <h1></h1>
-      <div className="card" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
-        <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
-      </div>
-      <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">Reservation</Link>
-      <p style={{color: "white", paddingTop:"30px"}}>All Images we use just for education only.</p>
       
     </>
   );

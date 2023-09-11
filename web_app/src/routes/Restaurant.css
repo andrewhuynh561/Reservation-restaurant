@@ -20,3 +20,57 @@ img.image-gallery-image {
   background: var(--sec-color);
 
 }
+
+:root {
+  --video-width: 100vw;
+  --video-height: 100vh;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  :root {
+      --video-height: 56.25vw;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  :root {
+      --video-width: 177.78vh;
+  }
+}
+
+.video-background {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 50vh;
+}
+
+.video-background iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--video-width);
+  height: var(--video-height);
+  transform: translate(-50%, -50%);
+}
+
+.content {
+  position: absolute;
+  height: 100%;
+  top: 60px;
+}
+
+.overlay {
+  position: absolute;
+  top: 60px;
+  height: 50vh;
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1));
+}
+
+.des {
+  position: relative;
+  width: 75%;
+  margin: auto;
+  padding: 5%
+}
