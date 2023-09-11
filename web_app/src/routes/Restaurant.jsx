@@ -36,7 +36,6 @@ function Restaurant() {
   const { id } = useParams(); //link from homepage will pass restaurant id to this page
   const [banquets, setBanquets] = useState([]);
 
-
   const gallery = (id) => 
   {
     if (id == 1)
@@ -127,6 +126,42 @@ function Restaurant() {
       ];
     }
   }
+  
+  const banquetMeals = (id) => {
+    const meals = {
+      1: [
+        "Papas Fritas",
+        "Korean Fried Chicken Tacos",
+        "Smokey chicken",
+        "Taquitos dorados",
+        "Nachos"
+      ],
+      3: [
+        "Crispy beef",
+        "Satay chicken",
+        "Steam prawn dumplings",
+        "S+P Squid",
+        "Roast Pork",
+        "Sticky pork",
+        "Asian green",
+        "Crying Tiger Salad",
+        "Ribs",
+        "Barramundi curry"
+      ]
+    };
+  
+    if (meals[id]) {
+      return (
+        <div>
+          {meals[id].map((meal, index) => (
+            <p key={index}>{meal}</p>
+          ))}
+        </div>
+      );
+    }
+  
+    return null;
+  };
 
 
   useEffect(() => {
@@ -216,9 +251,34 @@ function Restaurant() {
           <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
         </div>
         <p style={{color: "white", paddingTop:"30px"}}>All Images we use just for education only.</p>
+
+        {banquets && banquets.banquetName && banquets.banquetPrice && banquets.sittingLimit && (
+        <div>
+          <div style={{ display: "flex", paddingBottom: "20px" }}>
+            <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
+            <div style={{ flex: 1, backgroundColor: "#FFFFFF", height: "6px" }} />
+            <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
+          </div>
+
+          <div style={{color: "white", marginTop: "10px"}}>
+            <h1 className="text-center">Banquet Options:</h1>
+          </div>
+
+          <div style={{marginTop: "20px",borderRadius: "10px",border: "1px solid #8390A2",marginLeft: 425, backgroundColor: "#FFFFFF",padding: "10px", width: 430, opacity: 0.6}}>
+            <div style={{color: "black", fontWeight: "bolder", fontSize: 16, textAlign: "center"}}>
+              <p>{banquets.banquetName} {banquets.banquetPrice} <br/>(min {banquets.sittingLimit} people)</p>
+              <div style={{textAlign: "center"}}>
+                <p>{banquetMeals(id)}</p>
+              </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+        )}
       </div>
       
     </>
+    
   );
 }
 

@@ -19,6 +19,9 @@ function Home() {
       });
   }, []);
 
+  document.body.style.backgroundImage = "url(http://localhost:6060/images/Background3.webp)";
+  document.body.style.backgroundColor = "transparent";
+
   return (
     <>
       

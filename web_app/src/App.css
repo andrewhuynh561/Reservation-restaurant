@@ -62,9 +62,9 @@
   margin-right: 0;
 
 }
-.login{
+/* .login{
  
-}
+} */
 .nav-menu  a{
   color: #fff;
   margin-right: 3rem;
@@ -80,5 +80,9 @@
   color:var(--main-color);
   border-bottom: 2px solid var(--main-color);
 
+}
+
+.text-center {
+  font-weight: 500;
 }
 

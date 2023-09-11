@@ -6,6 +6,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DigitalClock } from "@mui/x-date-pickers";
 import MenuImage from "./Elements/menuImage";
+import "./Booking.css";
 
 function Booking() {
   const [date, setDate] = useState(new Date());
@@ -128,8 +129,7 @@ function Booking() {
     <>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
-          <h2>For menu and restaurant space </h2>
-          <MenuImage></MenuImage>
+          <MenuImage id={id} />
         </div>
         <div className="col-6">
           <form onSubmit={handleSubmit} className="newResForm">
