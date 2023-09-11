@@ -11,8 +11,7 @@ function App() {
     <>
       <BrowserRouter>
         <div className=" row" >
-          <img src="http://localhost:6060/images/logo.png" className="topleft col-1" alt="FunDev"></img>
-          <nav className="nav-menu mb-4 col-10 ">
+          <nav className="nav-menu mb-4 col-12 ">
             <Link to="/">Home</Link> 
             <Link to="/about"> About SGV</Link> 
             <Link className="login" to="/login"> Login</Link>
@@ -24,7 +23,7 @@ function App() {
           <Route path="about"                    element={<About />} />
           <Route path="restaurants/:id/booking/" element={<Booking />} />
           <Route path="login"                    element={<Login />} />
-          <Route path="restaurants/:id/restaurant" element={<Restaurant />} />
+          <Route path="restaurants/:id/"         element={<Restaurant />} />
         </Routes>
       </BrowserRouter>
     </>
