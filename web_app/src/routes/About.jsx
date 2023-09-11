@@ -1,59 +1,49 @@
-import { useState, useEffect } from 'react'
-import { Link } from "react-router-dom";
-import reactLogo from '../assets/react.svg'
-import viteLogo from '/vite.svg'
+import './About.css'
 
 function About() {
-  const [count, setCount] = useState(0);
-
-  const [restaurants, setRestaurants] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:6060/restaurants/')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setRestaurants(data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-
+  
   return (
     <>
-<h1>ABOUT US</h1>
-      <div className="row">
-        {restaurants.map((item, index) => (
-          
-            <div className="col-4" style={{minWidth: 20 +'rem'}} key={item.restaurantID} > 
-
-              <div key={item.restaurantID} className="card mt-4" >
-              <img className="card-img-top" src={`http://localhost:6060/images/${item.image}`} style={{height: "240px", objectFit: "cover"}} alt={item.name}></img>
-              <div className="card-body">
-                <h3 className="card-title">{item.name.toUpperCase()}</h3>
-                <div className="card-text">
-                  <i><p>{item.description}</p></i>
-                  <p>{item.address}</p> 
-                  <p>{item.openDate}</p> 
-                  <p>{item.openHours}</p> 
-                  <p>{item.cuisine}</p> 
-                </div>
-                <Link to={`/restaurants/${item.restaurantID}/booking/`} className="btn btn-primary">BOOK</Link>
+      <div className="container">
+        <div className="row">
+          <div className="col-3"></div>
+          <div className=" col-6">
+            <div className="card border-0">
+              <div className="card-img-overlay">
+                <p className="card-text centered card-text-style">
+                  <span class="title-word title-word-1">Grab </span>
+                  <span class="title-word title-word-2">Life </span>
+                  <span class="title-word title-word-3">By </span>
+                  <span class="title-word title-word-4">The </span>
+                  <span class="title-word title-word-2">Fork</span>
+                </p>
               </div>
-              </div>
+              <img src="http://localhost:6060/images/about-us.avif" alt="About us" style={{borderRadius: 4+"px"}} ></img>
+              
             </div>
-          
+          </div>
 
-          
-          
-        ))}
+          <div className="mt-5" style={{color:'white'}}>
+            <h2>Our Story</h2>
+            <p>
+            Let's grab life by the fork. 
+            </p>
+            <p>
+            From helping restaurants of all sizes thrive, to enabling diners to find and book the perfect table for every occasion, our story is one of human connection—among diners and restaurants, and between restaurants and their communities.
+
+            Now, we are growing globally like never before, and continuing to lead the conversation in the tech and restaurant spaces with products that anticipate the ever-evolving needs of both restaurants and diners.
+
+            With our passion for hospitality, we take pride in bringing together people and the restaurants they love in the moments that matter. Book with us to secure a sitting at your favorite restaurant.
+            </p>
+          </div>
+
+        </div>
+
       </div>
+    
 
-      <hr />
-      <p className="read-the-docs" style={{color : 'white'}}>
-        Secure a sitting fast without the need to create an account
-      </p>
+      
+      
     </>
   )
 }
