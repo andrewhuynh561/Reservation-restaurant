@@ -34,6 +34,7 @@ import Bambooleaf6 from './.././images/bambooleaf/pexels-roman-odintsov-4552045.
 function Restaurant() {
   const [restaurant, setRestaurant] = useState([]);
   const { id } = useParams(); //link from homepage will pass restaurant id to this page
+  const [banquets, setBanquets] = useState([]);
 
 
   const gallery = (id) => 
@@ -144,6 +145,24 @@ function Restaurant() {
         console.error(err.message);
       });
   }, [id]);
+
+  useEffect(() => {
+    fetch(`http://localhost:6060/restaurants/${id}/banquets`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data for restaurant ID ${id}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setBanquets(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [id]);
+   
   
  
 
@@ -178,7 +197,7 @@ function Restaurant() {
           </div>
         </div>
       </div>
-
+       <h1></h1>
       <div className="card" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
         <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
       </div>
