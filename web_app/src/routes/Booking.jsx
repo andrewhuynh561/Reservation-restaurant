@@ -11,6 +11,8 @@ import MenuImage from "./Elements/menuImage";
 import "./Booking.css";
 
 function Booking() {
+  document.body.id = 'H';
+  
   const [date, setDate] = useState(new Date());
   const [timeSlots, setTimeSlots] = useState([]);
   const { id } = useParams();
