@@ -24,7 +24,7 @@ function Home() {
   return (
     <>
       
-      <div className="row card-holder">
+      <div className="row card-holder" id="fade-in-home">
         {restaurants.map((item, index) => (
           
             <div className="col-4" style={{minWidth: 20 +'rem'}} key={item.restaurantID} > 

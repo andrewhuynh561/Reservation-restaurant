@@ -31,6 +31,13 @@ import Bambooleaf4 from './.././images/bambooleaf/pexels-leonardo-luz-15024300.j
 import Bambooleaf5 from './.././images/bambooleaf/pexels-momo-king-5409015.jpg';
 import Bambooleaf6 from './.././images/bambooleaf/pexels-roman-odintsov-4552045.jpg';
 
+// Showcase Share Banquet (Korean Fried Chicken Tacos) for Mexikana
+import showcaseShare from './.././BanquetShowcaseImages/TonyChickenTacos.jpg'
+
+// Showcase Feast Banquet (Crying Tiger Salad) for BambooLeaf
+import showcaseFeast from './.././BanquetShowcaseImages/crying-tiger-beef-and-green-papaya-salad-131312-1.jpg'
+
+
 function Restaurant() {
   document.body.id = 'R';
 
@@ -128,14 +135,14 @@ function Restaurant() {
       ];
     }
   }
-  
+
   const formatMeals = (str) => {
     let meals = str.split("\n")
     
     return (
-      <div>
+      <div style={{marginTop: "-20px"}}>
         {meals.map((meal, index) => (
-          <p key={index}>{meal}</p>
+          <p key={index}><hr/>{meal}</p>
         ))}
       </div>
     );
@@ -175,9 +182,6 @@ function Restaurant() {
         console.error(err.message);
       });
   }, [id]);
-   
-  
- 
 
   const description = (id) => {
     let script = "";
@@ -237,26 +241,39 @@ function Restaurant() {
           </div>
           
           
-          <div style={{color: "white", marginTop: "10px"}}>
-            <h1 className="text-center">Banquet Options:</h1>
+          <div style={{color: "white"}}>
+            <h1 className="text-center" style={{fontSize: 70}}>Banquet Options</h1>
           </div>
 
+          <div className="des text-center" id="fade-in">
+              <p style={{ fontStyle: "italic", color: "lightgrey",fontFamily:"cursive" }}>
+              "Explore our exquisite Banquet Options designed to elevate your special events and celebrations. 
+              From elegant venues to tailored menus, we offer a range of customizable packages to suit every occasion. 
+              Whether it's an intimate gathering or a grand soirée, our dedicated team ensures a seamless experience from planning to execution. 
+              Discover the perfect setting for your next event with our Banquet Options."
+              </p>
+          </div>
 
-          {banquets.map((banquet) => (
-            <div className="card" key={banquet.banquetID} style={{width: 18 + "rem"}}>
-              <h5 className="card-title">{banquet.banquetName} {banquet.banquetPrice} <br/>(min {banquet.sittingLimit} people)</h5>
-              <div className="card-body">
-                  <div style={{textAlign: "center"}}>
-                  {formatMeals(banquet.banquetItems)}
+          <div className="row cards" id="fade-in">
+            {banquets.map((banquet) => (
+              <div className="col-3" style={{minWidth: 18 +'rem'}} key={banquet.banquetID} >
+                <div className="card mt-5" key={banquet.banquetID}>
+                  {banquet.banquetID == 1 && <img src={showcaseShare}></img>}
+                  {banquet.banquetID == 2 && <img src={showcaseShare}></img>}
+                  {banquet.banquetID == 3 && <img src={showcaseFeast}></img>}
+                  <h5 className="card-title">{banquet.banquetName} {banquet.banquetPrice} <br/>(min {banquet.sittingLimit} people)</h5>
+                  <div className="card-body">
+                      <div style={{textAlign: "center"}}>
+                      <i>{formatMeals(banquet.banquetItems)}</i>
+                    </div>
+                  </div>
                 </div>
               </div>
+            ))}
             </div>
-          ))}
-          <br/>
-        </div>
-        )}
+          </div>
+          )}
       </div>
-      
     </>
     
   );

@@ -97,3 +97,11 @@ img.image-gallery-image {
   background-color: black;
   background-image: none !important;
 }
+
+.cards{
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-flex;
+  padding-bottom: 100px;
+  justify-content: center;
+}
