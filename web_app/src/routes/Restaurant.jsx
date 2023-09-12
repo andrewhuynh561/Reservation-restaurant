@@ -127,40 +127,16 @@ function Restaurant() {
     }
   }
   
-  const banquetMeals = (id) => {
-    const meals = {
-      1: [
-        "Papas Fritas",
-        "Korean Fried Chicken Tacos",
-        "Smokey chicken",
-        "Taquitos dorados",
-        "Nachos"
-      ],
-      3: [
-        "Crispy beef",
-        "Satay chicken",
-        "Steam prawn dumplings",
-        "S+P Squid",
-        "Roast Pork",
-        "Sticky pork",
-        "Asian green",
-        "Crying Tiger Salad",
-        "Ribs",
-        "Barramundi curry"
-      ]
-    };
-  
-    if (meals[id]) {
-      return (
-        <div>
-          {meals[id].map((meal, index) => (
-            <p key={index}>{meal}</p>
-          ))}
-        </div>
-      );
-    }
-  
-    return null;
+  const formatMeals = (str) => {
+    let meals = str.split("\n")
+    
+    return (
+      <div>
+        {meals.map((meal, index) => (
+          <p key={index}>{meal}</p>
+        ))}
+      </div>
+    );
   };
 
 
@@ -190,7 +166,7 @@ function Restaurant() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log("banquets", data);
         setBanquets(data);
       })
       .catch((err) => {
@@ -252,7 +228,7 @@ function Restaurant() {
         </div>
         <p style={{color: "white", paddingTop:"30px"}}>All Images we use just for education only.</p>
 
-        {banquets && banquets.banquetName && banquets.banquetPrice && banquets.sittingLimit && (
+        {banquets && (
         <div>
           <div style={{ display: "flex", paddingBottom: "20px" }}>
             <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
@@ -264,14 +240,17 @@ function Restaurant() {
             <h1 className="text-center">Banquet Options:</h1>
           </div>
 
-          <div style={{marginTop: "20px",borderRadius: "10px",border: "1px solid #8390A2",marginLeft: 425, backgroundColor: "#FFFFFF",padding: "10px", width: 430, opacity: 0.6}}>
-            <div style={{color: "black", fontWeight: "bolder", fontSize: 16, textAlign: "center"}}>
-              <p>{banquets.banquetName} {banquets.banquetPrice} <br/>(min {banquets.sittingLimit} people)</p>
-              <div style={{textAlign: "center"}}>
-                <p>{banquetMeals(id)}</p>
+
+          {banquets.map((banquet) => (
+            <div key={banquet.banquetID} style={{marginTop: "20px",borderRadius: "10px",border: "1px solid #8390A2",marginLeft: 425, backgroundColor: "#FFFFFF",padding: "10px", width: 430, opacity: 0.6}}>
+              <div style={{color: "black", fontWeight: "bolder", fontSize: 16, textAlign: "center"}}>
+                <p>{banquet.banquetName} {banquet.banquetPrice} <br/>(min {banquet.sittingLimit} people)</p>
+                <div style={{textAlign: "center"}}>
+                  <p>{formatMeals(banquet.banquetItems)}</p>
+                </div>
               </div>
             </div>
-          </div>
+          ))}
           <br/>
         </div>
         )}

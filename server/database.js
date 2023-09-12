@@ -77,7 +77,7 @@ const insertBookings = async (date, numberOfGuests, restaurantId, customerId, ti
 }
 
 const fetchBanquets = async (id) => {
-    return (await select(db, "SELECT B.*, R.name, R.description, R.address, R.openDate, R.openHours, R.contactNumber,R.webLink,R.cuisine,R.image From Banquet AS B JOIN Restaurant AS R ON B.restaurantID = R.restaurantID WHERE R.restaurantID = " + id))[0];
+    return (await select(db, "SELECT * FROM Banquet WHERE restaurantID = " + id));
 }
 
 
