@@ -13,9 +13,17 @@ function App() {
       <BrowserRouter>
         <div className=" row" >
           <nav className="nav-menu mb-4 col-12 ">
-            <Link to="/">Home</Link> 
-            <Link to="/about"> About SGV</Link> 
-            <Link className="login" to="/login"> Login</Link>
+             
+            
+            <a href="/login" className="btn btn-success login-button-align" title="Log in to your account" type="button">Login</a>
+            <a href="/login" className="btn btn-warning signup-button" title="Create an account with us" type="button">Sign up</a>
+            <ul>
+
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about"> About SGV</Link></li>
+              
+              
+            </ul>
           </nav>
           
         </div>
