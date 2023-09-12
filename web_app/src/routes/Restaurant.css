@@ -90,5 +90,13 @@ img.image-gallery-image {
 }
 
 #fade-in{
-  animation: fade-in 2s alternate-reverse;
+  animation: fade-in 4s alternate-reverse;
+}
+
+.cards{
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-flex;
+  padding-bottom: 100px;
+  justify-content: center;
 }

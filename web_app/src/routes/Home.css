@@ -23,3 +23,14 @@
   font-size: large;
   
 }
+
+@keyframes fade-in-home{
+  0% {opacity: 1;}
+  100%{opacity: 0;}
+}
+
+#fade-in-home
+{
+  animation: fade-in 0.5s alternate-reverse;
+}
+
