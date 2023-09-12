@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import Modal from "react-modal";
+import  "./Booking.css"
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DigitalClock } from "@mui/x-date-pickers";
 import MenuImage from "./Elements/menuImage";
 import "./Booking.css";
@@ -16,11 +18,21 @@ function Booking() {
   const [timeslot, setTimeslot] = useState(null);
   const [guest, setGuest] = useState("");
   const [banquet, setBanquet] = useState("");
-
-  // Updates the time when user changes times on selection
+  const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
+ 
   const handleChangeinTimes = (newTimeslot) => {
-    setTimeslot(newTimeslot);
+    setTimeslot(newTimeslot)
+  }
+  const openConfirmationModal = () => {
+    setConfirmationModalOpen(true);
   };
+
+  const closeConfirmationModal = (e) => {
+    e.preventDefault();
+    setConfirmationModalOpen(false);
+
+  };
+ 
 
   const isDayDisable = (banDate) => {
     const dayOfWeek = banDate.getDay();
@@ -79,33 +91,34 @@ function Booking() {
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
       banquetId: banquet,
-    };
+     };
+  
+     console.log(reservationData);
+  
+     try {
+       const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
+         method: "POST",
+         headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(reservationData),
+       });
+  
+       if (!response.ok) {
+         throw new Error(`Failed to create reservation for restaurant ID ${id}`);
+       }
+  
+       const responseBody = await response.text();
+       console.log("Post response", responseBody);
+       openConfirmationModal();
+     } catch (error) {
+       console.error(error);
+     }
+     
 
-    console.log(reservationData);
-
-    try {
-      const response = await fetch(
-        `http://localhost:6060/restaurants/${id}/bookings`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reservationData),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Failed to create reservation for restaurant ID ${id}`);
-      }
-
-      const responseBody = await response.text();
-      console.log("Post response", responseBody);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+   };
+  
 
   const handleDateChange = (date) => {
     const months = [
@@ -126,7 +139,7 @@ function Booking() {
   };
 
   return (
-    <>
+    <div>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -191,17 +204,63 @@ function Booking() {
                 onChange={(e) => setGuest(e.target.value)}
               />
             </div>
-
-            <div className="newResbtn">
-              <br />
-              <button className="reservation-btn" type="submit">
-                Booking<span></span>
-              </button>
-            </div>
           </form>
         </div>
+      
+
+      <div className="newResbtn">
+        <br /> 
+        <button
+          className="reservation-btn"
+          type="button"
+          onClick={handleSubmit}
+          
+        >
+          Booking<span></span>
+        </button>
       </div>
-    </>
+      <Modal
+        isOpen={isConfirmationModalOpen}
+        onRequestClose={closeConfirmationModal}
+        contentLabel="Confirmation Modal"
+        style={{
+          overlay: {
+            position: 'fixed',
+            zIndex: 1020,
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(255, 255, 255, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          content: {
+            background:"white",
+            width: '45rem',
+            maxWidth: 'calc(100vw - 2rem)',
+            maxHeight: 'calc(100vh - 2rem)',
+            overflowY: 'auto',
+            position: 'relative',
+            border: '1px solid #ccc',
+            borderRadius: '0.3rem',
+          }}} 
+      >
+        <h2>Your reservation has been made</h2><hr />
+        <p>Date: {date.toISOString().split('T')[0]}</p>
+        <p>Time: {timeslot && timeslot.timeSlot}</p>
+        <p>Location : {restaurant.name}</p>
+        <p>Customer: {null}</p>
+        <p>Guest :{guest}</p>
+        <p>reservation</p>
+        <button
+         className="close-btn"
+        onClick={closeConfirmationModal}>Close</button>
+      </Modal>
+    
+    </div>
+  </div>
   );
 }
 

@@ -1,6 +1,18 @@
-.zoomed {
-    transform: scale(1.5); 
-    transition: transform 0.3s ease; 
-    cursor: pointer; 
-  }
+.modal .modal-dialog  {
+  top: '35%';
+  left: '50%';
+  right: 'auto';
   
+}
+.close-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    cursor: pointer;
+}
+.zoomed {
+  transform: scale(1.5); 
+  transition: transform 0.3s ease; 
+  cursor: pointer; 
+}

@@ -230,7 +230,7 @@ function Restaurant() {
 
         {banquets && (
         <div>
-          <div style={{ display: "flex", paddingBottom: "20px" }}>
+          <div style={{ display: "flex"}}>
             <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
             <div style={{ flex: 1, backgroundColor: "#FFFFFF", height: "6px" }} />
             <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
@@ -243,7 +243,7 @@ function Restaurant() {
 
 
           {banquets.map((banquet) => (
-            <div className="card" id="fade-in" key={banquet.banquetID} style={{width: 18 + "rem"}}>
+            <div className="card" key={banquet.banquetID} style={{width: 18 + "rem"}}>
               <h5 className="card-title">{banquet.banquetName} {banquet.banquetPrice} <br/>(min {banquet.sittingLimit} people)</h5>
               <div className="card-body">
                   <div style={{textAlign: "center"}}>
