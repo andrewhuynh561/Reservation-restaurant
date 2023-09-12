@@ -8,13 +8,13 @@ function MenuImage({ id }) {
   let restaurantName;
 
   if (id == 1) {
-    menu = "http://localhost:6060/images/mexikanaMenu.jpg";
+    menu = "http://localhost:6060/images/mexikanaMenu1.jpg";
     restaurantName = "Mexikana";
   } else if (id == 2) {
-    menu = "http://localhost:6060/images/laoesteMenu.jpg";
+    menu = "http://localhost:6060/images/laoesteMenu1.jpg";
     restaurantName = "Laoeste";
   } else if (id == 3) {
-    menu = "http://localhost:6060/images/bambooleafMenu.jpg";
+    menu = "http://localhost:6060/images/bambooleafMenu1.jpg";
     restaurantName = "Bambooleaf";
   } else {
     firstMenu = "...";
