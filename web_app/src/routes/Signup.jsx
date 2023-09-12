@@ -14,16 +14,17 @@ function Signup() {
                 
                 <h3 className="fw-normal mb-5" style={{color:"black"}}>Registration Form</h3>
                 
-                <div className="col-6 mb-4 pb-2">
+                <div className="mb-4 pb-2">
                   
-                  <select>
-                    <option value="1">Title</option>
+                  <select className='form-select'>
+                    <option selected>Title</option>
                     <option value="2">Miss</option>
                     <option value="3">Mrs</option>
                     <option value="4">Ms</option>
                     <option value="5">Mr</option>
                     <option value="6">None</option>
                   </select>
+                  
                 </div>
 
                 <div className="row">
@@ -84,10 +85,12 @@ function Signup() {
                 </div>
 
                 <div className="form-check mb-4 pb-3">
-                  <input className="form-check-input" type="checkbox"></input>
-                  <label className='form-check-label' style={{color:"black"}}>
-                    I do accept the <a href="#" style={{color:"black"}}><u>Terms and Conditions</u></a> of your site
-                  </label>
+                  <div>
+                    <input className="form-check-input" style={{float: "none", marginRight: 10 + "px"}} type="checkbox"></input>
+                    <label className='form-check-label' style={{color:"black"}}>
+                      I do accept the <a href="#" style={{color:"black"}}><u>Terms and Conditions</u></a> of your site
+                    </label>
+                  </div>
                 </div>
                 
                 <button type="button" className="btn btn-success">Create</button>
