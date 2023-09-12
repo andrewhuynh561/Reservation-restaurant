@@ -254,7 +254,7 @@ function Restaurant() {
               </p>
           </div>
 
-          <div className="row cards" id="fade-in">
+          <div className="row cards" id="fade-in" style={{marginTop: "-100px"}}>
             {banquets.map((banquet) => (
               <div className="col-3" style={{minWidth: 18 +'rem'}} key={banquet.banquetID} >
                 <div className="card mt-5" key={banquet.banquetID}>
