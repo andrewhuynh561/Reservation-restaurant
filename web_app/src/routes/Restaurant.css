@@ -92,3 +92,8 @@ img.image-gallery-image {
 #fade-in{
   animation: fade-in 2s alternate-reverse;
 }
+
+#R {
+  background-color: black;
+  background-image: none !important;
+}

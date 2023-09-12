@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import './Home.css'
 
 function Home() {
+  document.body.id = 'H';
+
   const [count, setCount] = useState(0);
 
   const [restaurants, setRestaurants] = useState([]);
@@ -18,9 +20,6 @@ function Home() {
         console.log(err.message);
       });
   }, []);
-
-  document.body.style.backgroundImage = "url(http://localhost:6060/images/Background3.webp)";
-  document.body.style.backgroundColor = "transparent";
 
   return (
     <>

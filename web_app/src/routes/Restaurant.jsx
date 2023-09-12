@@ -32,6 +32,8 @@ import Bambooleaf5 from './.././images/bambooleaf/pexels-momo-king-5409015.jpg';
 import Bambooleaf6 from './.././images/bambooleaf/pexels-roman-odintsov-4552045.jpg';
 
 function Restaurant() {
+  document.body.id = 'R';
+
   const [restaurant, setRestaurant] = useState([]);
   const { id } = useParams(); //link from homepage will pass restaurant id to this page
   const [banquets, setBanquets] = useState([]);
@@ -195,8 +197,6 @@ function Restaurant() {
         "artful presentation, and a warm ambiance that promises a memorable dining experience");
     }
   };
-
-  document.body.style.backgroundColor = 'black';
 
   return (
     <>
