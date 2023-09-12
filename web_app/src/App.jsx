@@ -34,6 +34,7 @@ function App() {
           <Route path="login"                    element={<Login />} />
           <Route path="restaurants/:id/"         element={<Restaurant />} />
           <Route path="signup"                   element={<Signup />} />
+          <Route path="dashboard/:id/"           element={<Home />} />
         </Routes>
       </BrowserRouter>
     </>

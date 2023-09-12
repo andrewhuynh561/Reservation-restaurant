@@ -81,7 +81,7 @@ const fetchBanquets = async (id) => {
 }
 
 const fetchStaffLogin = async (userName) => {
-    return await select(db, "SELECT * FROM Account WHERE username == '" + userName + "' AND accountID IN (SELECT accountID from Employee)");
+    return (await select(db, "SELECT * FROM Account WHERE username == '" + userName + "' AND accountID IN (SELECT accountID from Employee)"))[0];
 }
 
 export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin}

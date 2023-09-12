@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import bcrypt from 'bcryptjs-react'
+import { Link, useNavigate } from "react-router-dom";
 import './Login.css'
 
 function Login() {
   document.body.id = 'H';
+  const navigate = useNavigate();
 
   const [customerLogin, setCustomerLogin] = useState(true);
   const [userName, setUsername] = useState("");
@@ -38,6 +40,21 @@ function Login() {
    
         const responseBody = await response.json();
         console.log(responseBody);
+        console.log(responseBody.password);
+        console.log(password);
+        
+        bcrypt.compare(password, responseBody.password, function(err, res) {
+          if(res){
+            console.log("valid", responseBody.accountID);
+            navigate('/dashboard/${responseBody.accountID}', {replace: true});
+          }
+          else {
+            //need to add response feature
+            console.log(responseBody.password);
+            console.log(valid, "Nah wrong password");
+          }
+        });
+
       } catch (error) {
         console.error(error);
       }
@@ -110,5 +127,16 @@ function Login() {
     </>
   )
 }
+
+//DO NOT TOUCH
+// bcrypt.genSalt(10, function(err, salt) {
+//     bcrypt.hash(password, salt, function(err, hash) {
+//         console.log(hash);
+//     });
+// });
+
+// bcrypt.compare(password, hash, function(err, res) {
+//   console.log(res);
+// });
 
 export default Login
