@@ -234,13 +234,6 @@ function Restaurant() {
 
         {banquets && (
         <div>
-          <div style={{ display: "flex"}}>
-            <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
-            <div style={{ flex: 1, backgroundColor: "#FFFFFF", height: "6px" }} />
-            <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
-          </div>
-          
-          
           <div style={{color: "white"}}>
             <h1 className="text-center" style={{fontSize: 70}}>Banquet Options</h1>
           </div>
