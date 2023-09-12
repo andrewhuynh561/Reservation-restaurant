@@ -212,10 +212,10 @@ function Restaurant() {
       <div className="overlay"></div>
       <div className="content">
         <div style={{color: "white"}}>
-          <h1 className="text-center"  style={{ fontSize: 100 }}>Welcome to</h1>
-          <h1 className="text-center"  style={{ fontSize: 100 }}>{restaurant.name}</h1>
+          <h1 className="text-center" id="fade-in" style={{ fontSize: 100 }}>Welcome to</h1>
+          <h1 className="text-center" id="fade-in"  style={{ fontSize: 100 }}>{restaurant.name}</h1>
           <div className="row">
-            <div className="des text-center">
+            <div className="des text-center" id="fade-in">
               <p style={{ fontStyle: "italic", color: "lightgrey",fontFamily:"cursive" }}>
                 {description(id)}
               </p>
@@ -223,7 +223,7 @@ function Restaurant() {
           </div>
         </div>
         <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">Book a Table</Link>
-        <div className="card" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
+        <div className="slide" id="fade-in-image" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
           <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
         </div>
         <p style={{color: "white", paddingTop:"30px"}}>All Images we use just for education only.</p>
@@ -235,18 +235,19 @@ function Restaurant() {
             <div style={{ flex: 1, backgroundColor: "#FFFFFF", height: "6px" }} />
             <div style={{ flex: 1, backgroundColor: "#8390A2", height: "6px" }} />
           </div>
-
+          
+          
           <div style={{color: "white", marginTop: "10px"}}>
             <h1 className="text-center">Banquet Options:</h1>
           </div>
 
 
           {banquets.map((banquet) => (
-            <div key={banquet.banquetID} style={{marginTop: "20px",borderRadius: "10px",border: "1px solid #8390A2",marginLeft: 425, backgroundColor: "#FFFFFF",padding: "10px", width: 430, opacity: 0.6}}>
-              <div style={{color: "black", fontWeight: "bolder", fontSize: 16, textAlign: "center"}}>
-                <p>{banquet.banquetName} {banquet.banquetPrice} <br/>(min {banquet.sittingLimit} people)</p>
-                <div style={{textAlign: "center"}}>
-                  <p>{formatMeals(banquet.banquetItems)}</p>
+            <div className="card" id="fade-in" key={banquet.banquetID} style={{width: 18 + "rem"}}>
+              <h5 className="card-title">{banquet.banquetName} {banquet.banquetPrice} <br/>(min {banquet.sittingLimit} people)</h5>
+              <div className="card-body">
+                  <div style={{textAlign: "center"}}>
+                  {formatMeals(banquet.banquetItems)}
                 </div>
               </div>
             </div>

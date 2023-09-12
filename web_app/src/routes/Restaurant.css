@@ -74,3 +74,21 @@ img.image-gallery-image {
   margin: auto;
   padding: 5%
 }
+
+#fade-in-image:hover {
+  opacity: 100%;
+  transition: opacity 1s;
+}
+
+#fade-in-image {
+  opacity: 50%;
+}
+
+@keyframes fade-in{
+  0% {opacity: 1;}
+  100%{opacity: 0;}
+}
+
+#fade-in{
+  animation: fade-in 2s alternate-reverse;
+}
