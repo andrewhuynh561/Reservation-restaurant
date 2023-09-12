@@ -46,8 +46,9 @@ const addReservation = async (req, res) => {
   const banquetId = req.body.banquetId
 
   const result = await database.insertBookings(date, numberOfGuests, restID, customerId, timeSlotId, banquetId);
+  console.log("result:", result);
 
-  return res.send(result);
+  return res.send({reservationID: result});
 }
 
 const getBanquets = async (req, res) => {

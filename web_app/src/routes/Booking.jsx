@@ -19,7 +19,8 @@ function Booking() {
   const [guest, setGuest] = useState("");
   const [banquet, setBanquet] = useState("");
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
- 
+  const [reservationID, setReservationID] = useState(0);
+
   const handleChangeinTimes = (newTimeslot) => {
     setTimeslot(newTimeslot)
   }
@@ -109,8 +110,9 @@ function Booking() {
          throw new Error(`Failed to create reservation for restaurant ID ${id}`);
        }
   
-       const responseBody = await response.text();
-       console.log("Post response", responseBody);
+       const responseBody = await response.json();
+       console.log("id", responseBody.reservationID);
+       setReservationID(responseBody.reservationID)
        openConfirmationModal();
      } catch (error) {
        console.error(error);
@@ -251,9 +253,9 @@ function Booking() {
         <p>Date: {date.toISOString().split('T')[0]}</p>
         <p>Time: {timeslot && timeslot.timeSlot}</p>
         <p>Location : {restaurant.name}</p>
-        <p>Customer: {null}</p>
+        <p>Customer: None</p>
         <p>Guest :{guest}</p>
-        <p>reservation</p>
+        <p>Reservation: {reservationID}</p>
         <button
          className="close-btn"
         onClick={closeConfirmationModal}>Close</button>

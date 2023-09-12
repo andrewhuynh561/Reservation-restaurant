@@ -16,7 +16,7 @@ function App() {
              
             
             <a href="/login" className="btn btn-success login-button-align" title="Log in to your account" type="button">Login</a>
-            <a href="/login" className="btn btn-warning signup-button" title="Create an account with us" type="button">Sign up</a>
+            <a href="/signup" className="btn btn-warning signup-button" title="Create an account with us" type="button">Sign up</a>
             <ul>
 
               <li><Link to="/">Home</Link></li>

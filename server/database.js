@@ -26,11 +26,11 @@ function select(db, query) {
 function insert(db, query) {
     return new Promise((resolve, reject) => {
         const queries = [];
-        db.run(query, (res, err) => {
+        db.run(query, function(res, err) {
             if (err) {
                 reject(err); // optional: again, you might choose to swallow this error.
             } else {
-                resolve(res); // resolve the promise
+                resolve(this.lastID); // resolve the promise
             }
         });
     });
