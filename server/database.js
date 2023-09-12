@@ -80,5 +80,8 @@ const fetchBanquets = async (id) => {
     return (await select(db, "SELECT * FROM Banquet WHERE restaurantID = " + id));
 }
 
+const fetchStaffLogin = async (userName) => {
+    return await select(db, "SELECT * FROM Account WHERE username == '" + userName + "' AND accountID IN (SELECT accountID from Employee)");
+}
 
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets}
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin}

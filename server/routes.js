@@ -8,6 +8,7 @@ function setupRoutes(router) {
   router.post('/restaurants/:id/bookings/', controller.addReservation);
   router.get('/restaurants/:id/restaurant', controller.getRestaurantDetail);
   router.get('/restaurants/:id/banquets', controller.getBanquets);
+  router.get('/login/:userName/staff', controller.getStaffLogin);
 }
 
 export default setupRoutes

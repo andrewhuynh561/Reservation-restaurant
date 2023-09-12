@@ -57,4 +57,11 @@ const getBanquets = async (req, res) => {
   return res.send(banquets);
 }
 
-export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets}
+const getStaffLogin = async (req, res) => {
+  let userName = req.params.userName;
+
+  const accountDetails = await database.fetchStaffLogin(userName)
+  return res.send(accountDetails);
+}
+
+export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin}

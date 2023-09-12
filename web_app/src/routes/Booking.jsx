@@ -75,7 +75,6 @@ function Booking() {
       .then((response) => response.json())
       .then((data) => {
         setTimeSlots([...data]);
-        // The timeslot variable does not change straight away: https://stackoverflow.com/questions/61254964/react-array-of-objects-usestate-from-fetch-call-assignment
       })
       .catch((err) => {
         console.log(err.message);
