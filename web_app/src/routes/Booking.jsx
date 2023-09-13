@@ -16,7 +16,7 @@ function Booking() {
   const [restaurant, setRestaurant] = useState([]);
   const [timeslot, setTimeslot] = useState(null);
   const [guest, setGuest] = useState("");
-  const [banquet, setBanquet] = useState("");
+  const [banquets, setBanquets] = useState([]);
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [reservationID, setReservationID] = useState(0);
 
@@ -78,6 +78,24 @@ function Booking() {
       });
   }, [id, date]);
 
+  useEffect(() => {
+    fetch(`http://localhost:6060/restaurants/${id}/banquets`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data for restaurant ID ${id}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("banquets", data);
+        setBanquets(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [id]);
+
+
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -87,36 +105,36 @@ function Booking() {
       restaurantId: id,
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
-      banquetId: banquet,
-    };
+      banquetId: banquets.banquetId,
+     };
+  
+     console.log(reservationData);
+  
+     try {
+       const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
+         method: "POST",
+         headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(reservationData),
+       });
+  
+       if (!response.ok) {
+         throw new Error(`Failed to create reservation for restaurant ID ${id}`);
+       }
+  
+       const responseBody = await response.json();
+       console.log("id", responseBody.reservationID);
+       setReservationID(responseBody.reservationID)
+       openConfirmationModal();
+     } catch (error) {
+       console.error(error);
+     }
+     
 
-    console.log(reservationData);
-
-    try {
-      const response = await fetch(
-        `http://localhost:6060/restaurants/${id}/bookings`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reservationData),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Failed to create reservation for restaurant ID ${id}`);
-      }
-
-      const responseBody = await response.json();
-      console.log("id", responseBody.reservationID);
-      setReservationID(responseBody.reservationID);
-      openConfirmationModal();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+   };
+  
 
   const handleDateChange = (date) => {
     const months = [
@@ -186,18 +204,15 @@ function Booking() {
               })}
               <p className="word">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
               {/* there to see if the time is updated and displayed */}
-<<<<<<< HEAD
-              <h3 className="word">Select the banquet size</h3>
-=======
-              <h3>Select your banquet option</h3>
->>>>>>> 3109f70c87c27a6adf663fa6935d72ca53978732
-              <input
-                type="text"
-                value={banquet}
-                onChange={(e) => setBanquet(e.target.value)}
-                name="banquet"
-              />
-              <h4 className="word">Select number of guests</h4>
+              <div>
+                <h3>Select your banquet option</h3>
+                <select style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                  {banquets.map((banquet) => (
+                    <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName}</option>
+                  ))}
+                </select>
+              </div>
+              <h4>Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
