@@ -56,6 +56,8 @@ function insert(db, query) {
 
 //db.close();
 
+// FETCH 
+
 const fetchRestaurants = async () => {
   return await select(db, "SELECT * from Restaurant");
 }
@@ -76,10 +78,6 @@ const fetchTimeSlots = async (restaurantId, date) => {
     return await select(db, "SELECT timeSlotID, timeSlot FROM TimeSlot WHERE timeSlotID NOT IN (SELECT timeSlotID FROM Reservation WHERE date == '" + date + "' ) AND restaurantID = " + restaurantId)
 }
 
-const insertBookings = async (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) => {
-    return await insert(db, `INSERT INTO Reservation (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) values ('${date}', ${numberOfGuests}, ${restaurantId}, ${customerId}, ${timeSlotId}, ${banquetId})`);
-}
-
 const fetchBanquets = async (id) => {
     return (await select(db, "SELECT * FROM Banquet WHERE restaurantID = " + id));
 }
@@ -92,4 +90,18 @@ const fetchEmployee = async (id) => {
     return (await select(db, "SELECT * FROM Employee WHERE accountID == " + id))[0];
 }
 
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchBookings}
+// INSERT
+const insertBookings = async (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) => {
+    return await insert(db, `INSERT INTO Reservation (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) values ('${date}', ${numberOfGuests}, ${restaurantId}, ${customerId}, ${timeSlotId}, ${banquetId})`);
+}
+
+const insertAccount = async (username, password) => {
+    return await insert(db, `INSERT INTO Account (username, password) values ('${username}', '${password}')`);
+}
+
+const insertCustomer = async (name, phone, email, accountID, address) => {
+    return await insert(db, `INSERT INTO Customer (name, phone, email, accountID, address) values ('${name}', '${phone}', '${email}', ${accountID}, '${address}')`);
+}
+
+
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchBookings, insertAccount, insertCustomer}
