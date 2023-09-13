@@ -7,17 +7,21 @@ img.image-gallery-image {
 
 
 .reservation-btn{
-  padding: 1.3rem 1rem;
-  border-radius: 30px;
+  
   color: #fff;
-  background: var(--main-color);
-  transition: background-color 300ms;
-  font-size: 20px;
-  padding-top: 20px;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+
 }
 .reservation-btn:hover{
   color: #fff;
-  background: var(--sec-color);
+  background: #0a58ca;
+  
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 
 }
 

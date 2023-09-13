@@ -29,7 +29,7 @@ function MenuImage({ id }) {
   return (
     <>
       <div className="row">
-        <h3>{restaurantName} Menu</h3>
+        <h3 className="word">{restaurantName} Menu</h3>
       </div>
       <div className="row">
         <img
