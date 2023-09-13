@@ -8,7 +8,7 @@ import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
 
 function Booking() {
-  document.body.id = "H";
+  document.body.id = 'H';
 
   const [date, setDate] = useState(new Date());
   const [timeSlots, setTimeSlots] = useState([]);
@@ -148,26 +148,12 @@ function Booking() {
   
 
   const handleDateChange = (date) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
     setDate(date);
   };
 
   return (
     <>
-      <h2 className="word">Reservation for {restaurant.name}</h2>
+      <h2 className="word title">Reservation for {restaurant.name}</h2>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -182,7 +168,7 @@ function Booking() {
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
               />
-              <p className="word">Selected date: {date.toDateString()}</p>
+              <p className="word word-selection">Selected date: {date.toDateString()}</p>
               <h3 className="word">Select the time</h3>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
@@ -213,7 +199,7 @@ function Booking() {
                   </button>
                 );
               })}
-              <p className="word">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
+              <p className="word word-selection">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
               {/* there to see if the time is updated and displayed */}
               <div>
                 <h3 className="word">Select your banquet option</h3>

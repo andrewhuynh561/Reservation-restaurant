@@ -230,7 +230,6 @@ function Restaurant() {
         <div className="slide" id="fade-in-image" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
           <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
         </div>
-        <p style={{color: "white", paddingTop:"30px"}}>All Images we use just for education only.</p>
 
         {banquets && (
         <div>
