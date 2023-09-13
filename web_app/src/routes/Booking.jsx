@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Modal from "react-modal";
 import "./Booking.css";
 import MenuImage from "./Elements/menuImage";
-import "./Booking.css";
+import Payment from "../components/Payment";
 
 function Booking() {
   document.body.id = "H";
@@ -19,6 +19,7 @@ function Booking() {
   const [banquets, setBanquets] = useState([]);
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [reservationID, setReservationID] = useState(0);
+  const [selectedBanquetID, setSelectedBanquetID] = useState(-1);
 
   const handleChangeinTimes = (newTimeslot) => {
     setTimeslot(newTimeslot);
@@ -206,10 +207,12 @@ function Booking() {
               {/* there to see if the time is updated and displayed */}
               <div>
                 <h3 className="word">Select your banquet option</h3>
-                <select style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
-                  <option value="">None</option>
+                <select onChange={(e)=> {setSelectedBanquetID(e.target.value)}} style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                  <option value={-1}>None</option>
                   {banquets.map((banquet) => (
-                    <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName} {banquet.banquetPrice}</option>
+                    <option key={banquet.banquetId} value={banquet.banquetId}>
+                      {banquet.banquetName} {banquet.banquetPrice}
+                    </option>
   
                   ))}
                 </select>
@@ -224,6 +227,9 @@ function Booking() {
               />
             </div>
           </form>
+          { selectedBanquetID != -1 &&
+            <Payment></Payment>
+          }
         </div>
 
         <div className="newResbtn">

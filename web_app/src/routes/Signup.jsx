@@ -225,7 +225,7 @@ function Signup() {
       >
         <h3>Your account has been successfully created!</h3><hr />
         <button
-         className="close-btn btn btn-danger"
+         className="close-btn"
         onClick={closeConfirmationModal}>Close</button>
       </Modal>
     </>
