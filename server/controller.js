@@ -82,4 +82,4 @@ const getEmployee = async (req, res) => {
   return res.send(employee);
 }
 
-export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee}
+export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount}
