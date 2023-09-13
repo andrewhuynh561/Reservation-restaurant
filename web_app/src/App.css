@@ -67,7 +67,6 @@
 } */
 .nav-menu  a{
   color: #fff;
-  margin-right: 3rem;
   align-items: center;
   justify-content: center;
   text-decoration: inherit;
@@ -86,13 +85,13 @@
 
   position:absolute;
   top: 10px;
-  right:-30px;
+  right:10px;
 }
 
 .signup-button{
   position:absolute;
   top: 10px;
-  right:100px;
+  right: 85px;
 
 }
 

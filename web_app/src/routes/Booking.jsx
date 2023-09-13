@@ -112,7 +112,7 @@ function Booking() {
     console.log(date.toISOString());
 
     const reservationData = {
-      date: date.toISOString().split("T")[0], // this does not work because it takes off the GMT +0930 and will set the wrong date.
+      date: date.toISOString().split("T")[0], // This does not work because it takes off the GMT +0930 and will set the wrong date.
       numberOfGuests: guest,
       restaurantId: id,
       customerId: null,
