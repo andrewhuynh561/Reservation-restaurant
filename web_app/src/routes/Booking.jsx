@@ -156,7 +156,7 @@ function Booking() {
 
   return (
     <>
-      <h2 className="word">Reservation for {restaurant.name}</h2>
+      <h2 className="word title">Reservation for {restaurant.name}</h2>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -171,7 +171,7 @@ function Booking() {
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
               />
-              <p className="word">Selected date: {date.toDateString()}</p>
+              <p className="word word-selection">Selected date: {date.toDateString()}</p>
               <h3 className="word">Select the time</h3>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
@@ -202,14 +202,14 @@ function Booking() {
                   </button>
                 );
               })}
-              <p className="word">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
+              <p className="word word-selection">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
               {/* there to see if the time is updated and displayed */}
               <div>
                 <h3 className="word">Select your banquet option</h3>
                 <select style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
                   <option value="">None</option>
                   {banquets.map((banquet) => (
-                    <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName} {banquet.banquetPrice}</option>
+                    <option key={banquet} value={banquet.banquetName}>{banquet.banquetName} {banquet.banquetPrice}</option>
   
                   ))}
                 </select>
