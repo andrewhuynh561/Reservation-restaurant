@@ -156,7 +156,7 @@ function Booking() {
 
   return (
     <>
-      <h2>Reservation for {restaurant.name}</h2>
+      <h2 className="word">Reservation for {restaurant.name}</h2>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -205,14 +205,14 @@ function Booking() {
               <p className="word">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
               {/* there to see if the time is updated and displayed */}
               <div>
-                <h3>Select your banquet option</h3>
+                <h3 className="word">Select your banquet option</h3>
                 <select style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
                   {banquets.map((banquet) => (
                     <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName}</option>
                   ))}
                 </select>
               </div>
-              <h4>Select number of guests</h4>
+              <h4 className="word">Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
