@@ -263,21 +263,34 @@ function Booking() {
               overflowY: "auto",
               position: "relative",
               border: "1px solid #ccc",
-              borderRadius: "0.3rem",
+              borderRadius: "0.5rem",
             },
           }}
         >
-          <h2>Your reservation has been made</h2>
-          <hr />
-          <p>Date: {date.toISOString().split("T")[0]}</p>
-          <p>Time: {timeslot && timeslot.timeSlot}</p>
-          <p>Location : {restaurant.name}</p>
-          <p>Customer: None</p>
-          <p>Guest :{guest}</p>
-          <p>Reservation: {reservationID}</p>
-          <button className="close-btn" onClick={closeConfirmationModal}>
-            Close
-          </button>
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+                <h2  class="modal-title w-100">Your reservation has been made !</h2>
+            </div>
+            <hr />
+            <p className="p">Date: {date.toISOString().split("T")[0]}</p>
+            <p className="p">Time: {timeslot && timeslot.timeSlot}</p>
+            <p className="p">Location : {restaurant.name}</p>
+            <p className="p">Customer: None</p>
+            <p className="p">Guest :{guest}</p>
+            <p className="p">Reservation: {reservationID}</p>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-block" data-dismiss="modal" onClick={closeConfirmationModal}>OK</button>
+            </div>
+        </div>
+     </div>
+
+
+         
+       
         </Modal>
       </div>
     </>
