@@ -60,34 +60,45 @@ function Dashboard() {
     }, [employee]);
 
     useEffect(() => {
-      var tempJSON = {
-        start: dayjs(),
-        end: dayjs().add(30, 'minutes'),
-        title: "",
-        desc: "",       
-      }
-
-      var tempIsoString = "";
+      var tempArray = [];
       
       if(bookings.length > 0) {
         for (var i = 0; i < bookings.length; i++) {
-          tempIsoString = bookings[i].date + 'T'+ bookings[i].timeSlot
-          console.log(tempIsoString);
+          var fdate = dayjs(bookings[i].date + bookings[i].timeSlot)
+
+          var tempJSON = {
+            start: fdate.toDate(),
+            end: fdate.add(30, 'minutes').toDate(),
+            title: "Booking for " + bookings[i].numberOfGuests + "\n" + "Banquet " + bookings[i].banquetID,     
+          }
+
+          tempArray.push(tempJSON);
+          
         }
+
+        console.log(tempArray);
+        setFBookings(tempArray);
       }
+
+      
 
     }, [bookings]);
     
     return(
         <>
-            <p>{id}</p>
-            <div>
+            <div style={{color: "white"}}>
+              <p>Welcome {employee.name}</p>
+            </div>
+            <div className="calendar-container">
               <Calendar
                 localizer={localizer}
-                //events={formattedBookings}
+                events={formattedBookings}
+                min={new Date(0, 0, 0, 10, 0, 0)}
+                max={new Date(0, 0, 0, 23, 59, 0)}
+                step={10}
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 500 }}
+
               />
             </div>
         </>
