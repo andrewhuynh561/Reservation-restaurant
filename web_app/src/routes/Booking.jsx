@@ -3,27 +3,26 @@ import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from "react-modal";
-import  "./Booking.css"
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DigitalClock } from "@mui/x-date-pickers";
+import "./Booking.css";
 import MenuImage from "./Elements/menuImage";
 import "./Booking.css";
 
 function Booking() {
+  document.body.id = "H";
+
   const [date, setDate] = useState(new Date());
   const [timeSlots, setTimeSlots] = useState([]);
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState([]);
   const [timeslot, setTimeslot] = useState(null);
   const [guest, setGuest] = useState("");
-  const [banquet, setBanquet] = useState("");
+  const [banquets, setBanquets] = useState([]);
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [reservationID, setReservationID] = useState(0);
 
   const handleChangeinTimes = (newTimeslot) => {
-    setTimeslot(newTimeslot)
-  }
+    setTimeslot(newTimeslot);
+  };
   const openConfirmationModal = () => {
     setConfirmationModalOpen(true);
   };
@@ -31,9 +30,7 @@ function Booking() {
   const closeConfirmationModal = (e) => {
     e.preventDefault();
     setConfirmationModalOpen(false);
-
   };
- 
 
   const isDayDisable = (banDate) => {
     const dayOfWeek = banDate.getDay();
@@ -81,6 +78,24 @@ function Booking() {
       });
   }, [id, date]);
 
+  useEffect(() => {
+    fetch(`http://localhost:6060/restaurants/${id}/banquets`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data for restaurant ID ${id}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("banquets", data);
+        setBanquets(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [id]);
+
+
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -90,7 +105,7 @@ function Booking() {
       restaurantId: id,
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
-      banquetId: banquet,
+      banquetId: banquets.banquetId
      };
   
      console.log(reservationData);
@@ -140,7 +155,8 @@ function Booking() {
   };
 
   return (
-    <div>
+    <>
+      <h2 className="word">Reservation for {restaurant.name}</h2>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -148,16 +164,15 @@ function Booking() {
         <div className="col-6">
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
-              <h2>Reservation for {restaurant.name}</h2>
-              <h3>Select the date</h3>
+              <h3 className="word">Select the date</h3>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
               />
-              <p>Selected date: {date.toDateString()}</p>
-              <h3>Select the time</h3>
+              <p className="word">Selected date: {date.toDateString()}</p>
+              <h3 className="word">Select the time</h3>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
                   handleChangeinTimes(timeslot);
@@ -187,16 +202,19 @@ function Booking() {
                   </button>
                 );
               })}
-              <p>Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
+              <p className="word">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
               {/* there to see if the time is updated and displayed */}
-              <h3>Select the banquet size</h3>
-              <input
-                type="text"
-                value={banquet}
-                onChange={(e) => setBanquet(e.target.value)}
-                name="banquet"
-              />
-              <h4>Select number of guests</h4>
+              <div>
+                <h3 className="word">Select your banquet option</h3>
+                <select style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                  <option value="">None</option>
+                  {banquets.map((banquet) => (
+                    <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName} {banquet.banquetPrice}</option>
+  
+                  ))}
+                </select>
+              </div>
+              <h4 className="word">Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
@@ -207,61 +225,60 @@ function Booking() {
             </div>
           </form>
         </div>
-      
 
-      <div className="newResbtn">
-        <br /> 
-        <button
-          className="reservation-btn"
-          type="button"
-          onClick={handleSubmit}
-          
+        <div className="newResbtn">
+          <br />
+          <button
+            className="reservation-btn"
+            type="button"
+            onClick={handleSubmit}
+          >
+            Booking<span></span>
+          </button>
+        </div>
+        <Modal
+          isOpen={isConfirmationModalOpen}
+          onRequestClose={closeConfirmationModal}
+          contentLabel="Confirmation Modal"
+          style={{
+            overlay: {
+              position: "fixed",
+              zIndex: 1020,
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(255, 255, 255, 0.5)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            },
+            content: {
+              background: "white",
+              width: "45rem",
+              maxWidth: "calc(100vw - 2rem)",
+              maxHeight: "calc(100vh - 2rem)",
+              overflowY: "auto",
+              position: "relative",
+              border: "1px solid #ccc",
+              borderRadius: "0.3rem",
+            },
+          }}
         >
-          Booking<span></span>
-        </button>
+          <h2>Your reservation has been made</h2>
+          <hr />
+          <p>Date: {date.toISOString().split("T")[0]}</p>
+          <p>Time: {timeslot && timeslot.timeSlot}</p>
+          <p>Location : {restaurant.name}</p>
+          <p>Customer: None</p>
+          <p>Guest :{guest}</p>
+          <p>Reservation: {reservationID}</p>
+          <button className="close-btn" onClick={closeConfirmationModal}>
+            Close
+          </button>
+        </Modal>
       </div>
-      <Modal
-        isOpen={isConfirmationModalOpen}
-        onRequestClose={closeConfirmationModal}
-        contentLabel="Confirmation Modal"
-        style={{
-          overlay: {
-            position: 'fixed',
-            zIndex: 1020,
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            background: 'rgba(255, 255, 255, 0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          content: {
-            background:"white",
-            width: '45rem',
-            maxWidth: 'calc(100vw - 2rem)',
-            maxHeight: 'calc(100vh - 2rem)',
-            overflowY: 'auto',
-            position: 'relative',
-            border: '1px solid #ccc',
-            borderRadius: '0.3rem',
-          }}} 
-      >
-        <h2>Your reservation has been made</h2><hr />
-        <p>Date: {date.toISOString().split('T')[0]}</p>
-        <p>Time: {timeslot && timeslot.timeSlot}</p>
-        <p>Location : {restaurant.name}</p>
-        <p>Customer: None</p>
-        <p>Guest :{guest}</p>
-        <p>Reservation: {reservationID}</p>
-        <button
-         className="close-btn"
-        onClick={closeConfirmationModal}>Close</button>
-      </Modal>
-    
-    </div>
-  </div>
+    </>
   );
 }
 
