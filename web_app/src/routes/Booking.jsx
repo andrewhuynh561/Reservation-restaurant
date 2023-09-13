@@ -105,7 +105,7 @@ function Booking() {
       restaurantId: id,
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
-      banquetId: banquets
+      banquetId: banquets.banquetId
      };
   
      console.log(reservationData);
