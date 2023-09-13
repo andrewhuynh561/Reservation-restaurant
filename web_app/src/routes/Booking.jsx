@@ -16,7 +16,7 @@ function Booking() {
   const [restaurant, setRestaurant] = useState([]);
   const [timeslot, setTimeslot] = useState(null);
   const [guest, setGuest] = useState("");
-  const [banquet, setBanquet] = useState("");
+  const [banquets, setBanquets] = useState([]);
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [reservationID, setReservationID] = useState(0);
 
@@ -78,6 +78,24 @@ function Booking() {
       });
   }, [id, date]);
 
+  useEffect(() => {
+    fetch(`http://localhost:6060/restaurants/${id}/banquets`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data for restaurant ID ${id}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("banquets", data);
+        setBanquets(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [id]);
+
+
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -87,36 +105,36 @@ function Booking() {
       restaurantId: id,
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
-      banquetId: banquet,
-    };
+      banquetId: banquets
+     };
+  
+     console.log(reservationData);
+  
+     try {
+       const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
+         method: "POST",
+         headers: {
+           "Accept": "application/json",
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(reservationData),
+       });
+  
+       if (!response.ok) {
+         throw new Error(`Failed to create reservation for restaurant ID ${id}`);
+       }
+  
+       const responseBody = await response.json();
+       console.log("id", responseBody.reservationID);
+       setReservationID(responseBody.reservationID)
+       openConfirmationModal();
+     } catch (error) {
+       console.error(error);
+     }
+     
 
-    console.log(reservationData);
-
-    try {
-      const response = await fetch(
-        `http://localhost:6060/restaurants/${id}/bookings`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reservationData),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Failed to create reservation for restaurant ID ${id}`);
-      }
-
-      const responseBody = await response.json();
-      console.log("id", responseBody.reservationID);
-      setReservationID(responseBody.reservationID);
-      openConfirmationModal();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+   };
+  
 
   const handleDateChange = (date) => {
     const months = [
@@ -138,7 +156,7 @@ function Booking() {
 
   return (
     <>
-      <h2>Reservation for {restaurant.name}</h2>
+      <h2 className="word">Reservation for {restaurant.name}</h2>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -146,15 +164,15 @@ function Booking() {
         <div className="col-6">
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
-              <h3>Select the date</h3>
+              <h3 className="word">Select the date</h3>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
               />
-              <p>Selected date: {date.toDateString()}</p>
-              <h3>Select the time</h3>
+              <p className="word">Selected date: {date.toDateString()}</p>
+              <h3 className="word">Select the time</h3>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
                   handleChangeinTimes(timeslot);
@@ -184,16 +202,19 @@ function Booking() {
                   </button>
                 );
               })}
-              <p>Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
+              <p className="word">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
               {/* there to see if the time is updated and displayed */}
-              <h3>Select your banquet option</h3>
-              <input
-                type="text"
-                value={banquet}
-                onChange={(e) => setBanquet(e.target.value)}
-                name="banquet"
-              />
-              <h4>Select number of guests</h4>
+              <div>
+                <h3 className="word">Select your banquet option</h3>
+                <select style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                  <option value="">None</option>
+                  {banquets.map((banquet) => (
+                    <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName} {banquet.banquetPrice}</option>
+  
+                  ))}
+                </select>
+              </div>
+              <h4 className="word">Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
