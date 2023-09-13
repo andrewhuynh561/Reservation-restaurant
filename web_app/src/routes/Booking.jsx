@@ -8,7 +8,7 @@ import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
 
 function Booking() {
-  document.body.id = 'H';
+  document.body.id = "H";
 
   const [date, setDate] = useState(new Date());
   const [timeSlots, setTimeSlots] = useState([]);
@@ -96,7 +96,6 @@ function Booking() {
       });
   }, [id]);
 
-
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -106,36 +105,36 @@ function Booking() {
       restaurantId: id,
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
-      banquetId: banquets.banquetId
-     };
-  
-     console.log(reservationData);
-  
-     try {
-       const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
-         method: "POST",
-         headers: {
-           "Accept": "application/json",
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(reservationData),
-       });
-  
-       if (!response.ok) {
-         throw new Error(`Failed to create reservation for restaurant ID ${id}`);
-       }
-  
-       const responseBody = await response.json();
-       console.log("id", responseBody.reservationID);
-       setReservationID(responseBody.reservationID)
-       openConfirmationModal();
-     } catch (error) {
-       console.error(error);
-     }
-     
+      banquetId: banquets.banquetId,
+    };
 
-   };
-  
+    console.log(reservationData);
+
+    try {
+      const response = await fetch(
+        `http://localhost:6060/restaurants/${id}/bookings`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reservationData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to create reservation for restaurant ID ${id}`);
+      }
+
+      const responseBody = await response.json();
+      console.log("id", responseBody.reservationID);
+      setReservationID(responseBody.reservationID);
+      openConfirmationModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleDateChange = (date) => {
     setDate(date);
@@ -144,11 +143,11 @@ function Booking() {
   return (
     <>
       <h2 className="word title">Reservation for {restaurant.name}</h2>
-      <div className="row g-2 justify-content-md-center">
+      <div className="row g-2 justify-content-md-evenly">
         <div className="col-4">
           <MenuImage id={id} />
         </div>
-        <div className="col-6">
+        <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
               <h3 className="word">Select the date</h3>
@@ -158,7 +157,9 @@ function Booking() {
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
               />
-              <p className="word word-selection">Selected date: {date.toDateString()}</p>
+              <p className="word-selection">
+                Selected date: {date.toDateString()}
+              </p>
               <h3 className="word">Select the time</h3>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
@@ -189,17 +190,26 @@ function Booking() {
                   </button>
                 );
               })}
-              <p className="word word-selection">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
+              <p className="word-selection">
+                Selected Time: {timeslot && timeslot.timeSlot}
+              </p>{" "}
               {/* there to see if the time is updated and displayed */}
               <div>
                 <h3 className="word">Select your banquet option</h3>
-                <select onChange={(e)=> {setSelectedBanquetID(e.target.value)}} style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                <select
+                  onChange={(e) => {
+                    setSelectedBanquetID(e.target.value);
+                  }}
+                  style={{ width: "200px", height: "30px" }}
+                  id="banquetOptions"
+                  name="banquetOptions"
+                  form="banquetForm"
+                >
                   <option value={-1}>None</option>
                   {banquets.map((banquet) => (
                     <option key={banquet.banquetId} value={banquet.banquetId}>
                       {banquet.banquetName} {banquet.banquetPrice}
                     </option>
-  
                   ))}
                 </select>
               </div>
@@ -213,12 +223,12 @@ function Booking() {
               />
             </div>
           </form>
-          { selectedBanquetID != -1 &&
-            <Payment></Payment>
-          }
+          {selectedBanquetID != -1 && <Payment></Payment>}
         </div>
 
         <div className="newResbtn">
+          <br />
+          <br />
           <br />
           <button
             className="reservation-btn"
