@@ -60,6 +60,10 @@ const fetchRestaurants = async () => {
   return await select(db, "SELECT * from Restaurant");
 }
 
+const fetchBookings = async (id) => {
+    return await select(db, "SELECT * FROM Reservation AS R LEFT JOIN TimeSlot AS T ON R.timeSlotID = T.timeSlotID WHERE R.restaurantID = " + id);
+} 
+
 const fetchRest = async (id) => {
     return (await select(db, "SELECT * from Restaurant WHERE restaurantID="+id))[0];
 }
@@ -84,4 +88,8 @@ const fetchStaffLogin = async (userName) => {
     return (await select(db, "SELECT * FROM Account WHERE username == '" + userName + "' AND accountID IN (SELECT accountID from Employee)"))[0];
 }
 
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin}
+const fetchEmployee = async (id) => {
+    return (await select(db, "SELECT * FROM Employee WHERE accountID == " + id))[0];
+}
+
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchBookings}

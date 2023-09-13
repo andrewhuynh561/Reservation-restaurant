@@ -8,12 +8,7 @@ const getRestaurants = async (req, res) => {
 
 const getBookings = async (req, res) => {
   let restId = req.params.id;
-
-  var bookings = [
-    {
-      time: "7 pm"
-    }
-  ]
+  const bookings = await database.fetchBookings(restId)
   return res.send(bookings);
 }
 
@@ -64,4 +59,10 @@ const getStaffLogin = async (req, res) => {
   return res.send(accountDetails);
 }
 
-export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin}
+const getEmployee = async (req, res) => {
+  let id = req.params.id;
+  const employee = await database.fetchEmployee(id);
+  return res.send(employee);
+}
+
+export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee}
