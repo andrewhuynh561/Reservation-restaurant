@@ -1,6 +1,7 @@
 import './About.css'
 
 function About() {
+  document.body.id = 'H';
   
   return (
     <>
