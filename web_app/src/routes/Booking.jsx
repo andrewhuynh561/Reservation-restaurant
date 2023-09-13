@@ -8,7 +8,7 @@ import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
 
 function Booking() {
-  document.body.id = 'H';
+  document.body.id = "H";
 
   const [date, setDate] = useState(new Date());
   const [timeSlots, setTimeSlots] = useState([]);
@@ -19,8 +19,12 @@ function Booking() {
   const [banquets, setBanquets] = useState([]);
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [reservationID, setReservationID] = useState(0);
-  const [selectedBanquetID, setSelectedBanquetID] = useState(-1);
+  const [selectedBanquetID, setSelectedBanquetID] = useState(null);
 
+  const updateBanquet = (select) => {
+    var id = select.options[select.selectedIndex].value;
+    setSelectedBanquetID(id);
+  };
   const handleChangeinTimes = (newTimeslot) => {
     setTimeslot(newTimeslot);
   };
@@ -96,46 +100,51 @@ function Booking() {
       });
   }, [id]);
 
-
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    var banquetId = selectedBanquetID;
+    if (banquetId == -1) {
+      banquetId = null;
+    }
+
     const reservationData = {
       date: date.toISOString().split("T")[0],
       numberOfGuests: guest,
       restaurantId: id,
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
-      banquetId: banquets.banquetId
-     };
-  
-     console.log(reservationData);
-  
-     try {
-       const response = await fetch(`http://localhost:6060/restaurants/${id}/bookings`, {
-         method: "POST",
-         headers: {
-           "Accept": "application/json",
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(reservationData),
-       });
-  
-       if (!response.ok) {
-         throw new Error(`Failed to create reservation for restaurant ID ${id}`);
-       }
-  
-       const responseBody = await response.json();
-       console.log("id", responseBody.reservationID);
-       setReservationID(responseBody.reservationID)
-       openConfirmationModal();
-     } catch (error) {
-       console.error(error);
-     }
-     
+      banquetId: banquetId,
+    };
 
-   };
-  
+    console.log(reservationData);
+
+    try {
+      const response = await fetch(
+        `http://localhost:6060/restaurants/${id}/bookings`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reservationData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to create reservation for restaurant ID ${id}`);
+      }
+
+      const responseBody = await response.json();
+      console.log("id", responseBody.reservationID);
+      setReservationID(responseBody.reservationID);
+      openConfirmationModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleDateChange = (date) => {
     setDate(date);
@@ -143,12 +152,12 @@ function Booking() {
 
   return (
     <>
-      <h2 className="word">Reservation for {restaurant.name}</h2>
-      <div className="row g-2 justify-content-md-center">
+      <h2 className="word title">Reservation for {restaurant.name}</h2>
+      <div className="row g-2 justify-content-md-evenly">
         <div className="col-4">
           <MenuImage id={id} />
         </div>
-        <div className="col-6">
+        <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
               <h3 className="word">Select the date</h3>
@@ -158,7 +167,9 @@ function Booking() {
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
               />
-              <p className="word">Selected date: {date.toDateString()}</p>
+              <p className="word-selection">
+                Selected date: {date.toDateString()}
+              </p>
               <h3 className="word">Select the time</h3>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
@@ -189,17 +200,26 @@ function Booking() {
                   </button>
                 );
               })}
-              <p className="word">Selected Time: {timeslot && timeslot.timeSlot}</p>{" "}
+              <p className="word-selection">
+                Selected Time: {timeslot && timeslot.timeSlot}
+              </p>{" "}
               {/* there to see if the time is updated and displayed */}
               <div>
                 <h3 className="word">Select your banquet option</h3>
-                <select onChange={(e)=> {setSelectedBanquetID(e.target.value)}} style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                <select
+                  onChange={(e) => {
+                    updateBanquet(e.target);
+                  }}
+                  style={{ width: "200px", height: "30px" }}
+                  id="banquetOptions"
+                  name="banquetOptions"
+                  form="banquetForm"
+                >
                   <option value={-1}>None</option>
                   {banquets.map((banquet) => (
-                    <option key={banquet.banquetId} value={banquet.banquetId}>
+                    <option key={banquet.banquetID} value={banquet.banquetID}>
                       {banquet.banquetName} {banquet.banquetPrice}
                     </option>
-  
                   ))}
                 </select>
               </div>
@@ -213,12 +233,12 @@ function Booking() {
               />
             </div>
           </form>
-          { selectedBanquetID != -1 &&
-            <Payment></Payment>
-          }
+          {selectedBanquetID != -1 && <Payment></Payment>}
         </div>
 
         <div className="newResbtn">
+          <br />
+          <br />
           <br />
           <button
             className="reservation-btn"
@@ -253,21 +273,38 @@ function Booking() {
               overflowY: "auto",
               position: "relative",
               border: "1px solid #ccc",
-              borderRadius: "0.3rem",
+              borderRadius: "0.5rem",
             },
           }}
         >
-          <h2>Your reservation has been made</h2>
-          <hr />
-          <p>Date: {date.toISOString().split("T")[0]}</p>
-          <p>Time: {timeslot && timeslot.timeSlot}</p>
-          <p>Location : {restaurant.name}</p>
-          <p>Customer: None</p>
-          <p>Guest :{guest}</p>
-          <p>Reservation: {reservationID}</p>
-          <button className="close-btn" onClick={closeConfirmationModal}>
-            Close
-          </button>
+          <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="icon-box">
+                  <i class="material-icons">&#xE876;</i>
+                </div>
+                <h2 class="modal-title w-100">
+                  Your reservation has been made !
+                </h2>
+              </div>
+              <hr />
+              <p className="p">Date: {date.toISOString().split("T")[0]}</p>
+              <p className="p">Time: {timeslot && timeslot.timeSlot}</p>
+              <p className="p">Location : {restaurant.name}</p>
+              <p className="p">Customer: None</p>
+              <p className="p">Guest :{guest}</p>
+              <p className="p">Reservation: {reservationID}</p>
+              <div class="modal-footer">
+                <button
+                  class="btn btn-success btn-block"
+                  data-dismiss="modal"
+                  onClick={closeConfirmationModal}
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
         </Modal>
       </div>
     </>
