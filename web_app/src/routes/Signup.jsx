@@ -170,7 +170,7 @@ function Signup() {
                   <div className='col-md-7 mb-4 pb-2'>
                     <div className="form-outline form-white">
                       <label style={{color:"black"}} className="form-label label-style">Password</label>
-                      <input type="text" className="form-control form-control-lg" value={password}
+                      <input type="password" className="form-control form-control-lg" value={password}
                       onChange={(e)=>(setPassword(e.target.value))}></input>
                     </div>  
                   </div> 
