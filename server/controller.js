@@ -36,6 +36,19 @@ const getTimeSlots = async (req, res) => {
   return res.send(timeSlots);
 }
 
+const getBanquets = async (req, res) => {
+  let restID = req.params.id; 
+  const banquets = await database.fetchBanquets(restID);
+  return res.send(banquets);
+}
+
+const getStaffLogin = async (req, res) => {
+  let userName = req.params.userName;
+
+  const accountDetails = await database.fetchStaffLogin(userName)
+  return res.send(accountDetails);
+}
+
 const addReservation = async (req, res) => {
   let restID = req.params.id;
   
@@ -51,17 +64,22 @@ const addReservation = async (req, res) => {
   return res.send({reservationID: result});
 }
 
-const getBanquets = async (req, res) => {
-  let restID = req.params.id; 
-  const banquets = await database.fetchBanquets(restID);
-  return res.send(banquets);
+const addAccount = async (req, res) => {
+  
+  const username = req.body.userName
+  const password = req.body.password
+  const name = req.body.name
+  const phone = req.body.phone
+  const email = req.body.email
+  const address = req.body.address
+
+  const accID = await database.insertAccount(username, password);
+  const cust = await database.insertCustomer(name, phone, email, accID, address)
+  console.log("accountID: ", accID)
+  console.log("custID: ", cust)
+
+  return res.send({accountID: accID, customerID: cust})
 }
 
-const getStaffLogin = async (req, res) => {
-  let userName = req.params.userName;
 
-  const accountDetails = await database.fetchStaffLogin(userName)
-  return res.send(accountDetails);
-}
-
-export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin}
+export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, addAccount, getRestaurantDetail, getBanquets, getStaffLogin}
