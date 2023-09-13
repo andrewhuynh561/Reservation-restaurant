@@ -212,8 +212,10 @@ function Booking() {
               <div>
                 <h3>Select your banquet option</h3>
                 <select style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                  <option value="">None</option>
                   {banquets.map((banquet) => (
-                    <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName}</option>
+                    <option key={banquet.banquetId} value={banquet.banquetName}>{banquet.banquetName} {banquet.banquetPrice}</option>
+  
                   ))}
                 </select>
               </div>
