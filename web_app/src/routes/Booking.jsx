@@ -146,12 +146,7 @@ function Booking() {
         <div className="col-6">
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
-<<<<<<< HEAD
-              <h2 className="word">Reservation for {restaurant.name}</h2>
               <h3 className="word">Select the date</h3>
-=======
-              <h3>Select the date</h3>
->>>>>>> 3109f70c87c27a6adf663fa6935d72ca53978732
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
