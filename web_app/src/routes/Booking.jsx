@@ -19,8 +19,12 @@ function Booking() {
   const [banquets, setBanquets] = useState([]);
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [reservationID, setReservationID] = useState(0);
-  const [selectedBanquetID, setSelectedBanquetID] = useState(-1);
+  const [selectedBanquetID, setSelectedBanquetID] = useState(null);
 
+  const updateBanquet = (select) => {
+    var id = select.options[select.selectedIndex].value;
+    setSelectedBanquetID(id)
+  }
   const handleChangeinTimes = (newTimeslot) => {
     setTimeslot(newTimeslot);
   };
@@ -100,13 +104,19 @@ function Booking() {
   // date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    var banquetId = selectedBanquetID;
+    if (banquetId == -1) {
+      banquetId = null
+    }
+
     const reservationData = {
       date: date.toISOString().split("T")[0],
       numberOfGuests: guest,
       restaurantId: id,
       customerId: null,
       timeSlotId: timeslot.timeSlotID,
-      banquetId: banquets.banquetId
+      banquetId: banquetId
      };
   
      console.log(reservationData);
@@ -207,10 +217,10 @@ function Booking() {
               {/* there to see if the time is updated and displayed */}
               <div>
                 <h3 className="word">Select your banquet option</h3>
-                <select onChange={(e)=> {setSelectedBanquetID(e.target.value)}} style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
+                <select onChange={(e)=> {updateBanquet(e.target)}} style={{width: "200px",height: "30px"}} id="banquetOptions" name="banquetOptions" form="banquetForm">
                   <option value={-1}>None</option>
                   {banquets.map((banquet) => (
-                    <option key={banquet.banquetId} value={banquet.banquetId}>
+                    <option key={banquet.banquetID} value={banquet.banquetID}>
                       {banquet.banquetName} {banquet.banquetPrice}
                     </option>
   
