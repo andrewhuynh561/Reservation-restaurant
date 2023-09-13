@@ -46,7 +46,7 @@ function Login() {
         bcrypt.compare(password, responseBody.password, function(err, res) {
           if(res){
             console.log("valid", responseBody.accountID);
-            navigate('/dashboard/${responseBody.accountID}', {replace: true});
+            navigate(`/dashboard/${responseBody.accountID}`, {state: true});
           }
           else {
             //need to add response feature
@@ -88,14 +88,14 @@ function Login() {
             Don't have an account? &nbsp;
             <Link to={`/signup/`}>Sign up here</Link>
           </p>
-          <button type="button" className="staff" onClick={handleLoginChange}>Staff login</button>
+          <button type="button" className="mt-2 btn btn-primary" onClick={handleLoginChange}>Staff login</button>
         </div>
       );
     }
     else {
       return(
         <div>
-          <button type="button" className="staff" onClick={handleLoginChange}>Customer login</button>
+          <button type="button" className="mt-4 btn btn-primary" onClick={handleLoginChange}>Customer login</button>
         </div>
       );
     }
