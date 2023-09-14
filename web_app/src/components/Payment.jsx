@@ -26,6 +26,7 @@ function Payment() {
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            placeholder="Card Owner Name"
           ></input>
         </div>
 
@@ -42,6 +43,7 @@ function Payment() {
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            placeholder="Valid card number"
           ></input>
         </div>
 
@@ -59,6 +61,7 @@ function Payment() {
               className="form-control"
               style={{ float: "none", marginRight: 50 + "px" }}
               id="exampleInputPassword1"
+              placeholder="MM/YY"
             ></input>
           </div>
 
@@ -75,6 +78,7 @@ function Payment() {
               className="form-control"
               style={{ float: "none", marginRight: 50 + "px" }}
               id="exampleInputPassword1"
+              placeholder="XXX"
             ></input>
           </div>
         </div>

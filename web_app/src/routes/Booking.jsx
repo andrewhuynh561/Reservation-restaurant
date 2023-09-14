@@ -245,7 +245,7 @@ function Booking() {
                 </select>
               </div>
             )}
-              <h4 className="word">Select number of guests</h4>
+              <h4 className="word" placeholder="edsfdsfsdf">Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
