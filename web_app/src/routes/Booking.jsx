@@ -193,22 +193,23 @@ function Booking() {
                 };
 
                 return (
-                  <button
+                  <button className="btn"
                     type="button"
                     key={timeslot.timeSlotID}
                     onClick={onclickEvent}
                     style={{
-                      backgroundColor: "white",
+                      backgroundColor: "red",
                       color: "black",
-                      border: "1px solid black",
-                      transition: "background-color 0.3s, color 0.3s",
+                      margin: 2,
+                      padding: 2.5,
+                      //border: "1px solid black",
                     }}
                     onMouseEnter={(e) => {
                       e.target.style.backgroundColor = "blue";
                       e.target.style.color = "white";
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = "white";
+                      e.target.style.backgroundColor = "red";
                       e.target.style.color = "black";
                     }}
                   >
