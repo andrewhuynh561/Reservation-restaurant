@@ -1,6 +1,6 @@
 import './Login.css'
 import React, { useEffect, useState } from "react";
-
+import bcrypt from 'bcryptjs-react'
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from "react-modal";
 
@@ -33,9 +33,12 @@ function Signup() {
 
   const createAccount = async (event) => {
     event.preventDefault();
+
+    var hash = bcrypt.hashSync(password, 10);
+
     const accountData = {
       userName: username,
-      password: password,
+      password: hash,
       name: fName + " " + lName,
       phone: phone,
       email: email,
