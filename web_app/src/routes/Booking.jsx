@@ -177,7 +177,9 @@ function Booking() {
         <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
             <div className="mt-3 mb-3">
-              <h3 className="word">Select the date</h3>
+              <h3 className="word">Make a Booking</h3>
+              <hr style={{ borderTop: "3px solid white" }} />
+              <h4 className="word">Select the date</h4>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
