@@ -46,7 +46,7 @@ function Login() {
         bcrypt.compare(password, responseBody.password, function(err, res) {
           if(res){
             console.log("valid", responseBody.accountID);
-            navigate(`/dashboard/${responseBody.accountID}`, {state: true});
+            navigate(`/dashboard/${responseBody.accountID}`, {state: true, replace: true});
           }
           else {
             //need to add response feature

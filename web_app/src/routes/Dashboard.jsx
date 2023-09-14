@@ -69,7 +69,7 @@ function Dashboard() {
           var tempJSON = {
             start: fdate.toDate(),
             end: fdate.add(30, 'minutes').toDate(),
-            title: "Booking for " + bookings[i].numberOfGuests + "\n" + "Banquet " + bookings[i].banquetID,     
+            title: "Booking for " + bookings[i].numberOfGuests + "\n" + "Banquet: " + bookings[i].banquetID,     
           }
 
           tempArray.push(tempJSON);
@@ -87,7 +87,7 @@ function Dashboard() {
     return(
         <>
             <div style={{color: "white"}}>
-              <p>Welcome {employee.name}</p>
+              <h1>Welcome {employee.name}</h1>
             </div>
             <div className="calendar-container">
               <Calendar
