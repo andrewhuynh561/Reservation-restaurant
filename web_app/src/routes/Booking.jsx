@@ -184,7 +184,7 @@ function Booking() {
                 onChange={handleDateChange}
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
-                className="form-control"
+                className="form-control datepicker"
                 
               />
               <p className="word-selection">
