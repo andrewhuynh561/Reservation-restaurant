@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import "./Booking.css";
 import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
+import dayjs from "dayjs";
 
 function Booking() {
   document.body.id = "H";
@@ -71,12 +72,24 @@ function Booking() {
   }, [id]);
 
   useEffect(() => {
-    const formattedDate = date.toISOString().split("T")[0];
+    const formattedDate = dayjs(date).format("YYYY-MM-DD");
 
     fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
       .then((response) => response.json())
       .then((data) => {
-        setTimeSlots([...data]);
+        var tempData = data;
+        console.log(tempData);
+        for (var i = 0; i < tempData.length; i++) {
+          var hours = tempData[i].timeSlot.split(":")[0];
+          var AmOrPm = hours >= 12 ? "pm" : "am";
+          hours = hours % 12 || 12;
+          var minutes = tempData[i].timeSlot.split(":")[1];
+          tempData[i].timeSlot = hours + ":" + minutes + " " + AmOrPm;
+        }
+
+        console.log(tempData);
+
+        setTimeSlots([...tempData]);
       })
       .catch((err) => {
         console.log(err.message);
@@ -109,10 +122,10 @@ function Booking() {
       banquetId = null;
     }
 
-    console.log(date.toISOString());
+    console.log();
 
     const reservationData = {
-      date: date.toISOString().split("T")[0], // This does not work because it takes off the GMT +0930 and will set the wrong date.
+      date: dayjs(date).format("YYYY-MM-DD"), // Fixed
       numberOfGuests: guest,
       restaurantId: id,
       customerId: null,
@@ -183,21 +196,23 @@ function Booking() {
                 };
                 return (
                   <button
+                    className="btn"
                     type="button"
                     key={timeslot.timeSlotID}
                     onClick={onclickEvent}
                     style={{
-                      backgroundColor: "white",
+                      backgroundColor: "red",
                       color: "black",
-                      border: "1px solid black",
-                      transition: "background-color 0.3s, color 0.3s",
+                      margin: 2,
+                      padding: 2.5,
+                      //border: "1px solid black",
                     }}
                     onMouseEnter={(e) => {
                       e.target.style.backgroundColor = "blue";
                       e.target.style.color = "white";
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = "white";
+                      e.target.style.backgroundColor = "red";
                       e.target.style.color = "black";
                     }}
                   >
@@ -209,36 +224,38 @@ function Booking() {
                 Selected Time: {timeslot && timeslot.timeSlot}
               </p>{" "}
               {/* there to see if the time is updated and displayed */}
-            </div>
-            <div className="mt-3 mb-3">
-              <h3 className="word">Select your banquet option</h3>
-              <select
-                onChange={(e) => {
-                  updateBanquet(e.target);
-                }}
-                style={{ width: "100%", height: "30px" }}
-                id="banquetOptions"
-                name="banquetOptions"
-                form="banquetForm"
-              >
-                <option value={-1}>None</option>
-                {banquets.map((banquet) => (
-                  <option key={banquet.banquetID} value={banquet.banquetID}>
-                    {banquet.banquetName} {banquet.banquetPrice}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="mt-3 mb-3">
-              <h3 className="word">Select number of guests</h3>
-              <input
-                name="numberOfGuests"
-                type="number"
-                min="0"
-                value={guest}
-                onChange={(e) => setGuest(e.target.value)}
-                style={{ width: "100%" }}
-              />
+              {banquets.length > 0 && (
+                <div className="mt-3 mb-3">
+                  <h3 className="word">Select your banquet option</h3>
+                  <select
+                    onChange={(e) => {
+                      updateBanquet(e.target);
+                    }}
+                    style={{ width: "200px", height: "30px" }}
+                    id="banquetOptions"
+                    name="banquetOptions"
+                    form="banquetForm"
+                  >
+                    <option value={-1}>None</option>
+                    {banquets.map((banquet) => (
+                      <option key={banquet.banquetID} value={banquet.banquetID}>
+                        {banquet.banquetName} {banquet.banquetPrice}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              <div className="mt-3 mb-3">
+                <h4 className="word">Select number of guests</h4>
+                <input
+                  name="numberOfGuests"
+                  type="number"
+                  min="0"
+                  value={guest}
+                  onChange={(e) => setGuest(e.target.value)}
+                  style={{ width: "100%" }}
+                />
+              </div>
             </div>
           </form>
           {selectedBanquetID != -1 && <Payment></Payment>}
