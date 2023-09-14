@@ -201,7 +201,7 @@ function Booking() {
                     key={timeslot.timeSlotID}
                     onClick={onclickEvent}
                     style={{
-                      backgroundColor: "red",
+                      backgroundColor: "#0dcaf0",
                       color: "black",
                       margin: 2,
                       padding: 2.5,
@@ -212,7 +212,7 @@ function Booking() {
                       e.target.style.color = "white";
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = "red";
+                      e.target.style.backgroundColor = "#0dcaf0";
                       e.target.style.color = "black";
                     }}
                   >
