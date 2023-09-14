@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import "./Booking.css";
 import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
-import dayjs from "dayjs";
+import dayjs from 'dayjs'
 
 function Booking() {
   document.body.id = "H";
@@ -72,17 +72,17 @@ function Booking() {
   }, [id]);
 
   useEffect(() => {
-    const formattedDate = dayjs(date).format("YYYY-MM-DD");
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');
 
     fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
       .then((response) => response.json())
       .then((data) => {
-        var tempData = data;
+        var tempData = data
         console.log(tempData);
         for (var i = 0; i < tempData.length; i++) {
           var hours = tempData[i].timeSlot.split(":")[0];
-          var AmOrPm = hours >= 12 ? "pm" : "am";
-          hours = hours % 12 || 12;
+          var AmOrPm = hours >= 12 ? 'pm' : 'am';
+          hours = (hours % 12) || 12;
           var minutes = tempData[i].timeSlot.split(":")[1];
           tempData[i].timeSlot = hours + ":" + minutes + " " + AmOrPm;
         }
@@ -125,7 +125,7 @@ function Booking() {
     console.log();
 
     const reservationData = {
-      date: dayjs(date).format("YYYY-MM-DD"), // Fixed
+      date: dayjs(date).format('YYYY-MM-DD'), // Fixed
       numberOfGuests: guest,
       restaurantId: id,
       customerId: null,
@@ -173,7 +173,6 @@ function Booking() {
         <div className="col-4">
           <MenuImage id={id} />
         </div>
-        <div className="col-1"></div>
         <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
@@ -185,6 +184,7 @@ function Booking() {
                 onChange={handleDateChange}
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
+                
               />
               <p className="word-selection">
                 Selected date: {date.toDateString()}
@@ -194,14 +194,14 @@ function Booking() {
                 const onclickEvent = () => {
                   handleChangeinTimes(timeslot);
                 };
+
                 return (
-                  <button
-                    className="btn"
+                  <button className="btn"
                     type="button"
                     key={timeslot.timeSlotID}
                     onClick={onclickEvent}
                     style={{
-                      backgroundColor: "red",
+                      backgroundColor: "#0dcaf0",
                       color: "black",
                       margin: 2,
                       padding: 2.5,
@@ -212,7 +212,7 @@ function Booking() {
                       e.target.style.color = "white";
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = "red";
+                      e.target.style.backgroundColor = "#0dcaf0";
                       e.target.style.color = "black";
                     }}
                   >
