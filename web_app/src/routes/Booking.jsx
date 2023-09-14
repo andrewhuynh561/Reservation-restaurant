@@ -168,7 +168,7 @@ function Booking() {
 
   return (
     <>
-      <h2 className="word title">Reservation for {restaurant.name}</h2>
+      <h1 className="word title">Reservation for {restaurant.name}</h1>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -177,7 +177,7 @@ function Booking() {
         <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
             <div className="mt-3 mb-3">
-              <h3 className="word">Make a Booking</h3>
+              <h3 className="word">Make a Reservation</h3>
               <hr style={{ borderTop: "3px solid white" }} />
               <h4 className="word">Select the date</h4>
               <DatePicker
@@ -272,7 +272,7 @@ function Booking() {
             type="button"
             onClick={handleSubmit}
           >
-            Booking<span></span>
+            Book<span></span>
           </button>
         </div>
         <Modal
