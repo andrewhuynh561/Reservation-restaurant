@@ -98,14 +98,14 @@ function Signup() {
                   <div className="col-md-6 mb-4 pb-2">
                     <div className="form-outline">
                       <label style={{color:"black"}} className="form-label label-style">First Name</label>
-                      <input type="text" className="form-control form-control-lg" value={fName}
+                      <input type="text" className="form-control form-control-lg" value={fName} placeholder="First Name"
                       onChange={(e)=>(setfName(e.target.value))}></input>
                     </div>
                   </div>
                   <div className="col-md-6 mb-4 pb-2">
                     <div className="form-outline">
                       <label style={{color:"black"}} className="form-label label-style">Last Name</label>
-                      <input type="text" className="form-control form-control-lg" value={lName}
+                      <input type="text" className="form-control form-control-lg" value={lName} placeholder="Last Name"
                       onChange={(e)=>(setlName(e.target.value))}></input>
                     </div>
                   </div>
@@ -114,7 +114,7 @@ function Signup() {
                 <div className="p-3 mb-4 pb-2">
                   <div className='form-outline form-white'>
                     <label style={{color:"black"}} className="form-label label-style">Street Address</label>
-                    <input type="text" className="form-control form-control-lg" value={street}
+                    <input type="text" className="form-control form-control-lg" value={street} placeholder="Street Address"
                       onChange={(e)=>(setStreet(e.target.value))}></input>
                   </div>
 
@@ -124,7 +124,7 @@ function Signup() {
                   <div className='col-md-5 mb-4 pb-2'>
                     <div className="form-outline form-white">
                       <label style={{color:"black"}} className="form-label label-style">Post Code</label>
-                      <input type="text" className="form-control form-control-lg" value={postCode}
+                      <input type="text" className="form-control form-control-lg" value={postCode} placeholder="Post Code"
                       onChange={(e)=>(setPostCode(e.target.value))}></input>
                     </div>  
                   </div> 
@@ -132,7 +132,7 @@ function Signup() {
                   <div className='col-md-7 mb-4 pb-2'>
                     <div className="form-outline form-white">
                       <label style={{color:"black"}} className="form-label label-style">Suburb</label>
-                      <input type="text" className="form-control form-control-lg" value={suburb}
+                      <input type="text" className="form-control form-control-lg" value={suburb}  placeholder="Suburb"
                       onChange={(e)=>(setSuburb(e.target.value))}></input>
                     </div>  
                   </div> 
@@ -143,7 +143,7 @@ function Signup() {
                   <div className='col-md-5 mb-4 pb-2'>
                     <div className="form-outline form-white">
                       <label style={{color:"black"}} className="form-label label-style">Phone Number</label>
-                      <input type="text" className="form-control form-control-lg" value={phone}
+                      <input type="text" className="form-control form-control-lg" value={phone} placeholder="Phone Number"
                       onChange={(e)=>(setPhoneNumb(e.target.value))}></input>
                     </div>  
                   </div> 
@@ -151,7 +151,7 @@ function Signup() {
                   <div className='col-md-7 mb-4 pb-2'>
                     <div className="form-outline form-white">
                       <label style={{color:"black"}} className="form-label label-style">Email Address</label>
-                      <input type="text" className="form-control form-control-lg" value={email}
+                      <input type="text" className="form-control form-control-lg" value={email} placeholder="Email Address"
                       onChange={(e)=>(setEmail(e.target.value))}></input>
                     </div>  
                   </div> 
@@ -161,8 +161,8 @@ function Signup() {
                 <div className='row p-3'>
                   <div className='col-md-5 mb-4 pb-2'>
                     <div className="form-outline form-white">
-                      <label style={{color:"black"}} className="form-label label-style">User Name</label>
-                      <input type="text" className="form-control form-control-lg" value={username}
+                      <label style={{color:"black"}} className="form-label label-style" >User Name</label>
+                      <input type="text" className="form-control form-control-lg" value={username} placeholder="User Name"
                       onChange={(e)=>(setUserName(e.target.value))}></input>
                     </div>  
                   </div> 
@@ -170,7 +170,7 @@ function Signup() {
                   <div className='col-md-7 mb-4 pb-2'>
                     <div className="form-outline form-white">
                       <label style={{color:"black"}} className="form-label label-style">Password</label>
-                      <input type="password" className="form-control form-control-lg" value={password}
+                      <input type="password" className="form-control form-control-lg" value={password} placeholder="Password"
                       onChange={(e)=>(setPassword(e.target.value))}></input>
                     </div>  
                   </div> 

@@ -169,21 +169,22 @@ function Booking() {
   return (
     <>
       <h1 className="word title" id="res-title">Reservation for {restaurant.name}</h1>
-      <div className="row g-2 justify-content-md-evenly">
-        <div className="col-4">
+      <div className="row justify-content-md-evenly">
+        <div className="col-4" style={{marginTop: 20}}>
           <MenuImage id={id} />
         </div>
-        <div className="col-3">
+        <div className="col-3" style={{marginTop: 20}}>
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
               <h3 className="word">Make a Reservation</h3>
-              <hr style={{borderTop: "3px solid white"}}/>
+              <hr style={{borderTop: "3px solid white", marginTop: 9}}/>
               <h4 className="word">Select the date</h4>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
+                className="form-control datepicker"
                 
               />
               <p className="word-selection">
@@ -231,10 +232,11 @@ function Booking() {
                   onChange={(e) => {
                     updateBanquet(e.target);
                   }}
-                  style={{ width: "200px", height: "30px" }}
+                  style={{ width: "100%", }}
                   id="banquetOptions"
                   name="banquetOptions"
                   form="banquetForm"
+                  className="form-control"
                 >
                   <option value={-1}>None</option>
                   {banquets.map((banquet) => (
@@ -245,13 +247,16 @@ function Booking() {
                 </select>
               </div>
             )}
-              <h4 className="word">Select number of guests</h4>
+              <h4 className="word" >Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
                 min="0"
                 value={guest}
                 onChange={(e) => setGuest(e.target.value)}
+                style={{ width: "100%"}}
+                placeholder="Enter the number of guest"
+                className="form-control"
               />
             </div>
           </form>
@@ -267,7 +272,7 @@ function Booking() {
             type="button"
             onClick={handleSubmit}
           >
-            Book<span></span>
+            Place a Reservation<span></span>
           </button>
         </div>
         <Modal

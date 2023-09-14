@@ -41,10 +41,6 @@ function About() {
         </div>
 
       </div>
-    
-
-      
-      
     </>
   )
 }
