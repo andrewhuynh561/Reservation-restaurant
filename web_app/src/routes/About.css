@@ -13,7 +13,7 @@
 
   color : black; 
   font-family: 'Times New Roman';
-  font-size:x-large;
+  font-size:20px;
   font-weight: bold;
 }
 .title-word {
@@ -52,6 +52,10 @@ animation: color-animation 4s linear infinite;
 66%   {color: var(--color-3)}
 99%   {color: var(--color-3)}
 100%  {color: var(--color-1)}
+}
+
+.card-img-overlay{
+  margin-top: 330px;
 }
 
 @keyframes fade-in{

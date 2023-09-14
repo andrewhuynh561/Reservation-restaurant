@@ -10,7 +10,14 @@ function About() {
           <div className="col-3"></div>
           <div className=" col-6">
             <div className="card border-0">
-              <div className="card-img-overlay">
+              <img src="http://localhost:6060/images/about-us.avif" alt="About us" style={{borderRadius: 4+"px"}} ></img>
+              
+            </div>
+          </div>
+
+          <div className="mt-5" style={{color:'white'}} id="fade-in">
+            <h2>Our Story</h2>
+            <div className="card-img-overlay">
                 <p className="card-text centered card-text-style">
                   <span class="title-word title-word-1">Grab </span>
                   <span class="title-word title-word-2">Life </span>
@@ -19,17 +26,7 @@ function About() {
                   <span class="title-word title-word-2">Fork</span>
                 </p>
               </div>
-              <img src="http://localhost:6060/images/about-us.avif" alt="About us" style={{borderRadius: 4+"px"}} ></img>
-              
-            </div>
-          </div>
-
-          <div className="mt-5" style={{color:'white'}} id="fade-in">
-            <h2>Our Story</h2>
-            <p>
-            Let's grab life by the fork. 
-            </p>
-            <p>
+            <p style={{marginTop: "30px"}}>
             From helping restaurants of all sizes thrive, to enabling diners to find and book the perfect table for every occasion, our story is one of human connection—among diners and restaurants, and between restaurants and their communities.
 
             Now, we are growing globally like never before, and continuing to lead the conversation in the tech and restaurant spaces with products that anticipate the ever-evolving needs of both restaurants and diners.
