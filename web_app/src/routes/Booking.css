@@ -18,12 +18,15 @@
 }
 .word{
   color: white;
-  font-family: 'Times New Roman';
-  font-size: x-large;
   margin-top: 7px;
   margin-bottom: -2x;
 
 }
+
+#res-title{
+  font-size: 70px;
+}
+
 .p{
   font-size: large;
   font-weight: 400;
@@ -35,9 +38,7 @@
   font-size: xx-medium;
   
 }
-.title{
-  font-size: xxx-large;
-}
+
 .modal-confirm {
   color: #636363;
   width: 325px;
