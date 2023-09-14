@@ -109,3 +109,25 @@ img.image-gallery-image {
   padding-bottom: 100px;
   justify-content: center;
 }
+
+.banq-text-center
+{
+  padding-top: 10px;
+  margin-right: 10px;
+  
+}
+
+.slide
+{
+  margin: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; 
+}
