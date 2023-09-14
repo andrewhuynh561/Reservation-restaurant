@@ -266,7 +266,7 @@ function Booking() {
             type="button"
             onClick={handleSubmit}
           >
-            Booking<span></span>
+            Book<span></span>
           </button>
         </div>
         <Modal
