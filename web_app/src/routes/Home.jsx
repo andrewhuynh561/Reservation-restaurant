@@ -50,9 +50,7 @@ function Home() {
           
         ))}
         <hr style={{marginTop: 20}}/>
-      </div>
-
-      
+      </div>     
       <p className="read-the-docs slogan-style">
         Grab Life By The Fork
       </p>

@@ -80,8 +80,6 @@ function Dashboard() {
         setFBookings(tempArray);
       }
 
-      
-
     }, [bookings]);
     
     return(
@@ -103,7 +101,6 @@ function Dashboard() {
             </div>
         </>
     )
-
 }
 
 export default Dashboard

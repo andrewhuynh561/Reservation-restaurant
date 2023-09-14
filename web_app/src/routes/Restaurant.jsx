@@ -231,8 +231,6 @@ function Restaurant() {
         <div className="slide" id="fade-in-image">
           <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
         </div>
-        
-      
           {banquets && banquets.some(banquet => banquet.restaurantID >= 1) && (
           <div>
             <div style={{color: "white"}}>
