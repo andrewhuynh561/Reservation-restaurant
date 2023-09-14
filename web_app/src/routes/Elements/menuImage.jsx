@@ -30,6 +30,7 @@ function MenuImage({ id }) {
     <>
       <div className="row">
         <h3 className="word">{restaurantName} Menu</h3>
+        <hr style={{borderTop: "3px solid white"}}/>
       </div>
       <div className="row">
         <img
