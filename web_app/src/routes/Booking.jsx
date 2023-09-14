@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import "./Booking.css";
 import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
-import dayjs from "dayjs";
+import dayjs from 'dayjs'
 
 function Booking() {
   document.body.id = "H";
@@ -72,17 +72,17 @@ function Booking() {
   }, [id]);
 
   useEffect(() => {
-    const formattedDate = dayjs(date).format("YYYY-MM-DD");
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');
 
     fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
       .then((response) => response.json())
       .then((data) => {
-        var tempData = data;
+        var tempData = data
         console.log(tempData);
         for (var i = 0; i < tempData.length; i++) {
           var hours = tempData[i].timeSlot.split(":")[0];
-          var AmOrPm = hours >= 12 ? "pm" : "am";
-          hours = hours % 12 || 12;
+          var AmOrPm = hours >= 12 ? 'pm' : 'am';
+          hours = (hours % 12) || 12;
           var minutes = tempData[i].timeSlot.split(":")[1];
           tempData[i].timeSlot = hours + ":" + minutes + " " + AmOrPm;
         }
@@ -125,7 +125,7 @@ function Booking() {
     console.log();
 
     const reservationData = {
-      date: dayjs(date).format("YYYY-MM-DD"), // Fixed
+      date: dayjs(date).format('YYYY-MM-DD'), // Fixed
       numberOfGuests: guest,
       restaurantId: id,
       customerId: null,
@@ -168,37 +168,35 @@ function Booking() {
 
   return (
     <>
-      <h1 className="word title">Reservation for {restaurant.name}</h1>
-      <div className="row g-2 justify-content-md-center">
+      <h1 className="word title" id="res-title">Reservation for {restaurant.name}</h1>
+      <div className="row g-2 justify-content-md-evenly">
         <div className="col-4">
           <MenuImage id={id} />
         </div>
-        <div className="col-1"></div>
         <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
-            <div className="mt-3 mb-3">
+            <div>
               <h3 className="word">Make a Reservation</h3>
-              <hr style={{ borderTop: "3px solid white" }} />
+              <hr style={{borderTop: "3px solid white"}}/>
               <h4 className="word">Select the date</h4>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
                 filterDate={isDayDisable}
                 dateFormat="dd/MM/yyyy"
+                
               />
               <p className="word-selection">
                 Selected date: {date.toDateString()}
               </p>
-            </div>
-            <div className="mt-3 mb-3">
-              <h3 className="word">Select the time</h3>
+              <h4 className="word">Select the time</h4>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
                   handleChangeinTimes(timeslot);
                 };
+
                 return (
-                  <button
-                    className="btn"
+                  <button className="btn"
                     type="button"
                     key={timeslot.timeSlotID}
                     onClick={onclickEvent}
@@ -226,15 +224,14 @@ function Booking() {
                 Selected Time: {timeslot && timeslot.timeSlot}
               </p>{" "}
               {/* there to see if the time is updated and displayed */}
-            </div>
-            {banquets.length > 0 && (
-              <div className="mt-3 mb-3">
-                <h3 className="word">Select your banquet option</h3>
+              {banquets.length > 0 && (
+              <div>
+                <h4 className="word">Select your banquet option</h4>
                 <select
                   onChange={(e) => {
                     updateBanquet(e.target);
                   }}
-                  style={{ width: "100%", height: "30px" }}
+                  style={{ width: "200px", height: "30px" }}
                   id="banquetOptions"
                   name="banquetOptions"
                   form="banquetForm"
@@ -248,7 +245,6 @@ function Booking() {
                 </select>
               </div>
             )}
-            <div className="mt-3 mb-3">
               <h4 className="word">Select number of guests</h4>
               <input
                 name="numberOfGuests"
@@ -256,7 +252,6 @@ function Booking() {
                 min="0"
                 value={guest}
                 onChange={(e) => setGuest(e.target.value)}
-                style={{ width: "100%" }}
               />
             </div>
           </form>
