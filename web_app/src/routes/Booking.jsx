@@ -168,7 +168,7 @@ function Booking() {
 
   return (
     <>
-      <h2 className="word title">Reservation for {restaurant.name}</h2>
+      <h1 className="word title" id="res-title">Reservation for {restaurant.name}</h1>
       <div className="row g-2 justify-content-md-evenly">
         <div className="col-4">
           <MenuImage id={id} />
