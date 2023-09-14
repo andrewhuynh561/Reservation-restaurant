@@ -51,7 +51,7 @@ function Home() {
         ))}
         <hr style={{marginTop: 20}}/>
       </div>     
-      <p className="read-the-docs slogan-style">
+      <p className="read-the-docs slogan-style" id="fade-in-home">
         Grab Life By The Fork
       </p>
     </>
