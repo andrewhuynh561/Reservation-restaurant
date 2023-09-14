@@ -245,7 +245,7 @@ function Booking() {
                 </select>
               </div>
             )}
-              <h4 className="word" placeholder="edsfdsfsdf">Select number of guests</h4>
+              <h4 className="word" >Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
@@ -253,6 +253,7 @@ function Booking() {
                 value={guest}
                 onChange={(e) => setGuest(e.target.value)}
                 style={{ width: "100%"}}
+                placeholder="Enter the number of guest"
               />
             </div>
           </form>
