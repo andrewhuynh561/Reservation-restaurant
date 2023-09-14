@@ -77,7 +77,19 @@ function Booking() {
     fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
       .then((response) => response.json())
       .then((data) => {
-        setTimeSlots([...data]);
+        var tempData = data
+        console.log(tempData);
+        for (var i = 0; i < tempData.length; i++) {
+          var hours = tempData[i].timeSlot.split(":")[0];
+          var AmOrPm = hours >= 12 ? 'pm' : 'am';
+          hours = (hours % 12) || 12;
+          var minutes = tempData[i].timeSlot.split(":")[1];
+          tempData[i].timeSlot = hours + ":" + minutes + " " + AmOrPm;
+        }
+
+        console.log(tempData);
+
+        setTimeSlots([...tempData]);
       })
       .catch((err) => {
         console.log(err.message);
