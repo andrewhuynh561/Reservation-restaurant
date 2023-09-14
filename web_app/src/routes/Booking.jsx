@@ -231,10 +231,11 @@ function Booking() {
                   onChange={(e) => {
                     updateBanquet(e.target);
                   }}
-                  style={{ width: "100%", height: "30px" }}
+                  style={{ width: "100%", }}
                   id="banquetOptions"
                   name="banquetOptions"
                   form="banquetForm"
+                  className="form-control"
                 >
                   <option value={-1}>None</option>
                   {banquets.map((banquet) => (
@@ -254,6 +255,7 @@ function Booking() {
                 onChange={(e) => setGuest(e.target.value)}
                 style={{ width: "100%"}}
                 placeholder="Enter the number of guest"
+                className="form-control"
               />
             </div>
           </form>
