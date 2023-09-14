@@ -169,7 +169,7 @@ function Booking() {
   return (
     <>
       <h1 className="word title" id="res-title">Reservation for {restaurant.name}</h1>
-      <div className="row g-2 justify-content-md-evenly">
+      <div className="row justify-content-md-evenly">
         <div className="col-4">
           <MenuImage id={id} />
         </div>
@@ -177,7 +177,7 @@ function Booking() {
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
               <h3 className="word">Make a Reservation</h3>
-              <hr style={{borderTop: "3px solid white"}}/>
+              <hr style={{borderTop: "3px solid white", marginTop: 9}}/>
               <h4 className="word">Select the date</h4>
               <DatePicker
                 selected={date}
