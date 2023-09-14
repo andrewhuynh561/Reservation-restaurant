@@ -176,7 +176,9 @@ function Booking() {
         <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
-              <h3 className="word">Select the date</h3>
+              <h3 className="word">Make a Booking</h3>
+              <hr style={{borderTop: "3px solid white"}}/>
+              <h4 className="word">Select the date</h4>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
@@ -186,7 +188,7 @@ function Booking() {
               <p className="word-selection">
                 Selected date: {date.toDateString()}
               </p>
-              <h3 className="word">Select the time</h3>
+              <h4 className="word">Select the time</h4>
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
                   handleChangeinTimes(timeslot);
@@ -223,7 +225,7 @@ function Booking() {
               {/* there to see if the time is updated and displayed */}
               {banquets.length > 0 && (
               <div>
-                <h3 className="word">Select your banquet option</h3>
+                <h4 className="word">Select your banquet option</h4>
                 <select
                   onChange={(e) => {
                     updateBanquet(e.target);
