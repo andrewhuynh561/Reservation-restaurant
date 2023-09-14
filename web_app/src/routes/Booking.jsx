@@ -168,7 +168,7 @@ function Booking() {
 
   return (
     <>
-      <h2 className="word title">Reservation for {restaurant.name}</h2>
+      <h1 className="word title">Reservation for {restaurant.name}</h1>
       <div className="row g-2 justify-content-md-center">
         <div className="col-4">
           <MenuImage id={id} />
@@ -177,7 +177,9 @@ function Booking() {
         <div className="col-3">
           <form onSubmit={handleSubmit} className="newResForm">
             <div className="mt-3 mb-3">
-              <h3 className="word">Select the date</h3>
+              <h3 className="word">Make a Reservation</h3>
+              <hr style={{ borderTop: "3px solid white" }} />
+              <h4 className="word">Select the date</h4>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
@@ -224,38 +226,38 @@ function Booking() {
                 Selected Time: {timeslot && timeslot.timeSlot}
               </p>{" "}
               {/* there to see if the time is updated and displayed */}
-              {banquets.length > 0 && (
-                <div className="mt-3 mb-3">
-                  <h3 className="word">Select your banquet option</h3>
-                  <select
-                    onChange={(e) => {
-                      updateBanquet(e.target);
-                    }}
-                    style={{ width: "200px", height: "30px" }}
-                    id="banquetOptions"
-                    name="banquetOptions"
-                    form="banquetForm"
-                  >
-                    <option value={-1}>None</option>
-                    {banquets.map((banquet) => (
-                      <option key={banquet.banquetID} value={banquet.banquetID}>
-                        {banquet.banquetName} {banquet.banquetPrice}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
+            </div>
+            {banquets.length > 0 && (
               <div className="mt-3 mb-3">
-                <h4 className="word">Select number of guests</h4>
-                <input
-                  name="numberOfGuests"
-                  type="number"
-                  min="0"
-                  value={guest}
-                  onChange={(e) => setGuest(e.target.value)}
-                  style={{ width: "100%" }}
-                />
+                <h3 className="word">Select your banquet option</h3>
+                <select
+                  onChange={(e) => {
+                    updateBanquet(e.target);
+                  }}
+                  style={{ width: "100%", height: "30px" }}
+                  id="banquetOptions"
+                  name="banquetOptions"
+                  form="banquetForm"
+                >
+                  <option value={-1}>None</option>
+                  {banquets.map((banquet) => (
+                    <option key={banquet.banquetID} value={banquet.banquetID}>
+                      {banquet.banquetName} {banquet.banquetPrice}
+                    </option>
+                  ))}
+                </select>
               </div>
+            )}
+            <div className="mt-3 mb-3">
+              <h4 className="word">Select number of guests</h4>
+              <input
+                name="numberOfGuests"
+                type="number"
+                min="0"
+                value={guest}
+                onChange={(e) => setGuest(e.target.value)}
+                style={{ width: "100%" }}
+              />
             </div>
           </form>
           {selectedBanquetID != -1 && <Payment></Payment>}
@@ -270,7 +272,7 @@ function Booking() {
             type="button"
             onClick={handleSubmit}
           >
-            Booking<span></span>
+            Book<span></span>
           </button>
         </div>
         <Modal

@@ -18,12 +18,15 @@
 }
 .word{
   color: white;
-  font-family: 'Times New Roman';
-  font-size: x-large;
   margin-top: 7px;
   margin-bottom: -2x;
 
 }
+
+#res-title{
+  font-size: 70px;
+}
+
 .p{
   font-size: large;
   font-weight: 400;
@@ -31,13 +34,11 @@
 }
 .word-selection{
   color: lightgrey;
-  font-family: cursive;
-  font-size: xx-medium;
+  font-family: inherit;
+  font-size: 16px;
   
 }
-.title{
-  font-size: xxx-large;
-}
+
 .modal-confirm {
   color: #636363;
   width: 325px;
@@ -126,4 +127,8 @@
 .modal-confirm .btn:focus {
   background: #6fb32b;
   outline: none;
+}
+
+.newResbtn {
+  margin-bottom: 100px;
 }

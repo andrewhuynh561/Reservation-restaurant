@@ -60,3 +60,12 @@ animation: color-animation 4s linear infinite;
 99%   {color: var(--color-3)}
 100%  {color: var(--color-1)}
 }
+
+@keyframes fade-in{
+  0% {opacity: 1;}
+  100%{opacity: 0;}
+}
+
+#fade-in{
+  animation: fade-in 2s alternate-reverse;
+}
