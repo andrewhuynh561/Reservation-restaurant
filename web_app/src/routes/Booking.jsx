@@ -207,6 +207,7 @@ function Booking() {
                 Selected Time: {timeslot && timeslot.timeSlot}
               </p>{" "}
               {/* there to see if the time is updated and displayed */}
+              {banquets.length > 0 && (
               <div>
                 <h3 className="word">Select your banquet option</h3>
                 <select
@@ -226,6 +227,7 @@ function Booking() {
                   ))}
                 </select>
               </div>
+            )}
               <h4 className="word">Select number of guests</h4>
               <input
                 name="numberOfGuests"
