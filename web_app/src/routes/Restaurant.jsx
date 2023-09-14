@@ -204,6 +204,7 @@ function Restaurant() {
 
   return (
     <>
+    <div className="centered-container">
       <div className="video-background">
       <iframe
             width={1920}
@@ -226,27 +227,28 @@ function Restaurant() {
             </div>
           </div>
         </div>
-        <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary">Book a Table</Link>
-        <div className="slide" id="fade-in-image" style={{ backgroundColor: "transparent", border: "0px", margin: 50+"px"}}>
+        <Link to={`/restaurants/${restaurant.restaurantID}/booking/`} className="btn btn-primary" >Book a Table</Link>
+        <div className="slide" id="fade-in-image">
           <ImageGallery  slideInterval={6000} slideDuration={1000} autoPlay={true} showBullets={true} showNav={false} showPlayButton={false} showFullscreenButton={false} showThumbnails={false} items={gallery(id)}></ImageGallery>
         </div>
+        
+      
+          {banquets && banquets.some(banquet => banquet.restaurantID >= 1) && (
+          <div>
+            <div style={{color: "white"}}>
+              <h1 style={{fontSize: 70}}>Banquet Options</h1>
+            </div>
 
-        {banquets && (
-        <div>
-          <div style={{color: "white"}}>
-            <h1 className="text-center" style={{fontSize: 70}}>Banquet Options</h1>
-          </div>
+            <div className="des">
+                <p style={{ fontStyle: "italic", color: "lightgrey",fontFamily:"cursive" }}>
+                "Explore our exquisite Banquet Options designed to elevate your special events and celebrations. 
+                From elegant venues to tailored menus, we offer a range of customizable packages to suit every occasion. 
+                Whether it's an intimate gathering or a grand soirée, our dedicated team ensures a seamless experience from planning to execution. 
+                Discover the perfect setting for your next event with our Banquet Options."
+                </p>
+            </div>
 
-          <div className="des text-center" id="fade-in">
-              <p style={{ fontStyle: "italic", color: "lightgrey",fontFamily:"cursive" }}>
-              "Explore our exquisite Banquet Options designed to elevate your special events and celebrations. 
-              From elegant venues to tailored menus, we offer a range of customizable packages to suit every occasion. 
-              Whether it's an intimate gathering or a grand soirée, our dedicated team ensures a seamless experience from planning to execution. 
-              Discover the perfect setting for your next event with our Banquet Options."
-              </p>
-          </div>
-
-          <div className="row cards" id="fade-in" style={{marginTop: "-100px"}}>
+          <div className="row cards" style={{marginTop: "-100px"}}>
             {banquets.map((banquet) => (
               <div className="col-3" style={{minWidth: 18 +'rem'}} key={banquet.banquetID} >
                 <div className="card mt-5" key={banquet.banquetID}>
@@ -266,6 +268,8 @@ function Restaurant() {
           </div>
           )}
       </div>
+      </div>
+      
     </>
     
   );
