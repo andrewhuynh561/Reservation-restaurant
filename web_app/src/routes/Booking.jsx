@@ -170,10 +170,10 @@ function Booking() {
     <>
       <h1 className="word title" id="res-title">Reservation for {restaurant.name}</h1>
       <div className="row justify-content-md-evenly">
-        <div className="col-4">
+        <div className="col-4" style={{marginTop: 20}}>
           <MenuImage id={id} />
         </div>
-        <div className="col-3">
+        <div className="col-3" style={{marginTop: 20}}>
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
               <h3 className="word">Make a Reservation</h3>
@@ -269,7 +269,7 @@ function Booking() {
             type="button"
             onClick={handleSubmit}
           >
-            Book<span></span>
+            Place a Reservation<span></span>
           </button>
         </div>
         <Modal
