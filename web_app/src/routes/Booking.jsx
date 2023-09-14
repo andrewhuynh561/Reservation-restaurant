@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import "./Booking.css";
 import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
+import dayjs from 'dayjs'
 
 function Booking() {
   document.body.id = "H";
@@ -71,7 +72,7 @@ function Booking() {
   }, [id]);
 
   useEffect(() => {
-    const formattedDate = date.toISOString().split("T")[0];
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');
 
     fetch(`http://localhost:6060/timeSlots/${id}/${formattedDate}`)
       .then((response) => response.json())
@@ -109,10 +110,10 @@ function Booking() {
       banquetId = null;
     }
 
-    console.log(date.toISOString());
+    console.log();
 
     const reservationData = {
-      date: date.toISOString().split("T")[0], // This does not work because it takes off the GMT +0930 and will set the wrong date.
+      date: dayjs(date).format('YYYY-MM-DD'), // Fixed
       numberOfGuests: guest,
       restaurantId: id,
       customerId: null,
