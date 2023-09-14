@@ -231,7 +231,7 @@ function Booking() {
                   onChange={(e) => {
                     updateBanquet(e.target);
                   }}
-                  style={{ width: "200px", height: "30px" }}
+                  style={{ width: "100%", height: "30px" }}
                   id="banquetOptions"
                   name="banquetOptions"
                   form="banquetForm"
@@ -252,6 +252,7 @@ function Booking() {
                 min="0"
                 value={guest}
                 onChange={(e) => setGuest(e.target.value)}
+                style={{ width: "100%"}}
               />
             </div>
           </form>
