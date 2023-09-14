@@ -24,7 +24,7 @@ function About() {
             </div>
           </div>
 
-          <div className="mt-5" style={{color:'white'}}>
+          <div className="mt-5" style={{color:'white'}} id="fade-in">
             <h2>Our Story</h2>
             <p>
             Let's grab life by the fork. 
