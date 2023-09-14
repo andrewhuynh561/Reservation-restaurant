@@ -4,9 +4,9 @@ import "../routes/Login.css";
 function Payment() {
   return (
     <div style={{ width: "100%" }}>
-      <h5 style={{ color: "white", fontWeight: "bold" }} className="mt-4 word">
-        PAYMENT
-      </h5>
+      <h4 style={{ color: "white" }} className="mt-4 word">
+        Payment
+      </h4>
       <form>
         <div className="mb-3" style={{ color: "white" }}>
           <p>
