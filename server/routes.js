@@ -10,6 +10,8 @@ function setupRoutes(router) {
   router.get('/restaurants/:id/banquets', controller.getBanquets);
   router.get('/login/:userName/staff', controller.getStaffLogin);
   router.get('/employee/:id', controller.getEmployee);
+  router.get('/login/:userName/customer', controller.getCustomerLogin);
+  router.get('/customer/:id', controller.getCustomer);
   router.post('/signup/', controller.addAccount);
 }
 

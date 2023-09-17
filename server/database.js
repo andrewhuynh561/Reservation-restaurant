@@ -90,6 +90,14 @@ const fetchEmployee = async (id) => {
     return (await select(db, "SELECT * FROM Employee WHERE accountID == " + id))[0];
 }
 
+const fetchCustomerLogin = async (userName) => {
+    return (await select(db, "SELECT * FROM Account WHERE username == '" + userName + "' AND accountID IN (SELECT accountID from Customer)"))[0];
+}
+
+const fetchCustomer = async (id) => {
+    return (await select(db, "SELECT * FROM Customer WHERE accountID == " + id))[0];
+}
+
 // INSERT
 const insertBookings = async (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) => {
     return await insert(db, `INSERT INTO Reservation (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) values ('${date}', ${numberOfGuests}, ${restaurantId}, ${customerId}, ${timeSlotId}, ${banquetId})`);
@@ -104,4 +112,4 @@ const insertCustomer = async (name, phone, email, accountID, address) => {
 }
 
 
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchBookings, insertAccount, insertCustomer}
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, insertAccount, insertCustomer}

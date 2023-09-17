@@ -44,6 +44,13 @@ const getStaffLogin = async (req, res) => {
   return res.send(accountDetails);
 }
 
+const getCustomerLogin = async (req, res) => {
+  let userName = req.params.userName;
+
+  const accountDetails = await database.fetchCustomerLogin(userName)
+  return res.send(accountDetails);
+}
+
 const addReservation = async (req, res) => {
   let restID = req.params.id;
   
@@ -82,4 +89,10 @@ const getEmployee = async (req, res) => {
   return res.send(employee);
 }
 
-export default {getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount}
+const getCustomer = async (req, res) => {
+  let id = req.params.id;
+  const customer = await database.fetchCustomer(id);
+  return res.send(customer);
+}
+
+export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount}

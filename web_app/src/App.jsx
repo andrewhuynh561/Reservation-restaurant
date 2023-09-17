@@ -7,6 +7,7 @@ import Booking from './routes/Booking.jsx'
 import Signup from './routes/Signup.jsx'
 import Restaurant from "./routes/Restaurant.jsx";
 import Dashboard from "./routes/Dashboard";
+import Profile from "./routes/Profile";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="restaurants/:id/"         element={<Restaurant />} />
           <Route path="signup"                   element={<Signup />} />
           <Route path="dashboard/:id/"           element={<Dashboard />} />
+          <Route path="account/:id/"           element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </>

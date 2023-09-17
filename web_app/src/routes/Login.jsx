@@ -27,34 +27,34 @@ function Login() {
     event.preventDefault();
     
     if(customerLogin) {
-      // try {
-      //   console.log(userName);
-      //   const response = await fetch(`http://localhost:6060/login/${userName}/staff`); // replace this with a query for customer logins only
+      try {
+        console.log(userName);
+        const response = await fetch(`http://localhost:6060/login/${userName}/customer`); 
    
-      //   if (!response.ok) {
-      //     throw new Error(`Failed to fetch info for: ${userName}`);
-      //   }
+        if (!response.ok) {
+          throw new Error(`Failed to fetch info for: ${userName}`);
+        }
    
-      //   const responseBody = await response.json();
-      //   console.log(responseBody);
-      //   console.log(responseBody.password);
-      //   console.log(password);
+        const responseBody = await response.json();
+        console.log(responseBody);
+        console.log(responseBody.password);
+        console.log(password);
         
-      //   bcrypt.compare(password, responseBody.password, function(err, res) {
-      //     if(res){
-      //       console.log("valid", responseBody.accountID);
-      //       navigate(`/dashboard/${responseBody.accountID}`, {state: true, replace: true}); // replace with path to customer profile page
-      //     }
-      //     else {
-      //       //need to add response feature
-      //       console.log(responseBody.password);
-      //       console.log(valid, "Nah wrong password");
-      //     }
-      //   });
+        bcrypt.compare(password, responseBody.password, function(err, res) {
+          if(res){
+            console.log("valid", responseBody.accountID);
+            navigate(`/account/${responseBody.accountID}`, {state: true, replace: true}); 
+          }
+          else {
+            //need to add response feature
+            console.log(responseBody.password);
+            console.log(valid, "Nah wrong password");
+          }
+        });
 
-      // } catch (error) {
-      //   console.error(error);
-      // }
+      } catch (error) {
+        console.error(error);
+      }
     }
     else {
       try {
