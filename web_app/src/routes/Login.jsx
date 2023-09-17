@@ -48,7 +48,7 @@ function Login() {
           else {
             //need to add response feature
             console.log(responseBody.password);
-            console.log(valid, "Nah wrong password");
+            console.log("Nah wrong password");
           }
         });
 
@@ -78,7 +78,7 @@ function Login() {
           else {
             //need to add response feature
             console.log(responseBody.password);
-            console.log(valid, "Nah wrong password");
+            console.log("Nah wrong password");
           }
         });
 
