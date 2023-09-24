@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useContext,useState} from "react";
 import bcrypt from 'bcryptjs-react'
 import { Link, useNavigate } from "react-router-dom";
+import LoginContext from "../LoginContext";
 import './Login.css'
 
 function Login() {
   document.body.id = 'H';
   const navigate = useNavigate();
+  const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
   const [customerLogin, setCustomerLogin] = useState(true);
   const [userName, setUsername] = useState("");
