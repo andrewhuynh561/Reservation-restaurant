@@ -48,7 +48,9 @@ const getCustomerLogin = async (req, res) => {
   let userName = req.params.userName;
 
   const accountDetails = await database.fetchCustomerLogin(userName)
-  return res.send(accountDetails);
+  const currentTier = await database.fetchCurrentTier(accountDetails.accountID)
+  
+  return res.send({accountDetails, currentTier});
 }
 
 const addReservation = async (req, res) => {

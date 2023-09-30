@@ -39,17 +39,16 @@ function Login() {
    
         const responseBody = await response.json();
         console.log(responseBody);
-        console.log(responseBody.password);
-        console.log(password);
+        const accID = responseBody.accountDetails.accountID
+        const accPw = responseBody.accountDetails.password
         
-        bcrypt.compare(password, responseBody.password, function(err, res) {
+        bcrypt.compare(password, accPw, function(err, res) {
           if(res){
-            console.log("valid", responseBody.accountID);
-            navigate(`/account/${responseBody.accountID}`, {state: true, replace: true}); 
+            console.log("valid", accID);
+            navigate(`/account/${accID}`, {state: responseBody, replace: true}); 
           }
           else {
             //need to add response feature
-            console.log(responseBody.password);
             console.log("Nah wrong password");
           }
         });

@@ -91,11 +91,17 @@ const fetchEmployee = async (id) => {
 }
 
 const fetchCustomerLogin = async (userName) => {
-    return (await select(db, "SELECT * FROM Account WHERE username == '" + userName + "' AND accountID IN (SELECT accountID from Customer)"))[0];
+    return (await select(db, `SELECT * from Account JOIN Customer on Account.accountID == Customer.accountID WHERE Account.username == '${userName}'`))[0];
 }
 
 const fetchCustomer = async (id) => {
     return (await select(db, "SELECT * FROM Customer WHERE accountID == " + id))[0];
+}
+
+const fetchCurrentTier  = async (id) => {
+    return (await select(db, `SELECT * FROM Tiers where Tiers.minSpendpm <= (SELECT points from Account WHERE accountID == '${id}')
+                                ORDER BY minSpendpm DESC
+                                LIMIT 1`))?.[0];
 }
 
 // INSERT
@@ -112,4 +118,5 @@ const insertCustomer = async (name, phone, email, accountID, address) => {
 }
 
 
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, insertAccount, insertCustomer}
+
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer}
