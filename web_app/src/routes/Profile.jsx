@@ -103,16 +103,14 @@ function Profile() {
                 >
                   Cancel
                 </button>
-              </div>
-              <div class="modal-footer">
                 <button
                   class="btn btn-success btn-block"
                   data-dismiss="modal"
-                 
                 >
-                  OK
+                  Delete
                 </button>
               </div>
+              
             </div>
           </div>
         </Modal>
