@@ -36,6 +36,19 @@ function insert(db, query) {
     });
   }
 
+  function deleteUser(db, query) {
+    return new Promise((resolve, reject) => {
+        const queries = [];
+        db.run(query, function(res, err) {
+            if (err) {
+                reject(err); // optional: again, you might choose to swallow this error.
+            } else {
+                resolve(this.lastID); // resolve the promise
+            }
+        });
+    });
+  }
+
 //let restList = [];
 
 
@@ -116,7 +129,10 @@ const insertAccount = async (username, password) => {
 const insertCustomer = async (name, phone, email, accountID, address) => {
     return await insert(db, `INSERT INTO Customer (name, phone, email, accountID, address) values ('${name}', '${phone}', '${email}', ${accountID}, '${address}')`);
 }
+//DELETE
+const deleteAccount = async (accountID) => {
+    return await deleteUser(db,`DELETE FROM Account WHERE accountID = ${accountID}`);
+}
 
 
-
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer}
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer,deleteAccount}

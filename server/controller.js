@@ -85,6 +85,21 @@ const addAccount = async (req, res) => {
   return res.send({accountID: accID, customerID: cust})
 }
 
+const deleteAccount = async (req , res) =>{
+  try {
+    // Call a function in your database module to delete the account
+    const result = await database.deleteAccount(accountId);
+
+    if (result) {
+      return res.status(200).json({ message: 'Account deleted successfully' });
+    } else {
+      return res.status(404).json({ message: 'Account not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 const getEmployee = async (req, res) => {
   let id = req.params.id;
   const employee = await database.fetchEmployee(id);
@@ -97,4 +112,4 @@ const getCustomer = async (req, res) => {
   return res.send(customer);
 }
 
-export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount}
+export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount,deleteAccount}

@@ -94,7 +94,7 @@ function Profile() {
                 </h2>
               </div>
               <hr />
-              
+              <h3 style={{fontSize:20,fontWeight:5}}>This account will be deleted immediately.You can not undo this action.</h3>
               <div class="modal-footer">
                 <button
                   class="btn btn-success btn-block"

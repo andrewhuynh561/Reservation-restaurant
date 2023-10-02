@@ -13,6 +13,7 @@ function setupRoutes(router) {
   router.get('/login/:userName/customer', controller.getCustomerLogin);
   router.get('/customer/:id', controller.getCustomer);
   router.post('/signup/', controller.addAccount);
+  router.delete('/account/:id', controller.deleteAccount);
 }
 
 export default setupRoutes
