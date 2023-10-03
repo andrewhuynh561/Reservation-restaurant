@@ -134,5 +134,9 @@ const deleteAccount = async (accountID) => {
     return await deleteUser(db,`DELETE FROM Account WHERE accountID = ${accountID}`);
 }
 
+const fetchCusReservation = async (id) => {
+    return await select(db, "SELECT * FROM Reservation WHERE customerID = " + id);
+} 
 
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer,deleteAccount}
+
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer,deleteAccount, fetchCusReservation}

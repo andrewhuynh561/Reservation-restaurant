@@ -14,6 +14,45 @@ function Profile() {
   const customerPoints = history.state.usr.accountDetails.points
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
+  const [customer, setCustomer] = useState([]); // get customer 
+  const [cusReservation, setCusReservation] = useState([]); // get customer's reservation
+  
+  useEffect(() => {
+    fetch(`http://localhost:6060/customer/${accountID}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch customer data for account ID: ${accountID}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCustomer(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [accountID]);
+
+
+  useEffect(() => {
+    fetch(`http://localhost:6060/reservation/${customer.customerID}`)
+    .then((response) => {
+      if(!response.ok)
+      {
+        throw new Error (`Failed to fetch reservation data for customer ID: ${customer.customerID}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      setCusReservation(data); 
+    })
+    .catch((err) => {
+      console.error(err.message);
+    })
+  },[customer.customerID])
+
   const openConfirmationModal = () => {
     setConfirmationModalOpen(true);
   };
@@ -69,8 +108,41 @@ function Profile() {
       </h1>
     
       {(history.state.usr.currentTier != undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>}
-     
-      <button onClick={openConfirmationModal} className="btn btn-danger">Delete Account</button>
+      <div className="container g-2">
+        <div className="row justify-content-md-evenly"> 
+          <div className="col-8">
+            {cusReservation.length > 0 ?
+              (<div>
+                <h3>Your upcomming booking</h3>
+                <table class="table table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Number of guests</th>
+                        <th scope="col">Restaurant</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Banquet</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>1</td>
+                        <td>ABC</td>
+                        <td>2pm</td>
+                        <td>Yes</td>
+                      </tr>
+                    </tbody>
+              </table>
+            </div>)
+            :(<div>
+              <h3>You dont have any booking currently !</h3>
+            </div>) 
+            }
+          </div>
+        </div>
+      </div>
+      <button onClick={openConfirmationModal} className="btn btn-danger mt-2">Delete Account</button>
 
       {/* Delete Account Confirmation Modal */}
       {/* {isDeleteModalOpen && (

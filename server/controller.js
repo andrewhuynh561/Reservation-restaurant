@@ -119,4 +119,10 @@ const getCustomer = async (req, res) => {
   return res.send(customer);
 }
 
+const getCustomerReservation = async (req, res) => {
+  let id = req.params.id;
+  const cusReservation = await database.fetchCusReservation(id);
+  return res.send(cusReservation);
+}
+
 export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount,deleteAccount}
