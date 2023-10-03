@@ -135,7 +135,8 @@ const deleteAccount = async (accountID) => {
 }
 
 const fetchCusReservation = async (id) => {
-    return await select(db, "SELECT * FROM Reservation WHERE customerID = " + id);
+    return await select(db, "SELECT * FROM Reservation AS R LEFT JOIN TimeSlot AS T ON R.timeSlotID = T.timeSlotID"+ 
+                            " LEFT JOIN Restaurant AS RR ON R.restaurantID = RR.restaurantID WHERE R.customerID = " + id);
 } 
 
 

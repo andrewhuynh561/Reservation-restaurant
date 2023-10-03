@@ -123,4 +123,4 @@ const getCustomerReservation = async (req, res) => {
   return res.send(cusReservation);
 }
 
-export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount,deleteAccount}
+export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount,deleteAccount, getCustomerReservation}

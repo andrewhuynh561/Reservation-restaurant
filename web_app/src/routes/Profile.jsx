@@ -121,22 +121,24 @@ function Profile() {
                         <th scope="col">Number of guests</th>
                         <th scope="col">Restaurant</th>
                         <th scope="col">Time</th>
-                        <th scope="col">Banquet</th>
+                        <th scope="col">Banquet selection</th>
                       </tr>
                     </thead>
                     <tbody>
+                      {cusReservation.map = ((item) => (
                       <tr>
-                        <th scope="row">1</th>
-                        <td>1</td>
-                        <td>ABC</td>
-                        <td>2pm</td>
-                        <td>Yes</td>
-                      </tr>
+                        <th scope="row">{item.date}</th>
+                        <td>{item.numberOfGuests}</td>
+                        <td>{item.name}</td>
+                        <td>{item.timeSlot}</td>
+                        <td>{item.banquetID != null ? "Yes" : "No"} </td>
+                      </tr>))}
                     </tbody>
               </table>
             </div>)
             :(<div>
-              <h3>You dont have any booking currently !</h3>
+              <h3>You dont have any booking currently !</h3> 
+              {/* could have a link to home page or booking page under */}
             </div>) 
             }
           </div>
