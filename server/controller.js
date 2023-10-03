@@ -89,14 +89,13 @@ const addAccount = async (req, res) => {
 }
 
 const deleteAccount = async (req , res) =>{
-
   try {
-    const accountID = req.params.accID
+    const accountID = req.params.accountID
     // Call a function in your database module to delete the account
     const result = await database.deleteAccount(accountID);
     console.log(result)
 
-    if (result) {
+  if (result) {
       return res.status(200).json({ message: 'Account deleted successfully' });
     } else {
       return res.status(404).json({ message: 'Account not found' });
