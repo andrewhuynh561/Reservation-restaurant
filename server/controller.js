@@ -91,7 +91,6 @@ const addAccount = async (req, res) => {
 const deleteAccount = async (req , res) =>{
   try {
     const accountID = req.params.accountID
-    // Call a function in your database module to delete the account
     const result = await database.deleteAccount(accountID);
     console.log(result)
 
