@@ -122,5 +122,21 @@ const getCustomerReservation = async (req, res) => {
   const cusReservation = await database.fetchCusReservation(id);
   return res.send(cusReservation);
 }
+const removeReservation = async (req, res) => {
+  
+  try {
+    const id = req.params.id
+    const result = await database.removeRes(id);
+    console.log(result)
 
-export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount,deleteAccount, getCustomerReservation}
+  if (result) {
+      return res.status(200).json({ message: 'Reservation deleted successfully' });
+    } else {
+      return res.status(404).json({ message: 'Reservation not found' });
+    }
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}
+export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount, deleteAccount, removeReservation, getCustomerReservation}

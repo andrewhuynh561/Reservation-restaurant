@@ -14,6 +14,8 @@ function Profile() {
   const customerPoints = history.state.usr.accountDetails.points
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
+  const [deletedCount, setDeletedCount] = useState(0);
+
   const [customer, setCustomer] = useState([]); // get customer 
   const [cusReservation, setCusReservation] = useState([]); // get customer's reservation
   
@@ -33,7 +35,7 @@ function Profile() {
         console.error(err.message);
       });
   }, [accountID]);
-  
+
 
   useEffect(() => {
     if (customer.customerID !== undefined) {
@@ -53,7 +55,7 @@ function Profile() {
         console.error(err.message);
       })
     }
-  },[customer])
+  },[customer, deletedCount])
 
   const openConfirmationModal = () => {
     setConfirmationModalOpen(true);
@@ -90,7 +92,33 @@ function Profile() {
     }
   };
   
+const cancelReservation = async (event, reservationID) => {
+  event.preventDefault();
+  try {
+    const response = await fetch(`http://localhost:6060/reservation/${reservationID}`, {
+      method: "DELETE",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    });
 
+    if (response.ok) {
+      console.log('Deleted successfully');
+      
+    } else {
+      throw new Error(`Failed to remove reservation: ${response.status} - ${response.statusText}`);
+    }
+    console.log(response)
+    const responseBody = await response.json();
+    console.log(responseBody)
+    setDeletedCount(deletedCount + 1)
+
+  } catch (error) {
+    console.error(error.message);
+  }
+
+}
 
   useEffect(() => {
     console.log("user", history.state.usr)
@@ -116,7 +144,7 @@ function Profile() {
             {cusReservation.length > 0 ?
               (<div>
                 <h3>Your upcomming booking</h3>
-                <table class="table table-dark">
+                <table className="table table-dark">
                     <thead>
                       <tr>
                         <th scope="col">Date</th>
@@ -124,16 +152,18 @@ function Profile() {
                         <th scope="col">Restaurant</th>
                         <th scope="col">Time</th>
                         <th scope="col">Banquet selection</th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      {cusReservation.map = ((item) => (
+                      {cusReservation.map((item) => (
                       <tr>
                         <th scope="row">{item.date}</th>
                         <td>{item.numberOfGuests}</td>
                         <td>{item.name}</td>
                         <td>{item.timeSlot}</td>
                         <td>{item.banquetID != null ? "Yes" : "No"} </td>
+                        <td><button onClick={(e)=>cancelReservation(e, item.reservationID)} className="btn btn-danger">Cancel</button></td>
                       </tr>))}
                     </tbody>
               </table>
@@ -189,28 +219,28 @@ function Profile() {
             },
           }}
         >
-          <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <div class="icon-box">
-                  <i class="material-icons">&#xE876;</i>
+          <div className="modal-dialog modal-confirm">
+            <div className="modal-content">
+              <div className="modal-header">
+                <div className="icon-box">
+                  <i className="material-icons">&#xE876;</i>
                 </div>
-                <h2 class="modal-title w-100">
+                <h2 className="modal-title w-100">
                   Are you sure to delete this account?
                 </h2>
               </div>
               <hr />
               <h3 style={{fontSize:20,fontWeight:5}}>This account will be deleted immediately.You can not undo this action.</h3>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
-                  class="btn btn-success btn-block"
+                  className="btn btn-success btn-block"
                   data-dismiss="modal"
                   onClick={closeConfirmationModal}
                 >
                   Cancel
                 </button>
                 <button
-                  class="btn btn-success btn-block"
+                  className="btn btn-success btn-block"
                   data-dismiss="modal"
                   onClick={handleDeleteAccount}
                 >

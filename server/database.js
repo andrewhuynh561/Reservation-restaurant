@@ -37,7 +37,7 @@ function insert(db, query) {
     });
   }
 
-  function deleteUser(db, query) {
+  function remove(db, query) {
     return new Promise((resolve, reject) => {
         const queries = [];
         db.run(query, function(res, err) {
@@ -118,6 +118,11 @@ const fetchCurrentTier  = async (id) => {
                                 LIMIT 1`))?.[0];
 }
 
+const fetchCusReservation = async (id) => {
+    return await select(db, "SELECT * FROM Reservation AS R LEFT JOIN TimeSlot AS T ON R.timeSlotID = T.timeSlotID"+ 
+                            " LEFT JOIN Restaurant AS RR ON R.restaurantID = RR.restaurantID WHERE R.customerID = " + id);
+} 
+
 // INSERT
 const insertBookings = async (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) => {
     return await insert(db, `INSERT INTO Reservation (date, numberOfGuests, restaurantId, customerId, timeSlotId, banquetId) values ('${date}', ${numberOfGuests}, ${restaurantId}, ${customerId}, ${timeSlotId}, ${banquetId})`);
@@ -132,13 +137,10 @@ const insertCustomer = async (name, phone, email, accountID, address) => {
 }
 //DELETE
 const deleteAccount = async (accountID) => {
-    return await deleteUser(db,`DELETE FROM Account WHERE accountID = ${accountID}`);
+    return await remove(db,`DELETE FROM Account WHERE accountID = ${accountID}`);
 }
 
-const fetchCusReservation = async (id) => {
-    return await select(db, "SELECT * FROM Reservation AS R LEFT JOIN TimeSlot AS T ON R.timeSlotID = T.timeSlotID"+ 
-                            " LEFT JOIN Restaurant AS RR ON R.restaurantID = RR.restaurantID WHERE R.customerID = " + id);
-} 
-
-
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer,deleteAccount, fetchCusReservation}
+const removeRes = async (reservationID) => {
+    return await remove(db,`DELETE FROM Reservation WHERE reservationID = ${reservationID}`);
+}
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer, deleteAccount, removeRes, fetchCusReservation}
