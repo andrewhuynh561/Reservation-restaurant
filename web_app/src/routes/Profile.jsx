@@ -10,6 +10,7 @@ function Profile() {
   const navigate = useNavigate();
   const accountID=history.state.usr.accountDetails.accountID
   const userName=history.state.usr.accountDetails.username
+  const customerName = history.state.usr.accountDetails.name
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
   const openConfirmationModal = () => {
@@ -61,7 +62,7 @@ function Profile() {
   return (
     <>
       <div>
-      <h1>Welcome back, Mate</h1>
+      <h1 style={{color: "white"}}>Welcome back, {customerName}</h1>
       {(history.state.usr.currentTier != undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>}
 
      
