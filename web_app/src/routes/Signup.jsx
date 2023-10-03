@@ -2,10 +2,12 @@ import './Login.css'
 import React, { useEffect, useState } from "react";
 import bcrypt from 'bcryptjs-react'
 import "react-datepicker/dist/react-datepicker.css";
+import {  useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 
 function Signup() {
   document.body.id = 'H';
+  const navigate = useNavigate();
 
   const [fName, setfName] = useState("");
   const [lName, setlName] = useState("");
@@ -28,6 +30,7 @@ function Signup() {
   const closeConfirmationModal = (e) => {
     e.preventDefault();
     setConfirmationModalOpen(false);
+    navigate(`/login`);
 
   };
 
@@ -64,6 +67,7 @@ function Signup() {
        const responseBody = await response.json();
        
        openConfirmationModal();
+      //  navigate(`/login`);
      } catch (error) {
        console.error(error);
      }
