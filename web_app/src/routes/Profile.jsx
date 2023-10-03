@@ -11,6 +11,7 @@ function Profile() {
   const accountID=history.state.usr.accountDetails.accountID
   const userName=history.state.usr.accountDetails.username
   const customerName = history.state.usr.accountDetails.name
+  const customerPoints = history.state.usr.accountDetails.points
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
   const openConfirmationModal = () => {
@@ -62,9 +63,11 @@ function Profile() {
   return (
     <>
       <div>
-      <h1 style={{color: "white"}}>Welcome back, {customerName}</h1>
+      <h1 style={{ color: "white", textAlign: "center", fontFamily: "Arial" }}>
+      Welcome back, {customerName}! You have achieved {customerPoints} points!
+      </h1>
+    
       {(history.state.usr.currentTier != undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>}
-
      
       <button onClick={openConfirmationModal} className="btn btn-danger">Delete Account</button>
 
