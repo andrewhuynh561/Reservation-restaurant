@@ -33,25 +33,27 @@ function Profile() {
         console.error(err.message);
       });
   }, [accountID]);
-
+  
 
   useEffect(() => {
-    fetch(`http://localhost:6060/reservation/${customer.customerID}`)
-    .then((response) => {
-      if(!response.ok)
-      {
-        throw new Error (`Failed to fetch reservation data for customer ID: ${customer.customerID}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      setCusReservation(data); 
-    })
-    .catch((err) => {
-      console.error(err.message);
-    })
-  },[customer.customerID])
+    if (customer.customerID !== undefined) {
+      fetch(`http://localhost:6060/reservation/${customer.customerID}`)
+      .then((response) => {
+        if(!response.ok)
+        {
+          throw new Error (`Failed to fetch reservation data for customer ID: ${customer.customerID}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCusReservation(data); 
+      })
+      .catch((err) => {
+        console.error(err.message);
+      })
+    }
+  },[customer])
 
   const openConfirmationModal = () => {
     setConfirmationModalOpen(true);

@@ -5,6 +5,7 @@ const db = new sqlite3.Database('./Restaurant-Booking.db');
 
 // this lets us do selects with a promise.
 function select(db, query) {
+    console.log("running query \"" + query + "\"")
   return new Promise((resolve, reject) => {
       const queries = [];
       db.each(query, (err, row) => {
