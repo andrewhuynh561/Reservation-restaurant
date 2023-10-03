@@ -260,7 +260,7 @@ function Booking() {
               />
             </div>
           </form>
-          {selectedBanquetID != -1 && <Payment></Payment>}
+          {selectedBanquetID != null? selectedBanquetID != -1 && <Payment/> : <></>}
         </div>
 
         <div className="newResbtn">
