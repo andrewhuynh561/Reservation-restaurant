@@ -45,6 +45,7 @@ function Login() {
         bcrypt.compare(password, accPw, function(err, res) {
           if(res){
             console.log("valid", accID);
+            setLoggedIn(accID); // sets login state - will be avalible via context to all routes
             navigate(`/account/${accID}`, {state: responseBody, replace: true}); 
           }
           else {
