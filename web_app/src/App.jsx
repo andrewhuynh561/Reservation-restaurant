@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect, useRef } from 'react';
 import './App.css'
 import Home from './routes/Home.jsx'
 import About from './routes/About.jsx'
@@ -15,17 +15,54 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(null);
   const value = {loggedIn, setLoggedIn};
 
+  const [open, setOpen] = useState(false);
+
+  let menuRef = useRef();
+
+  useEffect(() => {
+    let handler = (e)=>{
+      if(!menuRef.current.contains(e.target)){
+        setOpen(false);
+        console.log(menuRef.current);
+      }      
+    };
+
+    document.addEventListener("mousedown", handler);
+    
+
+    return() =>{
+      document.removeEventListener("mousedown", handler);
+    }
+
+  });
+
   return (
     <>
       <BrowserRouter>
         <LoginContext.Provider value={value}>
           <div className=" row" >
             <nav className="nav-menu mb-4 col-12 ">
+
+              <div className='menu-container' ref={menuRef}>
+                <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
+                  <img src='web_app/src/images/bambooleaf/pexels-chan-walrus-958545.jpg'></img>
+                </div>
+
+                <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} >
+                  <ul>
+                    <DropdownItem text = {"My Profile"}/>
+                    <DropdownItem text = {"Edit Profile"}/>
+                    <DropdownItem text = {"Settings"}/>
+                    <DropdownItem text = {"Helps"}/>
+                    <DropdownItem text = {"Logout"}/>
+                  </ul>
+                </div>
+              </div>
               
               
               <a href="/login" className="btn btn-success login-button-align" title="Log in to your account" type="button">Login</a>
               <a href="/signup" className="btn btn-warning signup-button" title="Create an account with us" type="button">Sign up</a>
-              <ul>
+              <ul id="nav-main">
 
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about"> About SGV</Link></li>
@@ -49,6 +86,14 @@ function App() {
       </BrowserRouter>
     </>
   )
+}
+
+function DropdownItem(props){
+  return(
+    <li className = 'dropdownItem'>
+      <a> {props.text} </a>
+    </li>
+  );
 }
 
 export default App;

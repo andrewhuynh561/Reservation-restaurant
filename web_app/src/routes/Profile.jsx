@@ -3,8 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import "./Booking.css";
 
-
-
 function Profile() {
   document.body.id = 'H';
   const navigate = useNavigate();
