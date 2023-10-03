@@ -23,8 +23,7 @@ function Profile() {
     setConfirmationModalOpen(false);
   };
 
-  const handleDeleteAccount = async (event) => {
-    event.preventDefault();
+  const handleDeleteAccount = async () => {
 
     try {
       const response = await fetch(`http://localhost:6060/account/${accountID}`, {
