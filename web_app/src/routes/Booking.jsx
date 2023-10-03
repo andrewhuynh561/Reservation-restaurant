@@ -23,7 +23,7 @@ function Booking() {
   const [reservationID, setReservationID] = useState(0);
   const [selectedBanquetID, setSelectedBanquetID] = useState(null);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
-  const [customer, setCust] = useState([]);
+  const [customer, setCust] = useState({customerID: null});
 
   console.log(loggedIn)
 
