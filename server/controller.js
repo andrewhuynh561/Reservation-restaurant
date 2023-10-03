@@ -1,6 +1,8 @@
 
 import database from "./database.js"
 
+let sharedAccountID;
+
 const getRestaurants = async (req, res) => {
   const rests = await database.fetchRestaurants()
   return res.send(rests);
@@ -79,6 +81,7 @@ const addAccount = async (req, res) => {
 
   const accID = await database.insertAccount(username, password);
   const cust = await database.insertCustomer(name, phone, email, accID, address)
+
   console.log("accountID: ", accID)
   console.log("custID: ", cust)
 
@@ -86,9 +89,12 @@ const addAccount = async (req, res) => {
 }
 
 const deleteAccount = async (req , res) =>{
+
   try {
+    const accountID = req.params.accID
     // Call a function in your database module to delete the account
-    const result = await database.deleteAccount(accountId);
+    const result = await database.deleteAccount(accountID);
+    console.log(result)
 
     if (result) {
       return res.status(200).json({ message: 'Account deleted successfully' });
@@ -96,10 +102,11 @@ const deleteAccount = async (req , res) =>{
       return res.status(404).json({ message: 'Account not found' });
     }
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 const getEmployee = async (req, res) => {
   let id = req.params.id;
   const employee = await database.fetchEmployee(id);

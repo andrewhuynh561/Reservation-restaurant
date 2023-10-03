@@ -21,6 +21,31 @@ function Profile() {
     setConfirmationModalOpen(false);
   };
 
+  const handleDeleteAccount = async () => {
+
+    try {
+      const response = await fetch(`http://localhost:6060/account/${accountID}`, {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        console.log('Deleted successfully');
+        navigate(`/login`);
+      } else {
+        throw new Error(`Failed to delete account: ${response.status} - ${response.statusText}`);
+      }
+      console.log(response)
+      const responseBody = await response.json();
+      console.log(responseBody)
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  
 
 
   useEffect(() => {
@@ -106,6 +131,7 @@ function Profile() {
                 <button
                   class="btn btn-success btn-block"
                   data-dismiss="modal"
+                  onClick={handleDeleteAccount}
                 >
                   Delete
                 </button>

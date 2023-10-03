@@ -43,7 +43,7 @@ function insert(db, query) {
             if (err) {
                 reject(err); // optional: again, you might choose to swallow this error.
             } else {
-                resolve(this.lastID); // resolve the promise
+                resolve(this.changes); // resolve the promise
             }
         });
     });
