@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,6 +7,7 @@ import "./Booking.css";
 import MenuImage from "./Elements/menuImage";
 import Payment from "../components/Payment";
 import dayjs from 'dayjs'
+import LoginContext from "../LoginContext";
 
 function Booking() {
   document.body.id = "H";
@@ -21,6 +22,27 @@ function Booking() {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const [reservationID, setReservationID] = useState(0);
   const [selectedBanquetID, setSelectedBanquetID] = useState(null);
+  const { loggedIn, setLoggedIn } = useContext(LoginContext);
+  const [customer, setCust] = useState([]);
+
+  console.log(loggedIn)
+
+  useEffect(() => {
+    fetch(`http://localhost:6060/customer/${loggedIn}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch customer data for account ID: ${accountID}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data.customerID);
+        setCust(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [loggedIn]);
 
   const updateBanquet = (select) => {
     var id = select.options[select.selectedIndex].value;
@@ -128,7 +150,7 @@ function Booking() {
       date: dayjs(date).format('YYYY-MM-DD'), // Fixed
       numberOfGuests: guest,
       restaurantId: id,
-      customerId: null,
+      customerId: customer.customerID,
       timeSlotId: timeslot.timeSlotID,
       banquetId: banquetId,
     };
@@ -318,8 +340,8 @@ function Booking() {
               <p className="p">Date: {date.toISOString().split("T")[0]}</p>
               <p className="p">Time: {timeslot && timeslot.timeSlot}</p>
               <p className="p">Location : {restaurant.name}</p>
-              <p className="p">Customer: None</p>
-              <p className="p">Guest :{guest}</p>
+              <p className="p">Customer: {customer.name}</p>
+              <p className="p">Guest: {guest}</p>
               <p className="p">Reservation: {reservationID}</p>
               <div class="modal-footer">
                 <button

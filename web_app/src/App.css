@@ -13,59 +13,22 @@
   padding: 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.topleft {
-  height:60px;
-  object-fit: contain;
-}
-
 .nav-inner,
-.nav-menu ul,
+.nav-menu ul #nav-main, /*conflict r*/
 .nav-menu2{
   display: flex;
   align-items: center;
 
 }
 
-.nav-menu li :last-child{
+.nav-menu #nav-main li :last-child{ /*conflict r*/
   margin-right: 0;
 
 }
 /* .login{
  
 } */
-.nav-menu  a{
+.nav-menu  a{ /*conflict may not need to resolve as is blocked by subsequent*/
   color: #fff;
   align-items: center;
   justify-content: center;
@@ -95,7 +58,7 @@
 
 }
 
-ul {
+#nav-main { /*conflict r*/
   list-style-type: none;
   margin:0;
   padding:0;
@@ -103,11 +66,11 @@ ul {
   background-color: rgb(70, 70, 70)
 }
 
-li {
+#nav-main li { /*conflict r*/
   float:left;
 }
 
-li a {
+#nav-main li a { /*conflict r*/
   display: block;
   color: white;
   text-align: center;
@@ -116,14 +79,94 @@ li a {
   
 }
 
-li a:hover:not(.active) {
+#nav-main li a:hover:not(.active) { /*conflict r?*/
 
   background-color: rgba(255,255,255,0.2);
 }
 
-.active {
+.active { 
 
   background-color: #35cd8c;
 }
 
+/* new shit may need to resolve conflicts */
+.menu-trigger img{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #fff;
+}
 
+.dropdown-menu{
+  position: absolute;
+  display: block;
+  top: 100px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  width: 200px;
+}
+
+.dropdown-menu::before{
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+.dropdown-menu.active{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 500ms ease;
+}
+
+.dropdown-menu.inactive{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: 500ms ease;
+}
+
+.dropdown-menu ul li{
+  padding: 10px  0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu ul li:hover a{
+  color: rgb(212, 33, 9);
+  cursor: pointer;
+}
+
+.dropdown-menu ul li:hover img{
+  opacity: 1;
+  cursor: pointer;
+}
+
+.dropdownItem{
+  display: flex;
+  margin: 10px auto;
+}
+
+.dropdownItem img{
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: 500ms;
+}
+
+.dropdownItem a{
+  max-width: 100px;
+  margin-left: 10px;
+  transition: 500ms;
+}
