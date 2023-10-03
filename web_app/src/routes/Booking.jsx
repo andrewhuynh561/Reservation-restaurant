@@ -301,6 +301,7 @@ function Booking() {
           isOpen={isConfirmationModalOpen}
           onRequestClose={closeConfirmationModal}
           contentLabel="Confirmation Modal"
+          ariaHideApp={false}
           style={{
             overlay: {
               position: "fixed",
