@@ -2,6 +2,7 @@
   position: relative;
   text-align: center;
   color: white;
+  margin-top: 30px;
 }
 .centered {
   position: absolute;
@@ -55,7 +56,7 @@ animation: color-animation 4s linear infinite;
 }
 
 .card-img-overlay{
-  margin-top: 330px;
+  margin-top: 238px;
 }
 
 @keyframes fade-in{
