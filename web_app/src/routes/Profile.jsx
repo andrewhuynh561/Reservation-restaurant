@@ -130,21 +130,21 @@ const cancelReservation = async (event, reservationID) => {
   return (
     <>
       <div>
-      <h1 style={{ color: "white", textAlign: "center", fontFamily: "Arial" }}>
+      <h1 style={{ color: "white", textAlign: "center", fontFamily: "Arial",fontSize: "45px" }}>
       Welcome back, {customerName}! 
       {history.state.usr.accountDetails.points >= 300 && history.state.usr.accountDetails.points < 400 ? <div><img src={history.state.usr.currentTier.iconImage}></img></div> : <></>}
       {history.state.usr.accountDetails.points >= 400 && history.state.usr.accountDetails.points < 500 ? <div><img src={history.state.usr.currentTier.iconImage}></img></div> : <></>}
       {history.state.usr.accountDetails.points >= 500 ? <div>{history.state.usr.currentTier.iconImage}</div> : <></>}
-      You have achieved {customerPoints} points!
       </h1>
-      
-      {(history.state.usr.currentTier !== undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>}
+      <h2 style={{ color: "white", textAlign: "center", fontFamily: "Arial",fontSize: "35px" }}>You have achieved {customerPoints} points!</h2>
+
+      {/* {(history.state.usr.currentTier !== undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>} */}
       <div className="container g-2">
         <div className="row justify-content-md-evenly"> 
           <div className="col-8">
             {cusReservation.length > 0 ?
               (<div>
-                <h3>Your upcomming booking</h3>
+                <h3 style={{ fontSize: "25px" }}>Your Upcomming Reservation</h3>
                 <table className="table table-dark">
                     <thead>
                       <tr>
@@ -170,14 +170,21 @@ const cancelReservation = async (event, reservationID) => {
               </table>
             </div>)
             :(<div>
-              <h3>You dont have any booking currently !</h3> 
+              <h3 style={{ fontSize: "15px" }}>You don't have any booking currently!</h3>
               {/* could have a link to home page or booking page under */}
             </div>) 
             }
           </div>
         </div>
       </div>
-      <button onClick={openConfirmationModal} className="btn btn-danger mt-2">Delete Account</button>
+      <button
+        onClick={openConfirmationModal}
+        className="btn btn-danger mt-2"
+        style={{ position: "absolute", bottom: "10px", right: "10px" }}
+      >
+        Delete Account
+      </button>
+
 
       {/* Delete Account Confirmation Modal */}
       {/* {isDeleteModalOpen && (
