@@ -176,15 +176,23 @@ const cancelReservation = async (event, reservationID) => {
           </div>
         </div>
       </div>
-      <button
-        onClick={openConfirmationModal}
-        className="btn btn-danger mt-2"
-        style={{ position: "absolute", bottom: "10px", right: "10px" }}
-      >
-        Delete Account
-      </button>
-      <Link to={`/account/${accountID}/editprofile/`} className="btn btn-primary" >Edit Account</Link>
-      
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Link
+          to={`/account/${accountID}/editprofile/`}
+          className="btn btn-primary"
+          style={{ marginRight: "10px" }}
+        >
+          Edit Account
+        </Link>
+        <button
+          onClick={openConfirmationModal}
+          className="btn btn-danger"
+        >
+          Delete Account
+        </button>
+      </div>
+
+
 
       {/* Delete Account Confirmation Modal */}
       {/* {isDeleteModalOpen && (
