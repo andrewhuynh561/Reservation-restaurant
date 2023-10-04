@@ -34,7 +34,6 @@ function Profile() {
       });
   }, [accountID]);
 
-
   useEffect(() => {
     if (customer.customerID !== undefined) {
       fetch(`http://localhost:6060/reservation/${customer.customerID}`)
@@ -132,10 +131,14 @@ const cancelReservation = async (event, reservationID) => {
     <>
       <div>
       <h1 style={{ color: "white", textAlign: "center", fontFamily: "Arial" }}>
-      Welcome back, {customerName}! You have achieved {customerPoints} points!
+      Welcome back, {customerName}! 
+      {history.state.usr.accountDetails.points >= 300 && history.state.usr.accountDetails.points < 400 ? <div><img src={history.state.usr.currentTier.iconImage}></img></div> : <></>}
+      {history.state.usr.accountDetails.points >= 400 && history.state.usr.accountDetails.points < 500 ? <div><img src={history.state.usr.currentTier.iconImage}></img></div> : <></>}
+      {history.state.usr.accountDetails.points >= 500 ? <div>{history.state.usr.currentTier.iconImage}</div> : <></>}
+      You have achieved {customerPoints} points!
       </h1>
-    
-      {(history.state.usr.currentTier != undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>}
+      
+      {(history.state.usr.currentTier !== undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>}
       <div className="container g-2">
         <div className="row justify-content-md-evenly"> 
           <div className="col-8">

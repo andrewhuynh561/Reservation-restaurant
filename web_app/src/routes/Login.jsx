@@ -138,14 +138,14 @@ function Login() {
 
         <form className="col-6">
           <div className="form-group mt-3 mb-3">
-            <label className="label-style mb-2" style={{color:"white"}} for="exampleInputEmail1">User Name</label>
-            <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User Name" value={userName} onChange={handleUserNameChange}></input> 
+            <label className="label-style mb-2" style={{color:"white"}}>User Name</label>
+            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="User Name" value={userName} onChange={handleUserNameChange}></input> 
             
           </div>
 
           <div className="form-group mt-3 mb-3">
-            <label className="label-style mb-2" style={{color:"white"}} for="exampleInputPassword1">Password</label>
-            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={password} onChange={handlePassChange}></input>
+            <label className="label-style mb-2" style={{color:"white"}}>Password</label>
+            <input type="password" className="form-control" placeholder="Password" value={password} onChange={handlePassChange}></input>
           </div>
           <p>Forgot password?</p>
           <button type="button" className="btn btn-primary" onClick={handleSubmit}>Sign in</button>
