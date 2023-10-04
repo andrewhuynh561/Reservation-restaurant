@@ -40,23 +40,47 @@ function App() {
 
   useEffect(() => {
     if(loggedIn != null) {
-      fetch(`http://localhost:6060/customer/${loggedIn}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch customer data for account ID: ${loggedIn}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data.customerID);
-        var temp = data.name.split(" ");
-        var initials = temp[0][0] + temp[temp.length - 1][0];
-        console.log(initials);
-        setInitials(initials);
-      })
-      .catch((err) => {
-        console.error(err.message);
-      });
+      
+      if(loggedIn.customer) {
+        fetch(`http://localhost:6060/customer/${loggedIn.accountID}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to fetch customer data for account ID: ${loggedIn.accountID}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data.customerID);
+          var temp = data.name.split(" ");
+          var initials = temp[0][0] + temp[temp.length - 1][0];
+          console.log(initials);
+          setInitials(initials);
+        })
+        .catch((err) => {
+          console.error(err.message);
+        });
+      }
+      else {
+        fetch(`http://localhost:6060/employee/${loggedIn.accountID}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Failed to fetch data for ${loggedIn.accountID}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data.employeeID);
+            var temp = data.name.split(" ");
+            var initials = temp[0][0] + temp[temp.length - 1][0];
+            console.log(initials);
+            setInitials(initials);
+          })
+          .catch((err) => {
+            console.error(err.message);
+          });
+      }
+      
+      
     }    
   }, [loggedIn]);
 

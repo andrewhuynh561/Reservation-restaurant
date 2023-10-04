@@ -27,8 +27,8 @@ function Booking() {
 
   console.log(loggedIn)
 
-  useEffect(() => {
-    fetch(`http://localhost:6060/customer/${loggedIn}`)
+  useEffect(() => { // could add check for customer or not
+    fetch(`http://localhost:6060/customer/${loggedIn.accountID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch customer data for account ID: ${loggedIn}`);
