@@ -1,5 +1,5 @@
 -- SQLite
 UPDATE Account
 SET 
-    points = 550
-WHERE accountID = 8;
+    points = 450
+WHERE accountID = 13;
