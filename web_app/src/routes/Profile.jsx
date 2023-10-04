@@ -192,7 +192,7 @@ const cancelReservation = async (event, reservationID) => {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div style={{ position: "absolute", bottom: "0", left: "50%", transform: "translateX(-50%)" }}>
         <Link
           to={`/account/${accountID}/editprofile/`}
           className="btn btn-primary"
