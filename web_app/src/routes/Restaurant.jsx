@@ -266,7 +266,7 @@ function Restaurant() {
           </div>
           )}
       </div>
-      </div>
+    </div>
       
     </>
     

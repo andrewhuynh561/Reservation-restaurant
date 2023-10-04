@@ -61,12 +61,12 @@ img.image-gallery-image {
 .content {
   position: absolute;
   height: 100%;
-  top: 76px;
+  top: 52px;
 }
 
 .overlay {
   position: absolute;
-  top: 76px;
+  top: 52px;
   height: 50vh;
   width: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1));
