@@ -18,6 +18,23 @@ function Profile() {
   const [cusReservation, setCusReservation] = useState([]); // get customer's reservation
   
   useEffect(() => {
+    fetch(`http://localhost:6060/customer/${accountID}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch customer data for account ID: ${accountID}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setCustomer(data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [accountID]);
+
+  useEffect(() => {
     if (customer.customerID !== undefined) {
       fetch(`http://localhost:6060/reservation/${customer.customerID}`)
       .then((response) => {
