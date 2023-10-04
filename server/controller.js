@@ -50,6 +50,9 @@ const getCustomerLogin = async (req, res) => {
   let userName = req.params.userName;
 
   const accountDetails = await database.fetchCustomerLogin(userName)
+  if (accountDetails == undefined) {
+    return res.status(404).json({message: "Username is wrong"})
+  }
   const currentTier = await database.fetchCurrentTier(accountDetails.accountID) // this crashes the server if username is wrong as accountDetails will be undefined
   
   return res.send({accountDetails, currentTier});
@@ -147,5 +150,21 @@ const removeReservation = async (req, res) => {
   }
 }
 
+const updateAccount = async (req, res) => {
 
-export default {getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount, deleteAccount, removeReservation, getCustomerReservation, getCustomerProfile}
+  try {
+    const accID = req.params.id
+    
+    const name = req.body.name
+    const phone = req.body.phone
+    const email = req.body.email
+    const address = req.body.address
+
+    
+    const customer = await database.updateCustomer(name, phone, email, accID, address)
+  } catch {
+    return res.status(500).json({ message: 'Internal server error' })
+  }
+  return res.status(200).json({ message: 'Account was updated' })
+}
+export default {updateAccount, getCustomerLogin, getCustomer, getRestaurants, getBookings, getSpecificRestaurant, getTimeSlots, addReservation, getRestaurantDetail, getBanquets, getStaffLogin, getEmployee, addAccount, deleteAccount, removeReservation, getCustomerReservation, getCustomerProfile}

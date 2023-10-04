@@ -16,7 +16,7 @@ function About() {
           </div>
 
           <div className="mt-5" style={{color:'white'}} id="fade-in">
-            <h2>Our Story</h2>
+            <h2>Soylent Green Ventures: Our Story</h2>
             <div className="card-img-overlay">
                 <p className="card-text centered card-text-style">
                   <span class="title-word title-word-1">Grab </span>

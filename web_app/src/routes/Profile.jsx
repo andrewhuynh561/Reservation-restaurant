@@ -246,7 +246,7 @@ const cancelReservation = async (event, reservationID) => {
                 </h2>
               </div>
               <hr />
-              <h3 style={{fontSize:20,fontWeight:5}}>This account will be deleted immediately.You can not undo this action.</h3>
+              <h3 style={{fontSize:20,fontWeight:5}}>This account will be deleted immediately. You can not undo this action.</h3>
               <div className="modal-footer">
                 <button
                   className="btn btn-success btn-block"

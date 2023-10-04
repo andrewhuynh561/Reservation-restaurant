@@ -10,7 +10,7 @@ function Payment() {
       <form>
         <div className="mb-3" style={{ color: "white" }}>
           <p>
-            <i>(It is required to deposit $25 to secure the banquet)</i>
+            <i>(A $25 deposit is required for banquets)</i>
           </p>
         </div>
         <div className="mb-3">
