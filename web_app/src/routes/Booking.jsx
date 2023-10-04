@@ -269,7 +269,24 @@ function Booking() {
                 </select>
               </div>
             )}
+
+            {(banquets.banquetID == 1) ? 
+            (<div>
               <h4 className="word" >Select number of guests</h4>
+              <input
+                name="numberOfGuests"
+                type="number"
+                min="4"
+                value={guest}
+                onChange={(e) => setGuest(e.target.value)}
+                style={{ width: "100%"}}
+                placeholder="Enter the number of guest"
+                className="form-control"
+              />
+            </div>)
+            : 
+            (<div>
+            <h4 className="word" >Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
@@ -280,6 +297,8 @@ function Booking() {
                 placeholder="Enter the number of guest"
                 className="form-control"
               />
+            </div>)
+            }
             </div>
           </form>
           {selectedBanquetID != null? selectedBanquetID != -1 && <Payment/> : <></>}
