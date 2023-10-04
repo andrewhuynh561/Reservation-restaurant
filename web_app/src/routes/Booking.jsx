@@ -53,6 +53,21 @@ function Booking() {
     setGuest("")
     setSelectedBanquetID(id);
   };
+  
+  const getSelectedBanquet = () => {
+
+    banquets.map((banquets) => {
+      // console.log(banquets.banquetName)
+      // console.log(selectedBanquetID)
+      if (selectedBanquetID != null && selectedBanquetID == 2)
+      {
+        
+        return banquets.banquetName
+      }
+    })
+    
+  }
+ 
   const handleChangeinTimes = (newTimeslot) => {
     setTimeslot(newTimeslot);
   };
@@ -411,6 +426,16 @@ function Booking() {
               <p className="p">Location : {restaurant.name}</p>
               <p className="p">Customer: {customer.name}</p>
               <p className="p">Guest: {guest}</p>
+              <p className="p">Banquet:
+              {banquets.map((banquets) => {
+                if (banquets.banquetID == selectedBanquetID)
+                {
+                  return " " + banquets.banquetName
+                }
+
+              })}
+              
+              </p>
               <p className="p">Reservation: {reservationID}</p>
               <div className="modal-footer">
                 <button
