@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import Modal from "react-modal";
 import "./Booking.css";
+import bronzeTier from './.././TierIconImages/Bronze-Icon-1-298x300-removebg-preview.png';
+import silverTier from './.././TierIconImages/2-2-silver-free-download-png-removebg-preview.png';
+import goldTier from './.././TierIconImages/Gold-Icon-removebg-preview.png';
 
 function Profile() {
   document.body.id = 'H';
@@ -33,6 +36,22 @@ function Profile() {
         console.error(err.message);
       });
   }, [accountID]);
+
+  const showTierImage = () => {
+    if (history.state.usr.accountDetails.points >= 300 && history.state.usr.accountDetails.points < 400)
+    {
+      return <img style={{width: 90}} src={bronzeTier}></img>
+    }
+    else if (history.state.usr.accountDetails.points >= 400 && history.state.usr.accountDetails.points < 500)
+    {
+      return <img style={{width: 90}}  src={silverTier}></img>
+    }
+    else if (history.state.usr.accountDetails.points >= 500)
+    {
+      return <img style={{width: 90}} src={goldTier}></img>
+    }
+  }
+
 
   useEffect(() => {
     if (customer.customerID !== undefined) {
@@ -131,10 +150,7 @@ const cancelReservation = async (event, reservationID) => {
     <>
       <div>
       <h1 style={{ color: "white", textAlign: "center", fontFamily: "Arial",fontSize: "45px" }}>
-      Welcome back, {customerName}! 
-      {history.state.usr.accountDetails.points >= 300 && history.state.usr.accountDetails.points < 400 ? <div><img src={history.state.usr.currentTier.iconImage}></img></div> : <></>}
-      {history.state.usr.accountDetails.points >= 400 && history.state.usr.accountDetails.points < 500 ? <div><img src={history.state.usr.currentTier.iconImage}></img></div> : <></>}
-      {history.state.usr.accountDetails.points >= 500 ? <div>{history.state.usr.currentTier.iconImage}</div> : <></>}
+      Welcome back, {customerName}! {showTierImage()}
       </h1>
       <h2 style={{ color: "white", textAlign: "center", fontFamily: "Arial",fontSize: "35px" }}>You have achieved {customerPoints} points!</h2>
       {/* {(history.state.usr.currentTier !== undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>} */}

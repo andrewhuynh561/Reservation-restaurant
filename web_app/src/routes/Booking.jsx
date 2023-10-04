@@ -329,12 +329,6 @@ function Booking() {
                         The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
                       </div>
                     }
-                    {showError == true && guest != "" && 
-                      
-                      <div class="alert alert-danger" role="alert">
-                        The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
-                      </div>
-                    }
                   </div>
                 )
                 : 
