@@ -26,12 +26,11 @@ function Booking() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const [customer, setCust] = useState({customerID: null});
   const [showError, setShowError] = useState(false);
-  const [showError, setShowError] = useState(false);
 
   console.log(loggedIn)
 
-  useEffect(() => {
-    fetch(`http://localhost:6060/customer/${loggedIn}`)
+  useEffect(() => { // could add check for customer or not
+    fetch(`http://localhost:6060/customer/${loggedIn.accountID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch customer data for account ID: ${accountID}`);
@@ -71,6 +70,7 @@ function Booking() {
   const handleChangeinTimes = (newTimeslot) => {
     setTimeslot(newTimeslot);
   };
+  
   const openConfirmationModal = () => {
     setConfirmationModalOpen(true);
   };
@@ -91,20 +91,6 @@ function Booking() {
       setShowError(true);
     }
   };
-
-
-  const handleNumberOfGuests = (e) => {
-    const value = e.target.value;
-
-    if (value >= 4) {
-      setGuest(value)
-      setShowError(false);
-    } else {
-      setGuest(value)
-      setShowError(true);
-    }
-  };
-
 
   const isDayDisable = (banDate) => {
     const dayOfWeek = banDate.getDay();
@@ -244,9 +230,11 @@ function Booking() {
         <div className="col-3" style={{marginTop: 20}}>
           <form onSubmit={handleSubmit} className="newResForm">
             <div>
+              
               <h3 className="word">Make a Reservation</h3>
               <hr style={{borderTop: "3px solid white", marginTop: 9}}/>
               <h4 className="word">Select the date</h4>
+              
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
@@ -255,10 +243,13 @@ function Booking() {
                 className="form-control datepicker"
                 
               />
+              
               <p className="word-selection">
                 Selected date: {date.toDateString()}
               </p>
+              
               <h4 className="word">Select the time</h4>
+              
               {timeSlots.map((timeslot) => {
                 const onclickEvent = () => {
                   handleChangeinTimes(timeslot);
@@ -289,80 +280,81 @@ function Booking() {
                   </button>
                 );
               })}
+              
               <p className="word-selection">
                 Selected Time: {timeslot && timeslot.timeSlot}
               </p>{" "}
               {/* there to see if the time is updated and displayed */}
+
               {banquets.length > 0 && (
-              <div>
-                <h4 className="word">Select your banquet option</h4>
-                <select
-                  onChange={(e) => {
-                    updateBanquet(e.target);
-                  }}
-                  style={{ width: "100%", }}
-                  id="banquetOptions"
-                  name="banquetOptions"
-                  form="banquetForm"
-                  className="form-control"
-                >
-                  <option value={-1}>None</option>
-                  {banquets.map((banquet) => (
-                    <option key={banquet.banquetID} value={banquet.banquetID}>
-                      {banquet.banquetName} {banquet.banquetPrice}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-            
-            {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
-            (
-            <div>
-            
-            {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
-            (
-            <div>
-              <h4 className="word" >Select number of guests</h4>
-              <input
-                name="numberOfGuests"
-                type="number"
-                min="4"
-                value={guest}
-                onChange={handleNumberOfGuests}
-                onChange={handleNumberOfGuests}
-                style={{ width: "100%"}}
-                placeholder="Enter the number of guest"
-                className="form-control"
-              />
-              {showError == true && guest != "" && 
-                
-                <div class="alert alert-danger" role="alert">
-                  The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
+                <div>
+                  <h4 className="word">Select your banquet option</h4>
+                  <select
+                    onChange={(e) => {
+                      updateBanquet(e.target);
+                    }}
+                    style={{ width: "100%", }}
+                    id="banquetOptions"
+                    name="banquetOptions"
+                    form="banquetForm"
+                    className="form-control"
+                  >
+                    <option value={-1}>None</option>
+                    {banquets.map((banquet) => (
+                      <option key={banquet.banquetID} value={banquet.banquetID}>
+                        {banquet.banquetName} {banquet.banquetPrice}
+                      </option>
+                    ))}
+                  </select>
                 </div>
+              )}
+            
+              {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
+                (
+                  <div>
+                    <h4 className="word" >Select number of guests</h4>
+                    <input
+                      name="numberOfGuests"
+                      type="number"
+                      min="4"
+                      value={guest}
+                      onChange={handleNumberOfGuests}
+                      style={{ width: "100%"}}
+                      placeholder="Enter the number of guest"
+                      className="form-control"
+                    />
+                    {showError == true && guest != "" && 
+                      
+                      <div class="alert alert-danger" role="alert">
+                        The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
+                      </div>
+                    }
+                    {showError == true && guest != "" && 
+                      
+                      <div class="alert alert-danger" role="alert">
+                        The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
+                      </div>
+                    }
+                  </div>
+                )
+                : 
+                (
+                  <div>
+                  <h4 className="word" >Select number of guests</h4>
+                    <input
+                      name="numberOfGuests"
+                      type="number"
+                      min="0"
+                      value={guest}
+                      onChange={(e) => setGuest(e.target.value)}
+                      style={{ width: "100%"}}
+                      placeholder="Enter the number of guest"
+                      className="form-control"
+                    />
+                  </div>
+                )
               }
-              {showError == true && guest != "" && 
-                
-                <div class="alert alert-danger" role="alert">
-                  The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
-                </div>
-              }
-            </div>)
-            : 
-            (<div>
-            <h4 className="word" >Select number of guests</h4>
-              <input
-                name="numberOfGuests"
-                type="number"
-                min="0"
-                value={guest}
-                onChange={(e) => setGuest(e.target.value)}
-                style={{ width: "100%"}}
-                placeholder="Enter the number of guest"
-                className="form-control"
-              />
-            </div>)
-            }
+
             </div>
           </form>
           {selectedBanquetID != null? selectedBanquetID != -1 && <Payment/> : <></>}

@@ -1,4 +1,4 @@
-import React, {useContext,useState} from "react";
+import React, {useContext,useState, useEffect} from "react";
 import bcrypt from 'bcryptjs-react'
 import { Link, useNavigate } from "react-router-dom";
 import LoginContext from "../LoginContext";
@@ -8,7 +8,7 @@ function Login() {
   document.body.id = 'H';
   const navigate = useNavigate();
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
-
+  const loggedInCopy = loggedIn;
   const [customerLogin, setCustomerLogin] = useState(true);
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -51,12 +51,7 @@ function Login() {
               state: responseBody
             }
             setLoggedIn(logjson); // sets login state - will be avalible via context to all routes
-            var logjson = {
-              accountID: accID,
-              customer: true
-            }
-            setLoggedIn(logjson); // sets login state - will be avalible via context to all routes
-            navigate(`/account/${accID}`, {state: responseBody, replace: true}); 
+            navigate("/");
           }
           else {
             //need to add response feature
@@ -87,7 +82,8 @@ function Login() {
             console.log("valid", responseBody.accountID);
             var logjson = {
               accountID: responseBody.accountID,
-              customer: false
+              customer: false,
+              state: responseBody
             }
             setLoggedIn(logjson);
             var logjson = {
@@ -95,7 +91,7 @@ function Login() {
               customer: false
             }
             setLoggedIn(logjson);
-            navigate(`/dashboard/${responseBody.accountID}`, {state: true, replace: true});
+            navigate("/");
           }
           else {
             //need to add response feature
