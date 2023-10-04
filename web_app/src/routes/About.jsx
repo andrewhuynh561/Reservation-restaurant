@@ -17,15 +17,7 @@ function About() {
 
           <div className="mt-5" style={{color:'white'}} id="fade-in">
             <h2>Soylent Green Ventures: Our Story</h2>
-            <div className="card-img-overlay">
-                <p className="card-text centered card-text-style">
-                  <span class="title-word title-word-1">Grab </span>
-                  <span class="title-word title-word-2">Life </span>
-                  <span class="title-word title-word-3">By </span>
-                  <span class="title-word title-word-4">The </span>
-                  <span class="title-word title-word-2">Fork</span>
-                </p>
-              </div>
+            <p><i>Grab Life By The Fork</i></p>
             <p style={{marginTop: "30px"}}>
             From helping restaurants of all sizes thrive, to enabling diners to find and book the perfect table for every occasion, our story is one of human connection—among diners and restaurants, and between restaurants and their communities.
 
