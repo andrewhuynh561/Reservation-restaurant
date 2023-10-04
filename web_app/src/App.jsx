@@ -15,7 +15,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(null);
   const value = {loggedIn, setLoggedIn};
 
+  const [initials, setInitials] = useState(null);
   const [open, setOpen] = useState(false);
+  const [showProfileIcon, setSPI] = useState(false);
 
   let menuRef = useRef();
 
@@ -23,7 +25,7 @@ function App() {
     let handler = (e)=>{
       if(!menuRef.current.contains(e.target)){
         setOpen(false);
-        console.log(menuRef.current);
+        //console.log(menuRef.current);
       }      
     };
 
@@ -36,32 +38,71 @@ function App() {
 
   });
 
+  useEffect(() => {
+    if(loggedIn != null) {
+      fetch(`http://localhost:6060/customer/${loggedIn}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch customer data for account ID: ${loggedIn}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data.customerID);
+        var temp = data.name.split(" ");
+        var initials = temp[0][0] + temp[temp.length - 1][0];
+        console.log(initials);
+        setInitials(initials);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+    }    
+  }, [loggedIn]);
+
+  function LoginButtons() {
+    if (loggedIn !== null) {
+      setSPI(true);
+    }
+    else {
+      setSPI(false);
+
+      return (
+        <>
+          <a href="/login" className="btn btn-success login-button-align" title="Log in to your account" type="button">Login</a>
+          <a href="/signup" className="btn btn-warning signup-button" title="Create an account with us" type="button">Sign up</a>
+        </>
+      )
+    }
+  }
+
   return (
     <>
       <BrowserRouter>
         <LoginContext.Provider value={value}>
           <div className=" row" >
-            <nav className="nav-menu mb-4 col-12 ">
+            <nav className="nav-menu col-12 ">
 
-              <div className='menu-container' ref={menuRef}>
-                <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
-                  <img src='web_app/src/images/bambooleaf/pexels-chan-walrus-958545.jpg'></img>
-                </div>
-
-                <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} >
-                  <ul>
-                    <DropdownItem text = {"My Profile"}/>
-                    <DropdownItem text = {"Edit Profile"}/>
-                    <DropdownItem text = {"Settings"}/>
-                    <DropdownItem text = {"Helps"}/>
-                    <DropdownItem text = {"Logout"}/>
-                  </ul>
+            <div className='menu-container' ref={menuRef}>
+              <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
+                <div className={`profile-icon ${showProfileIcon? 'active' : 'inactive'}`}>
+                  <h5 className="profile-initials">{initials}</h5>
                 </div>
               </div>
+
+              <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} key={1}>
+                <ul>
+                  <DropdownItem text = {"My Profile"}/>
+                  <DropdownItem text = {"Edit Profile"}/>
+                  <DropdownItem text = {"Settings"}/>
+                  <DropdownItem text = {"Helps"}/>
+                  <DropdownItem text = {"Logout"}/>
+                </ul>
+              </div>
+            </div>
+                  
+              <LoginButtons />
               
-              
-              <a href="/login" className="btn btn-success login-button-align" title="Log in to your account" type="button">Login</a>
-              <a href="/signup" className="btn btn-warning signup-button" title="Create an account with us" type="button">Sign up</a>
               <ul id="nav-main">
 
                 <li><Link to="/">Home</Link></li>

@@ -50,7 +50,7 @@ const getCustomerLogin = async (req, res) => {
   let userName = req.params.userName;
 
   const accountDetails = await database.fetchCustomerLogin(userName)
-  const currentTier = await database.fetchCurrentTier(accountDetails.accountID)
+  const currentTier = await database.fetchCurrentTier(accountDetails.accountID) // this crashes the server if username is wrong as accountDetails will be undefined
   
   return res.send({accountDetails, currentTier});
 }

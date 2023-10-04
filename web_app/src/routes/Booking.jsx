@@ -31,7 +31,7 @@ function Booking() {
     fetch(`http://localhost:6060/customer/${loggedIn}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Failed to fetch customer data for account ID: ${accountID}`);
+          throw new Error(`Failed to fetch customer data for account ID: ${loggedIn}`);
         }
         return response.json();
       })
