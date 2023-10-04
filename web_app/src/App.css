@@ -151,6 +151,11 @@
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.dropdown-menu ul :first-child{
+  padding: 10px  0;
+  border-top: none;
+}
+
 .dropdown-menu ul li:hover a{
   color: rgb(212, 33, 9);
   cursor: pointer;

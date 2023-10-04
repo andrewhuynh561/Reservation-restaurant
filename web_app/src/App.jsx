@@ -12,7 +12,7 @@ import Profile from "./routes/Profile";
 import LoginContext from "./LoginContext";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(null);
+  const [loggedIn, setLoggedIn] = useState({accountID: null});
   const value = {loggedIn, setLoggedIn};
 
   const [initials, setInitials] = useState(null);
@@ -39,7 +39,7 @@ function App() {
   });
 
   useEffect(() => {
-    if(loggedIn != null) {
+    if(loggedIn.accountID != null) {
       
       if(loggedIn.customer) {
         fetch(`http://localhost:6060/customer/${loggedIn.accountID}`)
@@ -85,7 +85,7 @@ function App() {
   }, [loggedIn]);
 
   function LoginButtons() {
-    if (loggedIn !== null) {
+    if (loggedIn.accountID !== null) {
       setSPI(true);
     }
     else {
@@ -116,6 +116,12 @@ function App() {
 
               <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} key={1}>
                 <ul>
+                  {/* <li className = 'dropdownItem'>
+                    <Link to={`/account/${loggedIn.accountID}`} state={loggedIn.state}>My profile</Link>
+                  </li>
+                  <li className = 'dropdownItem'>
+                    <Link to={`/account/${loggedIn.accountID}`} state={loggedIn.state}>My profile</Link>
+                  </li> */}
                   <DropdownItem text = {"My Profile"}/>
                   <DropdownItem text = {"Edit Profile"}/>
                   <DropdownItem text = {"Settings"}/>

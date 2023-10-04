@@ -47,7 +47,8 @@ function Login() {
             console.log("valid", accID);
             var logjson = {
               accountID: accID,
-              customer: true
+              customer: true,
+              state: responseBody
             }
             setLoggedIn(logjson); // sets login state - will be avalible via context to all routes
             navigate(`/account/${accID}`, {state: responseBody, replace: true}); 
