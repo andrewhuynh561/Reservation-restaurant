@@ -23,7 +23,7 @@ function Booking() {
   const [reservationID, setReservationID] = useState(0);
   const [selectedBanquetID, setSelectedBanquetID] = useState(null);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
-  const [customer, setCust] = useState([]);
+  const [customer, setCust] = useState({customerID: null});
 
   console.log(loggedIn)
 
@@ -301,6 +301,7 @@ function Booking() {
           isOpen={isConfirmationModalOpen}
           onRequestClose={closeConfirmationModal}
           contentLabel="Confirmation Modal"
+          ariaHideApp={false}
           style={{
             overlay: {
               position: "fixed",
@@ -326,13 +327,13 @@ function Booking() {
             },
           }}
         >
-          <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <div class="icon-box">
-                  <i class="material-icons">&#xE876;</i>
+          <div className="modal-dialog modal-confirm">
+            <div className="modal-content">
+              <div className="modal-header">
+                <div className="icon-box">
+                  <i className="material-icons">&#xE876;</i>
                 </div>
-                <h2 class="modal-title w-100">
+                <h2 className="modal-title w-100">
                   Your reservation has been made !
                 </h2>
               </div>
@@ -343,9 +344,9 @@ function Booking() {
               <p className="p">Customer: {customer.name}</p>
               <p className="p">Guest: {guest}</p>
               <p className="p">Reservation: {reservationID}</p>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
-                  class="btn btn-success btn-block"
+                  className="btn btn-success btn-block"
                   data-dismiss="modal"
                   onClick={closeConfirmationModal}
                 >
