@@ -45,7 +45,7 @@ function Signup() {
       name: fName + " " + lName,
       phone: phone,
       email: email,
-      address: street + " " + suburb + " " + postCode,
+      address: street + ";" + suburb + ";" + postCode,
      };
   
      console.log(accountData);

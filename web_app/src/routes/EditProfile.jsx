@@ -1,9 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Modal from "react-modal";
+
+function splitAddress(addr) {
+
+  const arr = addr.split(";")
+  const street   = arr[0]
+  const suburb   = arr[1]
+  const postcode = arr[2]
+  return {street, suburb, postcode}
+}
+
+function splitName(name) {
+
+  const arr = name.split(" ")
+  const fname   = arr[0]
+  const lname   = arr[1]
+  return {fname, lname}
+}
 
 function EditProfile() {
   const [customer, setCustomer] = useState([]); // get customer
   const { id } = useParams();
+
+  const [fName, setfName] = useState("");
+  const [lName, setlName] = useState("");
+  const [phone, setPhoneNumb] = useState("");
+  
+  const [email, setEmail] = useState("");
+  const [postCode, setPostCode] = useState("");
+  
+  const [suburb, setSuburb] = useState("");
+  const [street, setStreet] = useState("");
+
+  const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
+
+  const openConfirmationModal = () => {
+    setConfirmationModalOpen(true);
+  };
+
+  const closeConfirmationModal = (e) => {
+    e.preventDefault();
+    setConfirmationModalOpen(false);
+  };
+
 
   useEffect(() => {
     fetch(`http://localhost:6060/account/${id}/editprofile/`)
@@ -18,11 +58,58 @@ function EditProfile() {
       .then((data) => {
         console.log(data);
         setCustomer(data);
+
+        const nameParts = splitName(data.name)
+        const addrParts = splitAddress(data.address)
+
+        console.log("nameParts", nameParts)
+        setfName(nameParts.fname)
+        setlName(nameParts.lname)
+        setPhoneNumb(data.phone)
+
+        setEmail(data.email)
+        setPostCode(addrParts.postcode)
+
+        setSuburb(addrParts.suburb)
+        setStreet(addrParts.street)
       })
       .catch((err) => {
         console.error(err.message);
       });
   }, [id]);
+
+  const updateAccount = async () => {
+    try {
+      console.log("making request")
+      const accountData = {
+        name: fName + " " + lName,
+        phone: phone,
+        email: email,
+        address: street + ";" + suburb + ";" + postCode 
+      }
+
+      const response = await fetch(`http://localhost:6060/account/${id}/editprofile/`, {
+        method: "PUT",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(accountData),
+      });
+ 
+      console.log("response", response)
+      if (!response.ok) {
+        throw new Error(`Failed to update account`);
+      }
+ 
+      const responseBody = response.json();
+      
+      openConfirmationModal();
+     
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="container">
@@ -31,21 +118,10 @@ function EditProfile() {
           <div className="card mt-4" style={{ borderRadius: 15 + "px" }}>
             <div className="card-body p-0">
               <h3 className="fw-normal mb-4 mt-4" style={{ color: "black" }}>
-                <b>Registration Form</b>
+                <b>Edit Profile</b>
               </h3>
 
-              <div className="p-3 mb-4 pb-2">
-                <select defaultValue="1" className="form-select">
-                  <option value="1">Title</option>
-                  <option value="2">Miss</option>
-                  <option value="3">Mrs</option>
-                  <option value="4">Ms</option>
-                  <option value="5">Mr</option>
-                  <option value="6">None</option>
-                </select>
-              </div>
-
-              {/* <div className="row p-3">
+              <div className="row p-3">
                 <div className="col-md-6 mb-4 pb-2">
                   <div className="form-outline">
                     <label
@@ -176,7 +252,7 @@ function EditProfile() {
                 </div>
               </div>
 
-              <div className="row p-3">
+              {/*<div className="row p-3">
                 <div className="col-md-5 mb-4 pb-2">
                   <div className="form-outline form-white">
                     <label
@@ -212,7 +288,7 @@ function EditProfile() {
                     ></input>
                   </div>
                 </div>
-              </div> */}
+              </div>
 
               <div className="form-check mb-4 pb-3">
                 <div>
@@ -232,16 +308,70 @@ function EditProfile() {
                     of your site
                   </label>
                 </div>
-              </div>
+              </div>*/}
 
-              {/* <button
+              <button
                 type="button"
-                onClick={createAccount}
+                onClick={updateAccount}
                 className="btn btn-success"
               >
-                Create
-              </button> */}
+                Save
+              </button>
             </div>
+            <Modal
+          isOpen={isConfirmationModalOpen}
+          onRequestClose={closeConfirmationModal}
+          contentLabel="Confirmation Modal"
+          ariaHideApp={false}
+          style={{
+            overlay: {
+              position: "fixed",
+              zIndex: 1020,
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(255, 255, 255, 0.5)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            },
+            content: {
+              background: "white",
+              width: "45rem",
+              maxWidth: "calc(100vw - 2rem)",
+              maxHeight: "calc(100vh - 2rem)",
+              overflowY: "auto",
+              position: "relative",
+              border: "1px solid #ccc",
+              borderRadius: "0.5rem",
+            },
+          }}
+        >
+          <div className="modal-dialog modal-confirm">
+            <div className="modal-content">
+              <div className="modal-header">
+                <div className="icon-box">
+                  <i className="material-icons">&#xE876;</i>
+                </div>
+                <h2 className="modal-title w-100">
+                  Your account has been updated !
+                </h2>
+              </div>
+              <hr />
+              
+              <div className="modal-footer">
+                <button
+                  className="btn btn-success btn-block"
+                  data-dismiss="modal"
+                  onClick={closeConfirmationModal}
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </Modal>
           </div>
         </div>
       </div>

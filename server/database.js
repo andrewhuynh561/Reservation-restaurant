@@ -50,6 +50,20 @@ function insert(db, query) {
     });
   }
 
+  function modify(db, query) {
+    console.log("running modify", query)
+    return new Promise((resolve, reject) => {
+        const queries = [];
+        db.run(query, function(res, err) {
+            if (err) {
+                reject(err); // optional: again, you might choose to swallow this error.
+            } else {
+                resolve({}); // resolve the promise
+            }
+        });
+    });
+  }
+
 //let restList = [];
 
 
@@ -147,4 +161,8 @@ const deleteAccount = async (accountID) => {
 const removeRes = async (reservationID) => {
     return await remove(db,`DELETE FROM Reservation WHERE reservationID = ${reservationID}`);
 }
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer, deleteAccount, removeRes, fetchCusReservation, fetchCustomerProfile}
+
+const updateCustomer = async (name, phone, email, accID, address) => {
+    return await modify(db, `UPDATE Customer SET name = '${name}', phone = '${phone}', email = '${email}', address = '${address}' WHERE accountID = ${accID}`);
+}
+export default {updateCustomer, fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer, deleteAccount, removeRes, fetchCusReservation, fetchCustomerProfile}
