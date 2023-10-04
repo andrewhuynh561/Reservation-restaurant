@@ -26,6 +26,7 @@ function Booking() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const [customer, setCust] = useState({customerID: null});
   const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   console.log(loggedIn)
 
@@ -49,6 +50,7 @@ function Booking() {
   const updateBanquet = (select) => {
     var id = select.options[select.selectedIndex].value;
     setGuest("")
+    setGuest("")
     setSelectedBanquetID(id);
   };
   const handleChangeinTimes = (newTimeslot) => {
@@ -62,6 +64,19 @@ function Booking() {
     e.preventDefault();
     setConfirmationModalOpen(false);
   };
+
+  const handleNumberOfGuests = (e) => {
+    const value = e.target.value;
+
+    if (value >= 4) {
+      setGuest(value)
+      setShowError(false);
+    } else {
+      setGuest(value)
+      setShowError(true);
+    }
+  };
+
 
   const handleNumberOfGuests = (e) => {
     const value = e.target.value;
@@ -289,6 +304,10 @@ function Booking() {
             {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
             (
             <div>
+            
+            {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
+            (
+            <div>
               <h4 className="word" >Select number of guests</h4>
               <input
                 name="numberOfGuests"
@@ -296,10 +315,17 @@ function Booking() {
                 min="4"
                 value={guest}
                 onChange={handleNumberOfGuests}
+                onChange={handleNumberOfGuests}
                 style={{ width: "100%"}}
                 placeholder="Enter the number of guest"
                 className="form-control"
               />
+              {showError == true && guest != "" && 
+                
+                <div class="alert alert-danger" role="alert">
+                  The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
+                </div>
+              }
               {showError == true && guest != "" && 
                 
                 <div class="alert alert-danger" role="alert">

@@ -51,7 +51,7 @@ const getCustomerLogin = async (req, res) => {
   let userName = req.params.userName;
 
   const accountDetails = await database.fetchCustomerLogin(userName)
-  const currentTier = await database.fetchCurrentTier(accountDetails.accountID)
+  const currentTier = await database.fetchCurrentTier(accountDetails.accountID) // this crashes the server if username is wrong as accountDetails will be undefined
   
   return res.send({accountDetails, currentTier});
 }
@@ -266,6 +266,11 @@ const getEmployee = async (req, res) => {
 const getCustomer = async (req, res) => {
   let id = req.params.id;
   const customer = await database.fetchCustomer(id);
+  return res.send(customer);
+}
+const getCustomerProfile = async (req, res) => {
+  let id = req.params.id;
+  const customer = await database.fetchCustomerProfile(id);
   return res.send(customer);
 }
 

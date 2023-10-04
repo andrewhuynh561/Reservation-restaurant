@@ -137,7 +137,6 @@ const cancelReservation = async (event, reservationID) => {
       {history.state.usr.accountDetails.points >= 500 ? <div>{history.state.usr.currentTier.iconImage}</div> : <></>}
       </h1>
       <h2 style={{ color: "white", textAlign: "center", fontFamily: "Arial",fontSize: "35px" }}>You have achieved {customerPoints} points!</h2>
-
       {/* {(history.state.usr.currentTier !== undefined) && <div>You're in tier {history.state.usr.currentTier.tierName}</div>} */}
       <div className="container g-2">
         <div className="row justify-content-md-evenly"> 
@@ -177,10 +176,6 @@ const cancelReservation = async (event, reservationID) => {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-      <button onClick={openConfirmationModal} className="btn btn-danger mt-2">Delete Account</button>
-      <Link to={`/account/${accountID}/editprofile/`} className="btn btn-primary" >Edit Account</Link>
-=======
       <button
         onClick={openConfirmationModal}
         className="btn btn-danger mt-2"
@@ -188,8 +183,8 @@ const cancelReservation = async (event, reservationID) => {
       >
         Delete Account
       </button>
-
->>>>>>> 541ed4442b124d345840e2a4895c925adc0c7d3a
+      <Link to={`/account/${accountID}/editprofile/`} className="btn btn-primary" >Edit Account</Link>
+      
 
       {/* Delete Account Confirmation Modal */}
       {/* {isDeleteModalOpen && (
