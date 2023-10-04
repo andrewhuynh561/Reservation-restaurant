@@ -65,6 +65,18 @@ function Profile() {
       })
       .then((data) => {
         console.log(data);
+        
+        var tempData = data
+        
+        for (var i = 0; i < tempData.length; i++) {
+          var hours = tempData[i].timeSlot.split(":")[0];
+          var AmOrPm = hours >= 12 ? 'pm' : 'am';
+          hours = (hours % 12) || 12;
+          var minutes = tempData[i].timeSlot.split(":")[1];
+          tempData[i].timeSlot = hours + ":" + minutes + " " + AmOrPm;
+          data[i].timeSlot = tempData[i].timeSlot;
+        }
+
         setCusReservation(data); 
       })
       .catch((err) => {

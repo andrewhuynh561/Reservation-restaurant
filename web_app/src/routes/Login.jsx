@@ -173,15 +173,4 @@ function Login() {
   )
 }
 
-//DO NOT TOUCH
-// bcrypt.genSalt(10, function(err, salt) {
-//     bcrypt.hash(password, salt, function(err, hash) {
-//         console.log(hash);
-//     });
-// });
-
-// bcrypt.compare(password, hash, function(err, res) {
-//   console.log(res);
-// });
-
 export default Login
