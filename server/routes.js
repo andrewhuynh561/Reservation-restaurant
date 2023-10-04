@@ -16,6 +16,7 @@ function setupRoutes(router) {
   router.delete('/account/:accountID', controller.deleteAccount);
   router.get('/reservation/:id', controller.getCustomerReservation)
   router.delete('/reservation/:id', controller.removeReservation)
+  router.get('/account/:id/editprofile/', controller.getCustomerProfile)
 }
 
 export default setupRoutes

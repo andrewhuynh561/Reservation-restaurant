@@ -90,23 +90,31 @@
 }
 
 /* new shit may need to resolve conflicts */
-.menu-trigger img{
+.menu-trigger .profile-icon{
   position: absolute;
-  top: 20px;
+  top: 8px;
   right: 20px;
-  height: 60px;
-  width: 60px;
+  height: 37px;
+  width: 37px;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #247f9e;
+}
+
+.profile-icon.active {
+  visibility: visible;
+}
+
+.profile-icon.inactive {
+  visibility: hidden;
 }
 
 .dropdown-menu{
   position: absolute;
   display: block;
-  top: 100px;
-  right: 20px;
+  top: 65px;
+  right: 8px;
   background-color: #fff;
   border-radius: 8px;
   padding: 10px 20px;
@@ -169,4 +177,9 @@
   max-width: 100px;
   margin-left: 10px;
   transition: 500ms;
+}
+
+.profile-initials {
+  color: #fff;
+  line-height: 35px;
 }

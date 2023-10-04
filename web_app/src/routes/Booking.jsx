@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -24,6 +25,7 @@ function Booking() {
   const [selectedBanquetID, setSelectedBanquetID] = useState(null);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const [customer, setCust] = useState({customerID: null});
+  const [showError, setShowError] = useState(false);
 
   console.log(loggedIn)
 
@@ -46,6 +48,7 @@ function Booking() {
 
   const updateBanquet = (select) => {
     var id = select.options[select.selectedIndex].value;
+    setGuest("")
     setSelectedBanquetID(id);
   };
   const handleChangeinTimes = (newTimeslot) => {
@@ -59,6 +62,19 @@ function Booking() {
     e.preventDefault();
     setConfirmationModalOpen(false);
   };
+
+  const handleNumberOfGuests = (e) => {
+    const value = e.target.value;
+
+    if (value >= 4) {
+      setGuest(value)
+      setShowError(false);
+    } else {
+      setGuest(value)
+      setShowError(true);
+    }
+  };
+
 
   const isDayDisable = (banDate) => {
     const dayOfWeek = banDate.getDay();
@@ -269,20 +285,27 @@ function Booking() {
                 </select>
               </div>
             )}
-
-            {(banquets.banquetID == 1) ? 
-            (<div>
+            
+            {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
+            (
+            <div>
               <h4 className="word" >Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
                 min="4"
                 value={guest}
-                onChange={(e) => setGuest(e.target.value)}
+                onChange={handleNumberOfGuests}
                 style={{ width: "100%"}}
                 placeholder="Enter the number of guest"
                 className="form-control"
               />
+              {showError == true && guest != "" && 
+                
+                <div class="alert alert-danger" role="alert">
+                  The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
+                </div>
+              }
             </div>)
             : 
             (<div>
