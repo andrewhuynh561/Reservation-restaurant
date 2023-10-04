@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -24,14 +25,16 @@ function Booking() {
   const [selectedBanquetID, setSelectedBanquetID] = useState(null);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const [customer, setCust] = useState({customerID: null});
+  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   console.log(loggedIn)
 
-  useEffect(() => { // could add check for customer or not
-    fetch(`http://localhost:6060/customer/${loggedIn.accountID}`)
+  useEffect(() => {
+    fetch(`http://localhost:6060/customer/${loggedIn}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Failed to fetch customer data for account ID: ${loggedIn}`);
+          throw new Error(`Failed to fetch customer data for account ID: ${accountID}`);
         }
         return response.json();
       })
@@ -46,8 +49,25 @@ function Booking() {
 
   const updateBanquet = (select) => {
     var id = select.options[select.selectedIndex].value;
+    setGuest("")
+    setGuest("")
     setSelectedBanquetID(id);
   };
+  
+  const getSelectedBanquet = () => {
+
+    banquets.map((banquets) => {
+      // console.log(banquets.banquetName)
+      // console.log(selectedBanquetID)
+      if (selectedBanquetID != null && selectedBanquetID == 2)
+      {
+        
+        return banquets.banquetName
+      }
+    })
+    
+  }
+ 
   const handleChangeinTimes = (newTimeslot) => {
     setTimeslot(newTimeslot);
   };
@@ -59,6 +79,32 @@ function Booking() {
     e.preventDefault();
     setConfirmationModalOpen(false);
   };
+
+  const handleNumberOfGuests = (e) => {
+    const value = e.target.value;
+
+    if (value >= 4) {
+      setGuest(value)
+      setShowError(false);
+    } else {
+      setGuest(value)
+      setShowError(true);
+    }
+  };
+
+
+  const handleNumberOfGuests = (e) => {
+    const value = e.target.value;
+
+    if (value >= 4) {
+      setGuest(value)
+      setShowError(false);
+    } else {
+      setGuest(value)
+      setShowError(true);
+    }
+  };
+
 
   const isDayDisable = (banDate) => {
     const dayOfWeek = banDate.getDay();
@@ -269,20 +315,38 @@ function Booking() {
                 </select>
               </div>
             )}
-
-            {(banquets.banquetID == 1) ? 
-            (<div>
+            
+            {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
+            (
+            <div>
+            
+            {(selectedBanquetID == 1 || selectedBanquetID == 2 || selectedBanquetID == 3) ? 
+            (
+            <div>
               <h4 className="word" >Select number of guests</h4>
               <input
                 name="numberOfGuests"
                 type="number"
                 min="4"
                 value={guest}
-                onChange={(e) => setGuest(e.target.value)}
+                onChange={handleNumberOfGuests}
+                onChange={handleNumberOfGuests}
                 style={{ width: "100%"}}
                 placeholder="Enter the number of guest"
                 className="form-control"
               />
+              {showError == true && guest != "" && 
+                
+                <div class="alert alert-danger" role="alert">
+                  The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
+                </div>
+              }
+              {showError == true && guest != "" && 
+                
+                <div class="alert alert-danger" role="alert">
+                  The number you have entered is below the sitting the limit. Please enter a number greater than or equal to 4
+                </div>
+              }
             </div>)
             : 
             (<div>
@@ -362,6 +426,16 @@ function Booking() {
               <p className="p">Location : {restaurant.name}</p>
               <p className="p">Customer: {customer.name}</p>
               <p className="p">Guest: {guest}</p>
+              <p className="p">Banquet:
+              {banquets.map((banquets) => {
+                if (banquets.banquetID == selectedBanquetID)
+                {
+                  return " " + banquets.banquetName
+                }
+
+              })}
+              
+              </p>
               <p className="p">Reservation: {reservationID}</p>
               <div className="modal-footer">
                 <button

@@ -112,6 +112,10 @@ const fetchCustomer = async (id) => {
     return (await select(db, "SELECT * FROM Customer WHERE accountID == " + id))[0];
 }
 
+const fetchCustomerProfile = async (id) => {
+    return (await select(db, "SELECT * FROM Customer JOIN Account ON Account.accountID = Customer.accountID WHERE Customer.accountID == " + id))[0];
+}
+
 const fetchCurrentTier  = async (id) => {
     return (await select(db, `SELECT * FROM Tiers where Tiers.minSpendpm <= (SELECT points from Account WHERE accountID == '${id}')
                                 ORDER BY minSpendpm DESC
@@ -143,4 +147,4 @@ const deleteAccount = async (accountID) => {
 const removeRes = async (reservationID) => {
     return await remove(db,`DELETE FROM Reservation WHERE reservationID = ${reservationID}`);
 }
-export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer, deleteAccount, removeRes, fetchCusReservation}
+export default {fetchRestaurants, fetchRest, fetchTimeSlots, insertBookings, fetchRestDetail, fetchBanquets, fetchStaffLogin, fetchEmployee, fetchCustomer, fetchCustomerLogin, fetchBookings, fetchCurrentTier, insertAccount, insertCustomer, deleteAccount, removeRes, fetchCusReservation, fetchCustomerProfile}

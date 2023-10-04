@@ -51,6 +51,11 @@ function Login() {
               state: responseBody
             }
             setLoggedIn(logjson); // sets login state - will be avalible via context to all routes
+            var logjson = {
+              accountID: accID,
+              customer: true
+            }
+            setLoggedIn(logjson); // sets login state - will be avalible via context to all routes
             navigate(`/account/${accID}`, {state: responseBody, replace: true}); 
           }
           else {
@@ -80,6 +85,11 @@ function Login() {
         bcrypt.compare(password, responseBody.password, function(err, res) {
           if(res){
             console.log("valid", responseBody.accountID);
+            var logjson = {
+              accountID: responseBody.accountID,
+              customer: false
+            }
+            setLoggedIn(logjson);
             var logjson = {
               accountID: responseBody.accountID,
               customer: false
