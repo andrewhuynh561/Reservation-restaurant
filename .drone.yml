@@ -16,10 +16,11 @@ steps:
   commands:
   - cd server
   - npm run dev &
-  - echo $! > /tmp/server_pid
+  - echo $! > ../tmp/server_pid
   - cd ../web_app
   - npm run dev &
-  - echo $! > /tmp/web_app_pid
+  - echo $! > ../tmp/web_app_pid
+  - cd ..
 
 - name: stop_dev_servers
   image: node
