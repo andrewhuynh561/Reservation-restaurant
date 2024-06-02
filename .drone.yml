@@ -13,42 +13,30 @@ steps:
   - cd ../web_app
   - npm install
 
-- name: run_server
+- name: run_dev_servers
   image: node
   commands:
   # Run the server in the background and capture its PID in an absolute path
   - cd server
   - npm run dev &
   - echo $! > /tmp/server_pid
-  # Debugging: Print the server PID
-  - echo "Server PID: $(cat /tmp/server_pid)"
+  - cat /tmp/server_pid
   # Add a delay to ensure the server has time to start and write its PID
   - sleep 5
-
-- name: run_web_app
-  image: node
-  commands:
   # Run the web app in the background and capture its PID in an absolute path
-  - cd web_app
+  - cd ../web_app
   - npm run dev &
   - echo $! > /tmp/web_app_pid
-  # Debugging: Print the web app PID
-  - echo "Web App PID: $(cat /tmp/web_app_pid)"
+  - cat /tmp/server_pid
+  - cat /tmp/web_app_pid
   # Add a delay to ensure the web app has time to start and write its PID
   - sleep 5
 
-- name: stop_server
+- name: stop_dev_servers
   image: node
   commands:
-  # Stop the server process using its PID stored in /tmp/server_pid
-  - echo "Stopping Server"
-  - cat /tmp/server_pid
+  # Kill the web app process using its PID stored in /tmp/web_app_pid
+  - kill $(cat /tmp/web_app_pid)
+  # Kill the server process using its PID stored in /tmp/server_pid
   - kill $(cat /tmp/server_pid)
 
-- name: stop_web_app
-  image: node
-  commands:
-  # Stop the web app process using its PID stored in /tmp/web_app_pid
-  - echo "Stopping Web App"
-  - cat /tmp/web_app_pid
-  - kill $(cat /tmp/web_app_pid)
