@@ -82,6 +82,7 @@ function Dashboard() {
 
     }, [bookings]);
     
+    
     return(
         <>
             <div style={{color: "white"}}>
