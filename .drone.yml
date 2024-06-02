@@ -16,14 +16,15 @@ steps:
   commands:
   - cd server
   - npm run dev &
-  - echo $! > server_pid
+  - echo $! > /tmp/server_pid
+  - sleep 5  # Add a delay to ensure the server has time to start and write its PID
   - cd ../web_app
   - npm run dev &
-  - echo $! > web_app_pid
+  - echo $! > /tmp/web_app_pid
+  - sleep 5  # Add a delay to ensure the web app has time to start and write its PID
 
 - name: stop_dev_servers
   image: node
   commands:
-  - kill $(cat web_app_pid)
-  - cd ../server
-  - kill $(cat server_pid)
+  - kill $(cat /tmp/web_app_pid)
+  - kill $(cat /tmp/server_pid)
