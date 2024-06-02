@@ -28,19 +28,19 @@ steps:
 - name: stop_dev_servers
   image: node
   commands:
-  - |
+  - >
     if [ -f /tmp/web_app_pid ]; then
-      echo "Stopping Web App..."
-      cat /tmp/web_app_pid
-      kill $(cat /tmp/web_app_pid)
+      echo "Stopping Web App...";
+      cat /tmp/web_app_pid;
+      kill $(cat /tmp/web_app_pid);
     else
-      echo "Web App PID file not found!"
+      echo "Web App PID file not found!";
     fi
-  - |
+  - >
     if [ -f /tmp/server_pid ]; then
-      echo "Stopping Server..."
-      cat /tmp/server_pid
-      kill $(cat /tmp/server_pid)
+      echo "Stopping Server...";
+      cat /tmp/server_pid;
+      kill $(cat /tmp/server_pid);
     else
-      echo "Server PID file not found!"
+      echo "Server PID file not found!";
     fi
