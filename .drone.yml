@@ -3,6 +3,11 @@ type: docker
 name: default
 
 steps:
+- name: install_pm2
+  image: node
+  commands:
+  - npm install -g pm2
+
 - name: install_dependencies
   image: node
   commands:
@@ -15,7 +20,20 @@ steps:
   image: node
   commands:
   - cd server
-  - npm run dev &
+  - pm2 start npm --name "server" -- run dev
   - cd ../web_app
-  - npm run dev &
-  - wait
+  - pm2 start npm --name "web_app" -- run dev
+
+- name: check_server_running
+  image: node
+  commands:
+  - apt-get update && apt-get install -y curl
+  - sleep 10  # wait for the server to start
+  - curl -f http://localhost:6060 || exit 1  # check the server endpoint, adjust the port as needed
+  - curl -f http://localhost:5173 || exit 1  # check the web_app endpoint, adjust the port as needed
+
+- name: stop_dev_servers
+  image: node
+  commands:
+  - pm2 stop all
+  - pm2 delete all
