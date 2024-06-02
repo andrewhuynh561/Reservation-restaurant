@@ -6,37 +6,41 @@ steps:
 - name: install_dependencies
   image: node
   commands:
-  # Navigate to the server directory and install dependencies
   - cd server
   - npm install
-  # Navigate to the web_app directory and install dependencies
   - cd ../web_app
   - npm install
 
 - name: run_dev_servers
   image: node
   commands:
-  # Run the server in the background and capture its PID in an absolute path
   - cd server
   - npm run dev &
   - echo $! > /tmp/server_pid
-  # Debugging: Print the server PID
   - echo "Server PID: $(cat /tmp/server_pid)"
-  # Add a delay to ensure the server has time to start and write its PID
   - sleep 5
-  # Run the web app in the background and capture its PID in an absolute path
   - cd ../web_app
   - npm run dev &
   - echo $! > /tmp/web_app_pid
-  # Debugging: Print the web app PID
   - echo "Web App PID: $(cat /tmp/web_app_pid)"
-  # Add a delay to ensure the web app has time to start and write its PID
   - sleep 5
 
 - name: stop_dev_servers
   image: node
   commands:
-  # Check if the web app PID file exists and attempt to stop the process
-  - if [ -f /tmp/web_app_pid ]; then echo "Stopping Web App..."; cat /tmp/web_app_pid; kill $(cat /tmp/web_app_pid); else echo "Web App PID file not found!"; fi
-  # Check if the server PID file exists and attempt to stop the process
-  - if [ -f /tmp/server_pid ]; then echo "Stopping Server..."; cat /tmp/server_pid; kill $(cat /tmp/server_pid); else echo "Server PID file not found!"; fi
+  - |
+    if [ -f /tmp/web_app_pid ]; then
+      echo "Stopping Web App..."
+      cat /tmp/web_app_pid
+      kill $(cat /tmp/web_app_pid)
+    else
+      echo "Web App PID file not found!"
+    fi
+  - |
+    if [ -f /tmp/server_pid ]; then
+      echo "Stopping Server..."
+      cat /tmp/server_pid
+      kill $(cat /tmp/server_pid)
+    else
+      echo "Server PID file not found!"
+    fi
