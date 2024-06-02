@@ -24,7 +24,7 @@ steps:
   - name: shared
     path: /drone/src/shared
   commands:
-  - cd ../server
+  - cd server
   - npm run dev &
   - echo $! > /drone/src/shared/server_pid
   - echo "Server PID: $(cat /drone/src/shared/server_pid)"
