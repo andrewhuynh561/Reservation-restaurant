@@ -43,6 +43,6 @@ steps:
   image: node
   commands:
   # Kill the web app process using its PID stored in /tmp/web_app_pid
-  - kill $(cat /drone/src/shared/server_pid)
+  - kill 9
   # Kill the server process using its PID stored in /tmp/server_pid
-  - kill $(cat /drone/src/shared/web_app_pid)
+  - kill 34
