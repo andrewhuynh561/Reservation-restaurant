@@ -1,0 +1,21 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: install_dependencies
+  image: node
+  commands:
+  - cd server
+  - npm install
+  - cd ../web_app
+  - npm install
+
+- name: run_dev_servers
+  image: node
+  commands:
+  - cd server
+  - npm run dev &
+  - cd ../web_app
+  - npm run dev &
+  - wait
