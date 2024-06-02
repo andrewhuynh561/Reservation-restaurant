@@ -9,55 +9,40 @@ volumes:
 steps:
 - name: install_dependencies
   image: node
-  volumes:
-  - name: shared
-    path: /drone/src/shared
   commands:
+  # Navigate to the server directory and install dependencies
   - cd server
   - npm install
+  # Navigate to the web_app directory and install dependencies
   - cd ../web_app
   - npm install
 
-- name: run_server
+- name: run_dev_servers
   image: node
   volumes:
   - name: shared
     path: /drone/src/shared
   commands:
+  # Run the server in the background and capture its PID in an absolute path
   - cd server
   - npm run dev &
   - echo $! > /drone/src/shared/server_pid
-  - echo "Server PID: $(cat /drone/src/shared/server_pid)"
+  - cat /drone/src/shared/server_pid
+  # Add a delay to ensure the server has time to start and write its PID
   - sleep 5
-
-- name: run_web_app
-  image: node
-  volumes:
-  - name: shared
-    path: /drone/src/shared
-  commands:
+  # Run the web app in the background and capture its PID in an absolute path
   - cd ../web_app
   - npm run dev &
   - echo $! > /drone/src/shared/web_app_pid
-  - echo "Web App PID: $(cat /drone/src/shared/web_app_pid)"
+  - cat /drone/src/shared/server_pid
+  - cat /drone/src/shared/web_app_pid
+  # Add a delay to ensure the web app has time to start and write its PID
   - sleep 5
 
-- name: stop_server
+- name: stop_dev_servers
   image: node
-  volumes:
-  - name: shared
-    path: /drone/src/shared
   commands:
-  - echo "Stopping Server"
-  - cat /drone/src/shared/server_pid
+  # Kill the web app process using its PID stored in /tmp/web_app_pid
   - kill $(cat /drone/src/shared/server_pid)
-
-- name: stop_web_app
-  image: node
-  volumes:
-  - name: shared
-    path: /drone/src/shared
-  commands:
-  - echo "Stopping Web App"
-  - cat /drone/src/shared/web_app_pid
+  # Kill the server process using its PID stored in /tmp/server_pid
   - kill $(cat /drone/src/shared/web_app_pid)
