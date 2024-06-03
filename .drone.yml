@@ -38,11 +38,7 @@ steps:
   - cat /drone/src/shared/web_app_pid
   # Add a delay to ensure the web app has time to start and write its PID
   - sleep 5
-
-- name: stop_dev_servers
-  image: node
-  commands:
   # Kill the web app process using its PID stored in /tmp/web_app_pid
-  - kill 9
+  - kill $(cat /drone/src/shared/server_pid)
   # Kill the server process using its PID stored in /tmp/server_pid
-  - kill 34
+  - kill $(cat /drone/src/shared/web_app_pid)
