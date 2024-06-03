@@ -42,3 +42,4 @@ steps:
   - kill $(cat /drone/src/shared/server_pid)
   # Kill the server process using its PID stored in /tmp/server_pid
   - kill $(cat /drone/src/shared/web_app_pid)
+  
