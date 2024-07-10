@@ -4,6 +4,12 @@
 ### Overview
 Reservation-restaurant is a collaborative web application designed for managing restaurant reservations, seating arrangements, and customer interactions. The project leverages modern web technologies to deliver a seamless and efficient user experience for both restaurant staff and customers.
 
+![Home Page](images/home.png)
+
+![Res Page](images/restaurent.png)
+
+![Booking Page](images/reservation.png)
+
 ### Key Features
 - **User Authentication**: Secure user registration and login using JSON Web Tokens (JWT).
 - **Reservation Management**: Create, view, and manage reservations with details such as date, time, party size, and special requests.
