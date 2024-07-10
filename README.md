@@ -1,20 +1,59 @@
-# project setup
+## Reservation-restaurant
 
-Firstly go to https://nodejs.org/en/download and download and install node.js and any required dependancies such as chocolately.  
-It should prompt for and then start the chocolately install automatically.  
-Once this is completed open an empty VSCode window, naviagte to the source control tab and click clone a repository.  
-Enter https://github.com/Freaky128/Project-Studio.git when asked for a repo URL. It may require a git login.  
-Select or create a folder for the repository destination.  
-Open the cloned repository when prompted.  
-Open a new terminal (in VScode).  
-Enter the command "cd server" and then "npm install".  
-Enter "cd ../web_app" and then "npm install" again.  
-Enter "npm run dev" to test the site is working.  
-If everything worked please add your name to this document under the completed set up section and commit it to github. If you have any questions reach out to Matthew on discord.
 
-#### Completed set up:
+### Overview
+Reservation-restaurant is a collaborative web application designed for managing restaurant reservations, seating arrangements, and customer interactions. The project leverages modern web technologies to deliver a seamless and efficient user experience for both restaurant staff and customers.
 
-Matthew Freak  
-Duy Quoc Anh Nguyen 
-Hai Huynh
-Antonio Arar
+### Key Features
+- **User Authentication**: Secure user registration and login using JSON Web Tokens (JWT).
+- **Reservation Management**: Create, view, and manage reservations with details such as date, time, party size, and special requests.
+- **Seating Arrangements**: Visual interface for managing table availability and seating arrangements.
+- **Customer Interaction**: Real-time notifications and reminders for customers about their reservations.
+- **Admin Dashboard**: Comprehensive dashboard for restaurant staff to oversee and manage reservations, tables, and customer interactions.
+
+### Technologies Used
+- **Frontend**: React.js, Redux, HTML, CSS, JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: SqlLite
+- **Authentication**: JSON Web Tokens (JWT)
+- **Version Control**: Git, GitHub
+
+### My Contributions
+As a key contributor to the Project-Studio development team, my contributions included:
+
+- **Booking a Reservation**: Developed the functionality for users to book reservations easily and efficiently.
+- **Confirmation Pop-up**: Implemented a confirmation pop-up to notify users of successful reservation bookings, enhancing user experience.
+- **Booking Without Account**: Enabled users to book reservations without the need for an account, increasing accessibility and convenience.
+- **Delete User Account**: Created the feature allowing users to delete their accounts, ensuring user autonomy and data control.
+- **Restaurant and Booking Pages**: Designed and developed the restaurant page and booking page, providing an intuitive and user-friendly interface for customers to browse and book reservations.
+
+### Getting Started
+To get a local copy of the project up and running, follow these simple steps:
+
+#### Prerequisites
+- Node.js
+- npm
+
+#### Installation
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Freaky128/Project-Studio.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd Project-Studio
+   ```
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Start the development server**:
+   ```bash
+   npm start
+   ```
+
+#### Contributors:
+-Matthew Freak  
+-Duy Quoc Anh Nguyen 
+-Vanessa Tran
+-Antonio Arar
